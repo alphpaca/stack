@@ -1,0 +1,29 @@
+name: Split packages
+
+on:
+    workflow_dispatch: ~
+
+jobs:
+    split_monorepo:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - { path: 'contracts/Resource', repository_name: 'resource-contracts' }
+                    - { path: 'symfony/ResourceBundle', repository_name: 'resource-bundle' }
+
+        steps:
+            -   uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+
+            -   name: Split the Contracts meta package
+                uses: alphpaca/monoplus-split-action@2022.1-beta3
+                with:
+                    package_path: '${{ matrix.path }}'
+                    personal_access_token: ${{ secrets.MONOPLUS_PAT }}
+                    git_username: 'github-actions'
+                    git_email: 'action@github.com'
+                    repository_owner: "alphpaca"
+                    repository_name: "${{ matrix.repository_name }}"

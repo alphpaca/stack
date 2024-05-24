@@ -1,0 +1,34 @@
+{
+    "name": "alphpaca/stack",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jacob Tobiasz",
+            "email": "jacob@alphpaca.io"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "symfony/http-kernel": "^6.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.57",
+        "symplify/monorepo-builder": "^11.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alphpaca\\Contracts\\Resource\\": "contracts/Resource/src/",
+            "Alphpaca\\ResourceBundle\\": "symfony/ResourceBundle/src/"
+        }
+    },
+    "replace": {
+        "alphpaca/resource-bundle": "self.version",
+        "alphpaca/resource-contracts": "self.version"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        }
+    }
+}

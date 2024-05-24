@@ -1,0 +1,5 @@
+/contracts/**/**/vendor/
+/symfony/**/**/vendor/
+/vendor/
+/.php-cs-fixer.cache
+/composer.lock

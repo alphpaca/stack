@@ -1,0 +1,24 @@
+{
+  "name": "alphpaca/resource-contracts",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jacob Tobiasz",
+      "email": "jacob@alphpaca.io"
+    }
+  ],
+  "require": {
+    "php": "^8.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alphpaca\\Contracts\\Resource\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "0.1.x-dev"
+    }
+  }
+}
