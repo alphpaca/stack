@@ -15,6 +15,7 @@ return static function (MBConfig $mbConfig): void {
         ComposerJsonSection::REQUIRE_DEV => [
             'friendsofphp/php-cs-fixer' => '^3.57',
             'phpunit/phpunit' => '^11.1',
+            'shipmonk/composer-dependency-analyser' => '^1.5',
             'symplify/monorepo-builder' => '^11.2',
         ],
         ComposerJsonSection::CONFIG => [

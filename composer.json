@@ -15,9 +15,11 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.57",
         "phpunit/phpunit": "^11.1",
+        "shipmonk/composer-dependency-analyser": "^1.5",
         "symfony/config": "^6.4",
         "symfony/dependency-injection": "^6.4",
         "symfony/framework-bundle": "^6.4",
+        "symfony/routing": "^6.4",
         "symplify/monorepo-builder": "^11.2"
     },
     "autoload": {
