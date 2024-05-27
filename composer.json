@@ -15,12 +15,21 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.57",
         "phpunit/phpunit": "^11.1",
+        "symfony/config": "^6.4",
+        "symfony/dependency-injection": "^6.4",
+        "symfony/framework-bundle": "^6.4",
         "symplify/monorepo-builder": "^11.2"
     },
     "autoload": {
         "psr-4": {
             "Alphpaca\\Contracts\\Resource\\": "contracts/Resource/src/",
             "Alphpaca\\ResourceBundle\\": "symfony/ResourceBundle/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Tests\\Alphpaca\\ResourceBundle\\": "symfony/ResourceBundle/tests/"
         }
     },
     "replace": {

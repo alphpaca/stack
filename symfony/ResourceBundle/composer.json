@@ -13,9 +13,19 @@
     "alphpaca/resource-bundle": "^0.1",
     "symfony/http-kernel": "^6.4"
   },
+  "require-dev": {
+    "symfony/config": "^6.4",
+    "symfony/dependency-injection": "^6.4",
+    "symfony/framework-bundle": "^6.4"
+  },
   "autoload": {
     "psr-4": {
       "Alphpaca\\ResourceBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Alphpaca\\ResourceBundle\\": "tests/"
     }
   },
   "extra": {
