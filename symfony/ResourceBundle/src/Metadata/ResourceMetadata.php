@@ -17,6 +17,9 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataInterface;
 
 readonly class ResourceMetadata implements ResourceMetadataInterface
 {
+    /**
+     * @param class-string $class
+     */
     public function __construct(
         private string $name,
         private string $class,

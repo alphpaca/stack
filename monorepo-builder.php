@@ -14,6 +14,7 @@ return static function (MBConfig $mbConfig): void {
     $mbConfig->dataToAppend([
         ComposerJsonSection::REQUIRE_DEV => [
             'friendsofphp/php-cs-fixer' => '^3.57',
+            'phpstan/phpstan' => '^1.11',
             'phpunit/phpunit' => '^11.1',
             'shipmonk/composer-dependency-analyser' => '^1.5',
             'symplify/monorepo-builder' => '^11.2',
