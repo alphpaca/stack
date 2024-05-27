@@ -13,6 +13,7 @@ return static function (MBConfig $mbConfig): void {
 
     $mbConfig->dataToAppend([
         ComposerJsonSection::REQUIRE_DEV => [
+            'captainhook/captainhook' => '^5.23',
             'friendsofphp/php-cs-fixer' => '^3.57',
             'phpstan/phpstan' => '^1.11',
             'phpunit/phpunit' => '^11.1',
