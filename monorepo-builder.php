@@ -13,6 +13,7 @@ return static function (MBConfig $mbConfig): void {
 
     $mbConfig->dataToAppend([
         ComposerJsonSection::REQUIRE_DEV => [
+            'alphpaca/monocle-constraint' => '^0.1.2',
             'captainhook/captainhook' => '^5.23',
             'friendsofphp/php-cs-fixer' => '^3.57',
             'phpstan/phpstan' => '^1.11',
