@@ -10,7 +10,9 @@
   ],
   "require": {
     "php": "^8.3",
-    "alphpaca/resource-bundle": "^0.1",
+    "alphpaca/io-contracts": "^0.1",
+    "alphpaca/resource-contracts": "^0.1",
+    "symfony/config": "^6.4",
     "symfony/http-kernel": "^6.4"
   },
   "require-dev": {

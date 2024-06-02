@@ -3,3 +3,11 @@ parameters:
     paths:
         - contracts/Resource/src
         - symfony/ResourceBundle/src
+    ignoreErrors:
+        # We are ignoring the following errors because we have validated XML object at this point
+        -
+            identifier: property.nonObject
+            path: symfony/ResourceBundle/src/Loader/XmlLoader.php
+        -
+            identifier: argument.type
+            path: symfony/ResourceBundle/src/Loader/XmlLoader.php
