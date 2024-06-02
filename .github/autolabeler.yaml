@@ -1,0 +1,2 @@
+resource: ['contracts/Resource', 'symfony/ResourceBundle']
+maintenance: ['.github/']
