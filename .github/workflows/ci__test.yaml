@@ -1,0 +1,43 @@
+name: Test
+
+on:
+    workflow_dispatch: ~
+    workflow_call: ~
+
+jobs:
+    checks:
+        runs-on: ubuntu-latest
+        name: "PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}"
+        strategy:
+            matrix: {
+                "php": ["8.3"],
+                "symfony": ["6.4.*"]
+            }
+
+        steps:
+            -   name: "Checkout"
+                uses: actions/checkout@v4
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "${{ matrix.php }}"
+
+            -   name: Restrict packages versions
+                run: |
+                    composer config extra.monocle.constraints '{ "symfony/symfony": "${{ matrix.symfony }}" }' --json --merge
+
+            -   name: Install PHP dependencies
+                run: composer install --no-interaction
+
+            -   name: Analyze dependencies
+                run: vendor/bin/composer-dependency-analyser
+
+            -   name: Check code style
+                run: vendor/bin/php-cs-fixer check --diff
+
+            -   name: Check static analysis
+                run: vendor/bin/phpstan analyse
+
+            -   name: Run tests
+                run: vendor/bin/phpunit

@@ -2,16 +2,18 @@ name: Split packages
 
 on:
     workflow_dispatch: ~
+    workflow_call: ~
 
 jobs:
     split_monorepo:
         runs-on: ubuntu-latest
+        name: "Split ${{ matrix.name }}"
         strategy:
             fail-fast: false
             matrix:
                 include:
-                    - { path: 'contracts/Resource', repository_name: 'resource-contracts' }
-                    - { path: 'symfony/ResourceBundle', repository_name: 'resource-bundle' }
+                    - { path: 'contracts/Resource', name: 'Resource Contracts', repository_name: 'resource-contracts' }
+                    - { path: 'symfony/ResourceBundle', name: 'Resource Bundle', repository_name: 'resource-bundle' }
 
         steps:
             -   uses: actions/checkout@v4

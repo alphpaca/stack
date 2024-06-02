@@ -1,0 +1,21 @@
+name: Continuous Integration
+
+on:
+    pull_request: ~
+    workflow_dispatch: ~
+    push:
+        branches:
+            - main
+
+concurrency:
+    group: ci-${{ github.workflow }}-${{ github.ref }}-minimal
+    cancel-in-progress: true
+
+jobs:
+    test:
+        name: "Test"
+        uses: ./.github/workflows/ci__test.yaml
+    split:
+        name: "Split"
+        needs: test
+        uses: ./.github/workflows/ci__split.yaml
