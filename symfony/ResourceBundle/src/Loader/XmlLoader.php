@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Alphpaca\ResourceBundle\Loader;
 
-use Alphpaca\Contracts\IO\FilesystemInterface;
 use Alphpaca\Contracts\Resource\Loader\Exception\ResourceLoaderException;
 use Alphpaca\Contracts\Resource\Loader\LoaderInterface;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataInterface;
@@ -23,17 +22,16 @@ use Symfony\Component\Config\Util\XmlUtils;
 final readonly class XmlLoader implements LoaderInterface
 {
     public function __construct(
-        private FilesystemInterface $filesystem,
     ) {
     }
 
     public function load(mixed $source): ResourceMetadataInterface
     {
-        if (!$this->filesystem->exists($source)) {
+        if (!file_exists($source)) {
             throw new ResourceLoaderException(sprintf('The file "%s" does not exist.', $source));
         }
 
-        $parsedXml = XmlUtils::parse($this->filesystem->load($source));
+        $parsedXml = XmlUtils::loadFile($source);
         $resource = $parsedXml->documentElement->firstElementChild;
 
         return new ResourceMetadata(

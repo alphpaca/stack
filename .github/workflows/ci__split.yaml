@@ -12,7 +12,6 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - { path: 'contracts/IO', name: 'IO Contracts', repository_name: 'io-contracts' }
                     - { path: 'contracts/Resource', name: 'Resource Contracts', repository_name: 'resource-contracts' }
                     - { path: 'symfony/ResourceBundle', name: 'Resource Bundle', repository_name: 'resource-bundle' }
 

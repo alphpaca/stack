@@ -17,6 +17,7 @@
         "alphpaca/monocle-constraint": "^0.1.2",
         "captainhook/captainhook": "^5.23",
         "friendsofphp/php-cs-fixer": "^3.57",
+        "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^11.1",
         "shipmonk/composer-dependency-analyser": "^1.5",
@@ -27,7 +28,6 @@
     },
     "autoload": {
         "psr-4": {
-            "Alphpaca\\Contracts\\IO\\": "contracts/IO/src/",
             "Alphpaca\\Contracts\\Resource\\": "contracts/Resource/src/",
             "Alphpaca\\ResourceBundle\\": "symfony/ResourceBundle/src/"
         }
@@ -39,7 +39,6 @@
         }
     },
     "replace": {
-        "alphpaca/io-contracts": "self.version",
         "alphpaca/resource-bundle": "self.version",
         "alphpaca/resource-contracts": "self.version"
     },

@@ -15,10 +15,10 @@ namespace Tests\Alphpaca\ResourceBundle\WhiteBox\Loader;
 
 use Alphpaca\Contracts\Resource\Loader\Exception\ResourceLoaderException;
 use Alphpaca\ResourceBundle\Loader\XmlLoader;
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Tests\Alphpaca\ResourceBundle\WhiteBox\Loader\XmlLoader\FakeFilesystem;
 
 final class XmlLoaderTest extends TestCase
 {
@@ -57,17 +57,29 @@ final class XmlLoaderTest extends TestCase
     public function it_throws_an_exception_when_a_given_file_does_not_exist(): void
     {
         $this->expectException(ResourceLoaderException::class);
-        $this->expectExceptionMessage('The file "/app/i_am_not_existing.xml" does not exist.');
+        $this->expectExceptionMessage('The file "vfs://root/i_am_not_existing.xml" does not exist.');
+
+        $filesystem = vfsStream::setup();
 
         $loader = $this->getTestSubject();
-        $loader->load('/app/i_am_not_existing.xml');
+        $loader->load(sprintf('%s/i_am_not_existing.xml', $filesystem->url()));
     }
 
     #[Test]
     public function it_loads_resource_from_xml_file(): void
     {
         $loader = $this->getTestSubject();
-        $metadata = $loader->load('valid_resource.xml');
+
+        $filesystem = vfsStream::setup(structure: [
+            'valid_resource.xml' => <<<XML
+                <?xml version="1.0" encoding="UTF-8"?>
+                <resource-mapping>
+                    <resource name="dummy" class="\App\Resource\Dummy" />
+                </resource-mapping>
+                XML,
+        ]);
+
+        $metadata = $loader->load(sprintf('%s/valid_resource.xml', $filesystem->url()));
 
         $this->assertSame('dummy', $metadata->getName());
         $this->assertSame('\App\Resource\Dummy', $metadata->getClass());
@@ -75,6 +87,6 @@ final class XmlLoaderTest extends TestCase
 
     private function getTestSubject(): XmlLoader
     {
-        return new XmlLoader(new FakeFilesystem());
+        return new XmlLoader();
     }
 }
