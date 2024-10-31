@@ -22,17 +22,20 @@
         "symplify/monorepo-builder": "^11.2"
     },
     "replace": {
+        "alphpaca/contracts-resource": "self.version",
         "alphpaca/resource": "self.version"
     },
     "autoload": {
         "psr-4": {
-            "Alphpaca\\Component\\Resource\\": "components/resource/src/"
+            "Alphpaca\\Component\\Resource\\": "components/resource/src/",
+            "Alphpaca\\Contracts\\Resource\\": "contracts/resource/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests",
-            "Tests\\Alphpaca\\Component\\Resource\\": "components/resource/tests/"
+            "Tests\\Alphpaca\\Component\\Resource\\": "components/resource/tests/",
+            "Tests\\Eduroo\\Component\\Resource\\": "components/resource/tests/"
         }
     },
     "config": {

@@ -1,6 +1,6 @@
 {
     "name": "alphpaca/resource",
-    "description": "Versatile Learning Management System written in PHP",
+    "description": "Component for easier resource creation and management",
     "license": "MIT",
     "type": "project",
     "authors": [

@@ -5,6 +5,7 @@ use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 $finder = (new PhpCsFixer\Finder())
     ->in([
         __DIR__ . '/components/resource/src',
+        __DIR__ . '/contracts/resource/src',
     ])
 ;
 

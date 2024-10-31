@@ -8,6 +8,7 @@ use Symplify\MonorepoBuilder\Config\MBConfig;
 return static function (MBConfig $mbConfig): void {
     $mbConfig->packageDirectories([
         __DIR__ . '/components',
+        __DIR__ . '/contracts',
     ]);
 
     $mbConfig->dataToAppend([
