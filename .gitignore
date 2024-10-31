@@ -1,0 +1,8 @@
+/bundle/**/**/vendor/
+/bundle/**/**/composer.lock
+/components/**/**/vendor/
+/components/**/**/composer.lock
+/vendor/
+/.php-cs-fixer.cache
+/.phpunit.result.cache
+/composer.lock

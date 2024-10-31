@@ -1,0 +1,44 @@
+{
+    "name": "alphpaca/stack",
+    "description": "Set of framework-agnostic PHP components for your project",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Jacob Tobiasz",
+            "email": "jacob@alphpaca.io"
+        }
+    ],
+    "require": {
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "alphpaca/monocle-constraint": "^0.1.2",
+        "captainhook/captainhook": "^5.23",
+        "friendsofphp/php-cs-fixer": "^3.57",
+        "pestphp/pest": "^3.2",
+        "phpstan/phpstan": "^1.11",
+        "shipmonk/composer-dependency-analyser": "^1.5",
+        "symplify/monorepo-builder": "^11.2"
+    },
+    "replace": {
+        "alphpaca/resource": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alphpaca\\Component\\Resource\\": "components/resource/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests",
+            "Tests\\Alphpaca\\Component\\Resource\\": "components/resource/tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "alphpaca/monocle-constraint": true,
+            "pestphp/pest-plugin": true
+        }
+    }
+}
