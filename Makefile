@@ -12,6 +12,7 @@ ci:
 
 mono.merge:
 	@vendor/bin/monorepo-builder merge
+	@composer update
 
 ssh:
 	@docker compose exec php /bin/zsh
