@@ -19,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Eduroo\\Component\\Resource\\": "tests/"
+            "Tests\\Alphpaca\\Component\\Resource\\": "tests/"
         }
     }
 }
