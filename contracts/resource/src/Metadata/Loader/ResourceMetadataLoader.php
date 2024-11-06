@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Eduroo (https://github.com/alphpaca/eduroo).
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
  *
  * (c) Jacob Tobiasz <jacob@alphpaca.io>
  *
