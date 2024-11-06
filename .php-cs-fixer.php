@@ -17,7 +17,7 @@ return (new PhpCsFixer\Config())
         '@Symfony' => true,
         'header_comment' => [
             'header' => <<<'EOF'
-            This file is part of Eduroo (https://github.com/alphpaca/eduroo).
+            This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
 
             (c) Jacob Tobiasz <jacob@alphpaca.io>
 
