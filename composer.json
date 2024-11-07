@@ -10,12 +10,15 @@
         }
     ],
     "require": {
-        "php": "^8.3"
+        "php": "^8.3",
+        "nikic/php-parser": "^5.0",
+        "roave/better-reflection": "^6.0"
     },
     "require-dev": {
         "alphpaca/monocle-constraint": "^0.1.2",
         "captainhook/captainhook": "^5.23",
         "friendsofphp/php-cs-fixer": "^3.57",
+        "mockery/mockery": "^1.6",
         "pestphp/pest": "^3.2",
         "phpstan/phpstan": "^1.11",
         "shipmonk/composer-dependency-analyser": "^1.5",
@@ -41,6 +44,7 @@
         "allow-plugins": {
             "alphpaca/monocle-constraint": true,
             "pestphp/pest-plugin": true
-        }
+        },
+        "sort-packages": true
     }
 }

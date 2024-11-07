@@ -13,6 +13,19 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Metadata;
 
+use Alphpaca\Contracts\Resource\Metadata\Attribute\AsResource;
+
+/**
+ * A representation of a service factoring a resource metadata object.
+ *
+ * @since 0.1
+ */
 interface ResourceMetadataFactory
 {
+    /**
+     * Creates a resource metadata from a `AsResource` attribute.
+     *
+     * @since 0.1
+     */
+    public function createFromAttribute(AsResource $attribute): ResourceMetadata;
 }

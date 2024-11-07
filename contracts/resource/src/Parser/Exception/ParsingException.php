@@ -11,19 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Alphpaca\Contracts\Resource\Metadata;
+namespace Alphpaca\Contracts\Resource\Parser\Exception;
 
 /**
- * A representation of a resource metadata.
- *
  * @since 0.1
  */
-interface ResourceMetadata
+class ParsingException extends \RuntimeException
 {
-    /**
-     * Returns the name of the resource.
-     *
-     * @since 0.1
-     */
-    public function getName(): string;
 }

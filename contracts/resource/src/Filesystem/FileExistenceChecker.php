@@ -11,19 +11,19 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Alphpaca\Contracts\Resource\Metadata;
+namespace Alphpaca\Contracts\Resource\Filesystem;
 
 /**
- * A representation of a resource metadata.
+ * A representation of a service checking if a given file exists.
  *
- * @since 0.1
+ * @since v0.1
  */
-interface ResourceMetadata
+interface FileExistenceChecker
 {
     /**
-     * Returns the name of the resource.
+     * Returns true if the given file exists, false otherwise.
      *
-     * @since 0.1
+     * @since v0.1
      */
-    public function getName(): string;
+    public function exists(string $path): bool;
 }

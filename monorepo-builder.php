@@ -16,10 +16,11 @@ return static function (MBConfig $mbConfig): void {
             'alphpaca/monocle-constraint' => '^0.1.2',
             'captainhook/captainhook' => '^5.23',
             'friendsofphp/php-cs-fixer' => '^3.57',
+            'mockery/mockery' => '^1.6',
+            'pestphp/pest' => '^3.2',
             'phpstan/phpstan' => '^1.11',
             'shipmonk/composer-dependency-analyser' => '^1.5',
             'symplify/monorepo-builder' => '^11.2',
-            'pestphp/pest' => '^3.2'
         ],
         ComposerJsonSection::CONFIG => [
             'sort-packages' => true,

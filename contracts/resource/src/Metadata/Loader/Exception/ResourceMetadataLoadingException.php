@@ -11,18 +11,8 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Alphpaca\Contracts\Resource\Attribute;
+namespace Alphpaca\Contracts\Resource\Metadata\Loader\Exception;
 
-#[\Attribute(\Attribute::TARGET_CLASS)]
-class AsResource
+class ResourceMetadataLoadingException extends \RuntimeException
 {
-    public function __construct(
-        protected readonly string $name,
-    ) {
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
 }
