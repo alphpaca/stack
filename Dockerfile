@@ -10,7 +10,8 @@ RUN mkdir /.composer
 
 COPY .docker/php/php.ini "$PHP_INI_DIR/"
 COPY .docker/php/xdebug.ini "$PHP_INI_DIR/conf.d/"
-COPY .docker/php/.zshrc ~/.zshrc
+COPY .docker/.zshrc /root/.zshrc
+COPY .docker/.p10k.zsh /root/.p10k.zsh
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -29,3 +30,5 @@ RUN composer global require spatie/ray spatie/global-ray \
     && /.composer/vendor/bin/global-ray install -n --ini=$PHP_INI_DIR/php.ini
 
 WORKDIR /workspace
+
+CMD ["tail", "-f", "/dev/null"]
