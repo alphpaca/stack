@@ -15,7 +15,7 @@ namespace Alphpaca\Component\Resource\Metadata\Loader;
 
 use Alphpaca\Contracts\Resource\Filesystem\FileContentProvider;
 use Alphpaca\Contracts\Resource\Filesystem\FileExistenceChecker;
-use Alphpaca\Contracts\Resource\Metadata\Attribute\AsResource;
+use Alphpaca\Contracts\Resource\Metadata\AsResource;
 use Alphpaca\Contracts\Resource\Metadata\Loader\Exception\ResourceMetadataLoadingException;
 use Alphpaca\Contracts\Resource\Metadata\Loader\ResourceMetadataLoader;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;

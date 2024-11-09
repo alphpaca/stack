@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Alphpaca\Contracts\Resource\Metadata\Attribute;
+namespace Alphpaca\Contracts\Resource\Metadata;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class AsResource

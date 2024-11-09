@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Alphpaca\Component\Resource\Metadata;
 
-use Alphpaca\Contracts\Resource\Metadata\Attribute\AsResource;
+use Alphpaca\Contracts\Resource\Metadata\AsResource;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata as ResourceMetadataContract;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataFactory as ResourceMetadataFactoryContract;
 

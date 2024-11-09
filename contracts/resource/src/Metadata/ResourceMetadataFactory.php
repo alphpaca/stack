@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Metadata;
 
-use Alphpaca\Contracts\Resource\Metadata\Attribute\AsResource;
-
 /**
  * A representation of a service factoring a resource metadata object.
  *

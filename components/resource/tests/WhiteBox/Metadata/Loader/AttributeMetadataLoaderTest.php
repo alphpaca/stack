@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Alphpaca\Component\Resource\Metadata\Loader\AttributeMetadataLoader;
 use Alphpaca\Contracts\Resource\Filesystem\FileContentProvider;
 use Alphpaca\Contracts\Resource\Filesystem\FileExistenceChecker;
-use Alphpaca\Contracts\Resource\Metadata\Attribute\AsResource;
+use Alphpaca\Contracts\Resource\Metadata\AsResource;
 use Alphpaca\Contracts\Resource\Metadata\Loader\Exception\ResourceMetadataLoadingException;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataFactory;
