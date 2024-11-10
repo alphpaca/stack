@@ -9,6 +9,7 @@ use Alphpaca\Component\Resource\Metadata\Loader\AttributeMetadataLoader;
 use Alphpaca\Component\Resource\Metadata\ResourceMetadataFactory;
 use Alphpaca\Component\Resource\Parser\Finder\ClassNameFinder;
 use Alphpaca\Component\Resource\Parser\PhpParser;
+use Alphpaca\Component\Resource\Resolver\AncestorsResolver;
 use Alphpaca\Component\Resource\Resolver\AttributeResolver;
 use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
@@ -29,6 +30,9 @@ describe('Attribute Metadata Loader', function () {
         new AttributeResolver(
             (new BetterReflection())->reflector(),
             new ObjectFactory(),
+            new AncestorsResolver(
+                (new BetterReflection())->reflector(),
+            ),
         ),
         new ResourceMetadataFactory(),
     );

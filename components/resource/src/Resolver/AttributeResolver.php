@@ -14,7 +14,10 @@ declare(strict_types=1);
 namespace Alphpaca\Component\Resource\Resolver;
 
 use Alphpaca\Contracts\Resource\Factory\ObjectFactory;
+use Alphpaca\Contracts\Resource\Resolver\AncestorsResolver;
 use Alphpaca\Contracts\Resource\Resolver\AttributeResolver as AttributeResolverContract;
+use Alphpaca\Contracts\Resource\Resolver\Exception\ResolvingException;
+use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Roave\BetterReflection\Reflector\Reflector;
 
 final readonly class AttributeResolver implements AttributeResolverContract
@@ -22,6 +25,7 @@ final readonly class AttributeResolver implements AttributeResolverContract
     public function __construct(
         private Reflector $reflector,
         private ObjectFactory $objectFactory,
+        private AncestorsResolver $ancestorsResolver,
     ) {
     }
 
@@ -37,7 +41,12 @@ final readonly class AttributeResolver implements AttributeResolverContract
      */
     public function resolveFirst(string $className, string $attributeName): mixed
     {
-        $reflectedClass = $this->reflector->reflectClass($className);
+        try {
+            $reflectedClass = $this->reflector->reflectClass($className);
+        } catch (IdentifierNotFound $e) {
+            throw new ResolvingException(sprintf('Class "%s" does not exist.', $className), previous: $e);
+        }
+
         $foundAttributes = $reflectedClass->getAttributesByInstance($attributeName);
 
         if (0 === count($foundAttributes)) {
@@ -49,5 +58,23 @@ final readonly class AttributeResolver implements AttributeResolverContract
         $foundAttributeName = $firstFoundAttribute->getName();
 
         return $this->objectFactory->create($foundAttributeName, ...$firstFoundAttribute->getArguments());
+    }
+
+    public function resolveForAncestors(string $className, string $attributeName): array
+    {
+        $result = [];
+        $ancestors = $this->ancestorsResolver->resolve($className);
+
+        foreach ($ancestors as $ancestor) {
+            $resolvedAncestorAttribute = $this->resolveFirst($ancestor, $attributeName);
+
+            if (null === $resolvedAncestorAttribute) {
+                continue;
+            }
+
+            $result[] = $resolvedAncestorAttribute;
+        }
+
+        return $result;
     }
 }
