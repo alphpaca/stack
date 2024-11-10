@@ -11,6 +11,8 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeFinder;
 
 describe('Php Name Finder', function () {
+    covers(ClassNameFinder::class);
+
     it('returns first found class name using namespaced name if present', function () {
         $statements = [
             mock(Stmt::class),

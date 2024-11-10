@@ -3,15 +3,14 @@
 declare(strict_types=1);
 
 use Alphpaca\Component\Resource\Filesystem\FileContentProvider;
-use Alphpaca\Component\Resource\Filesystem\FileExistenceChecker;
 use Alphpaca\Contracts\Resource\Filesystem\Exception\FileCannotBeFoundException;
 
 describe('File Content Provider', function (): void {
-    it('provides a given file content', function () {
-        $provider = new FileContentProvider(
-            new FileExistenceChecker(),
-        );
+    covers(FileContentProvider::class);
 
+    $provider = new FileContentProvider();
+
+    it('provides a given file content', function () use ($provider) {
         $path = __DIR__ . '/DataFixtures/file.txt';
 
         $result = $provider->provide($path);
@@ -20,10 +19,6 @@ describe('File Content Provider', function (): void {
     });
 
     it('throws an exception if the file does not exist', function () use ($provider) {
-        $provider = new FileContentProvider(
-            new FileExistenceChecker(),
-        );
-
         $path = '/app/i-do-not-exist.txt';
 
         $provider->provide($path);

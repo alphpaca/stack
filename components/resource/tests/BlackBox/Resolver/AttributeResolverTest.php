@@ -10,6 +10,8 @@ use Roave\BetterReflection\BetterReflection;
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\ChildBook;
 
 describe('Attribute Resolver', function () {
+    covers(AttributeResolver::class);
+
     $resolver = new AttributeResolver(
         (new BetterReflection())->reflector(),
         new ObjectFactory(),

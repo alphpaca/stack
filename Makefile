@@ -10,6 +10,7 @@ ci:
 	@vendor/bin/phpstan analyse
 	@vendor/bin/pest
 	@XDEBUG_MODE=coverage vendor/bin/pest --coverage --min=90
+	@XDEBUG_MODE=coverage vendor/bin/pest --mutate --min=80
 
 mono.merge:
 	@vendor/bin/monorepo-builder merge

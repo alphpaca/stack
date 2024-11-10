@@ -7,6 +7,8 @@ use Alphpaca\Contracts\Resource\Factory\Exception\ObjectCannotBeFactoredExceptio
 use Tests\Alphpaca\Component\Resource\WhiteBox\Factory\DataFixtures\Book;
 
 describe('Object Factory', function () {
+    covers(ObjectFactory::class);
+
     it('instantiates a given class with provided parameters', function () {
         $testSubject = new ObjectFactory();
         $result = $testSubject->create(Book::class, title: 'Winnie The Pooh');

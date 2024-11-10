@@ -17,11 +17,11 @@ use PhpParser\ParserFactory;
 use Roave\BetterReflection\BetterReflection;
 
 describe('Attribute Metadata Loader', function () {
+    covers(AttributeMetadataLoader::class);
+
     $loader = new AttributeMetadataLoader(
         new FileExistenceChecker(),
-        new FileContentProvider(
-            new FileExistenceChecker(),
-        ),
+        new FileContentProvider(),
         new PhpParser(
             (new ParserFactory())->createForNewestSupportedVersion(),
             new NodeTraverser(),

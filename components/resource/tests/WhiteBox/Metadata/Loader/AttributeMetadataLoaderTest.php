@@ -14,6 +14,8 @@ use Alphpaca\Contracts\Resource\Parser\PhpParser;
 use Alphpaca\Contracts\Resource\Resolver\AttributeResolver;
 
 describe('Attribute Metadata Loader', function () {
+    covers(AttributeMetadataLoader::class);
+
     it('loads a resource metadata from an attribute', function () {
         $fileExistenceChecker = mock(FileExistenceChecker::class);
         $fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(true);

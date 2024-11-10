@@ -8,6 +8,8 @@ use PhpParser\NodeTraverserInterface;
 use PhpParser\Parser;
 
 describe('Php Parser', function () {
+    covers(PhpParser::class);
+
     it('parses a provided code and returns an array of elements', function () {
         $parser = mock(Parser::class);
         $parser->expects('parse')->with('my amazing php script')->andReturns(['some', 'array', 'for', 'traverser']);

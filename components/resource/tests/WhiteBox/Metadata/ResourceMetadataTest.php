@@ -6,6 +6,8 @@ use Alphpaca\Component\Resource\Metadata\ResourceMetadata;
 use Alphpaca\Contracts\Resource\Metadata\MetadataSourceType;
 
 describe('Resource Metadata', function () {
+    covers(ResourceMetadata::class);
+
     $metadataFactoryMethod = function (
         string $name = 'app_dummy',
         string $source = '',

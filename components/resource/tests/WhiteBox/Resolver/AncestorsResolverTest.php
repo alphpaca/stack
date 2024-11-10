@@ -11,6 +11,8 @@ use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Roave\BetterReflection\Reflector\Reflector;
 
 describe('Ancestors Resolver', function () {
+    covers(AncestorsResolver::class);
+
     it('resolves ancestors for a given class', function () {
         $reflector = mock(Reflector::class);
         $reflector->expects('reflectClass')->with('\App\Book')->andReturns($reflectedClass = mock(ReflectionClass::class));

@@ -9,6 +9,8 @@ use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\Grandparent
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\ParentBook;
 
 describe('Ancestors Resolver', function () {
+    covers(AncestorsResolver::class);
+
     $resolver = new AncestorsResolver(
         (new BetterReflection())->reflector(),
     );

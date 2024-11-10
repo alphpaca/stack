@@ -14,6 +14,8 @@ use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Roave\BetterReflection\Reflector\Reflector;
 
 describe('Attribute Resolver', function () {
+    covers(AttributeResolver::class);
+
     it('resolves first attribute with a given name', function () {
         $reflector = mock(Reflector::class);
         $reflector->expects('reflectClass')->with('\App\Book')->andReturns($reflectedClass = mock(ReflectionClass::class));
