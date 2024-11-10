@@ -15,17 +15,27 @@ namespace Alphpaca\Component\Resource\Filesystem;
 
 use Alphpaca\Contracts\Resource\Filesystem\Exception\FileCannotBeFoundException;
 use Alphpaca\Contracts\Resource\Filesystem\FileContentProvider as FileContentProviderContract;
+use Alphpaca\Contracts\Resource\Filesystem\FileExistenceChecker;
 
 final readonly class FileContentProvider implements FileContentProviderContract
 {
+    public function __construct(
+        private FileExistenceChecker $fileExistenceChecker,
+    ) {
+    }
+
     public function provide(string $path): string
     {
-        $content = file_get_contents($path);
-
-        if (false === $content) {
-            throw new FileCannotBeFoundException();
+        if (false === $this->fileExistenceChecker->exists($path)) {
+            throw new FileCannotBeFoundException(sprintf('File "%s" does not exist.', $path));
         }
 
-        return $content;
+        $result = file_get_contents($path);
+
+        if (false === $result) {
+            throw new FileCannotBeFoundException(sprintf('File "%s" does not exist.', $path));
+        }
+
+        return $result;
     }
 }

@@ -9,6 +9,7 @@ ci:
 	@make cs.check
 	@vendor/bin/phpstan analyse
 	@vendor/bin/pest
+	@XDEBUG_MODE=coverage vendor/bin/pest --coverage --min=90
 
 mono.merge:
 	@vendor/bin/monorepo-builder merge
