@@ -31,7 +31,7 @@ describe('Attribute Metadata Loader', function () {
         $attributeResolver->expects('resolveFirst')->with('\App\Book', AsResource::class)->andReturn($attribute = mock(AsResource::class));
 
         $resourceMetadataFactory = mock(ResourceMetadataFactory::class);
-        $resourceMetadataFactory->expects('createFromAttribute')->with($attribute)->andReturn($metadata = mock(ResourceMetadata::class));
+        $resourceMetadataFactory->expects('createFromAttribute')->with('\App\Book', $attribute)->andReturn($metadata = mock(ResourceMetadata::class));
 
         $loader = new AttributeMetadataLoader(
             $fileExistenceChecker,

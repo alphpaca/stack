@@ -56,7 +56,7 @@ final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
             return null;
         }
 
-        return $this->resourceMetadataFactory->createFromAttribute($resolvedResourceAttribute);
+        return $this->resourceMetadataFactory->createFromAttribute($className, $resolvedResourceAttribute);
     }
 
     public function supports(string $path): bool

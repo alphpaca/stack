@@ -14,15 +14,18 @@ declare(strict_types=1);
 namespace Alphpaca\Component\Resource\Metadata;
 
 use Alphpaca\Contracts\Resource\Metadata\AsResource;
+use Alphpaca\Contracts\Resource\Metadata\MetadataSourceType;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata as ResourceMetadataContract;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataFactory as ResourceMetadataFactoryContract;
 
 final readonly class ResourceMetadataFactory implements ResourceMetadataFactoryContract
 {
-    public function createFromAttribute(AsResource $attribute): ResourceMetadataContract
+    public function createFromAttribute(string $className, AsResource $attribute): ResourceMetadataContract
     {
         return new ResourceMetadata(
-            $attribute->getName(),
+            name: $attribute->getName(),
+            source: $className,
+            sourceType: MetadataSourceType::ATTRIBUTE,
         );
     }
 }

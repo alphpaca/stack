@@ -38,7 +38,7 @@ describe('Attribute Metadata Loader', function () {
     );
 
     it('loads a metadata from a file', function () use ($loader) {
-        $metadata = $loader->loadFromFile(__DIR__ . '/DataFixtures/Book.php');
+        $metadata = $loader->loadFromFile(__DIR__ . '/DataFixtures/BestsellerBook.php');
 
         expect($metadata->getName())->toBe('alphpaca_book');
     });

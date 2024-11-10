@@ -23,7 +23,9 @@ interface ResourceMetadataFactory
     /**
      * Creates a resource metadata from a `AsResource` attribute.
      *
+     * @param class-string $className
+     *
      * @since 0.1
      */
-    public function createFromAttribute(AsResource $attribute): ResourceMetadata;
+    public function createFromAttribute(string $className, AsResource $attribute): ResourceMetadata;
 }
