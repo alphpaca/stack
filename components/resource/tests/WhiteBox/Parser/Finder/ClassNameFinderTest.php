@@ -57,4 +57,30 @@ describe('Php Name Finder', function () {
 
         expect($result)->toBe('MySpace\MyClass');
     });
+
+    it('returns null if no class is found', function () {
+        $nodeFinder = mock(NodeFinder::class);
+        $nodeFinder->expects('findFirstInstanceOf')->with([], Class_::class)->andReturns(null);
+
+        $testSubject = new ClassNameFinder($nodeFinder);
+        $result = $testSubject->findFirst([]);
+
+        expect($result)->toBeNull();
+    });
+
+    it('returns null if a class is found but has no name', function () {
+        $statements = [
+            $classNode = mock(Class_::class),
+        ];
+
+        $classNode->name = null;
+
+        $nodeFinder = mock(NodeFinder::class);
+        $nodeFinder->expects('findFirstInstanceOf')->with($statements, Class_::class)->andReturns($classNode);
+
+        $testSubject = new ClassNameFinder($nodeFinder);
+        $result = $testSubject->findFirst($statements);
+
+        expect($result)->toBeNull();
+    });
 });

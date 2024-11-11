@@ -36,7 +36,7 @@ final readonly class ClassNameFinder implements ClassNameFinderContract
         }
 
         /** @var class-string $foundClassName */
-        $foundClassName = $class->namespacedName?->name ?? implode('\\', [$this->findNamespace($nodes), $class->name->name]);
+        $foundClassName = $class->namespacedName->name ?? implode('\\', [$this->findNamespace($nodes), $class->name->name]);
 
         return $foundClassName;
     }
@@ -46,6 +46,6 @@ final readonly class ClassNameFinder implements ClassNameFinderContract
      */
     private function findNamespace(array $nodes): ?string
     {
-        return $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Namespace_::class)?->name?->name;
+        return $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Namespace_::class)->name->name ?? null;
     }
 }

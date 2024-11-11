@@ -71,12 +71,12 @@ describe('Attribute Resolver', function () {
         $ancestorsResolver = mock(AncestorsResolver::class);
         $ancestorsResolver->expects('resolve')->with('\App\Book')->andReturns([
             '\App\ParentBook',
-            '\App\GrandParentBook',
+            '\App\GrandparentBook',
         ]);
 
         $reflector = mock(Reflector::class);
         $reflector->expects('reflectClass')->with('\App\ParentBook')->andReturns($parentBookClass = mock(ReflectionClass::class));
-        $reflector->expects('reflectClass')->with('\App\GrandParentBook')->andReturns($grandParentBookClass = mock(ReflectionClass::class));
+        $reflector->expects('reflectClass')->with('\App\GrandparentBook')->andReturns($grandparentBookClass = mock(ReflectionClass::class));
 
         $parentBookClass->expects('getAttributesByInstance')->with('\App\MyAttribute')->andReturns([
             $parentBookClassResourceAttribute = mock(ReflectionAttribute::class),
@@ -85,23 +85,65 @@ describe('Attribute Resolver', function () {
         $parentBookClassResourceAttribute->expects('getName')->andReturns('\App\MyAttribute');
         $parentBookClassResourceAttribute->expects('getArguments')->andReturns(['parent_book']);
 
-        $grandParentBookClass->expects('getAttributesByInstance')->with('\App\MyAttribute')->andReturns([
-            $grandParentBookClassResourceAttribute = mock(ReflectionAttribute::class),
+        $grandparentBookClass->expects('getAttributesByInstance')->with('\App\MyAttribute')->andReturns([
+            $grandparentBookClassResourceAttribute = mock(ReflectionAttribute::class),
         ]);
 
-        $grandParentBookClassResourceAttribute->expects('getName')->andReturns('\App\MyAttribute');
-        $grandParentBookClassResourceAttribute->expects('getArguments')->andReturns(['grand_parent_book']);
+        $grandparentBookClassResourceAttribute->expects('getName')->andReturns('\App\MyAttribute');
+        $grandparentBookClassResourceAttribute->expects('getArguments')->andReturns(['grandparent_book']);
 
         $objectFactory = mock(ObjectFactory::class);
         $objectFactory->expects('create')->with('\App\MyAttribute', 'parent_book')->andReturns($parentBookClassAttributeObject = new stdClass);
-        $objectFactory->expects('create')->with('\App\MyAttribute', 'grand_parent_book')->andReturns($grandParentBookClassAttributeObject = new stdClass);
+        $objectFactory->expects('create')->with('\App\MyAttribute', 'grandparent_book')->andReturns($grandparentBookClassAttributeObject = new stdClass);
 
         $testSubject = new AttributeResolver($reflector, $objectFactory, $ancestorsResolver);
         $result = $testSubject->resolveForAncestors('\App\Book', '\App\MyAttribute');
 
         expect($result)->toBe([
             $parentBookClassAttributeObject,
-            $grandParentBookClassAttributeObject,
+            $grandparentBookClassAttributeObject,
+        ]);
+    });
+
+    it('filters out ancestors without attributes', function () {
+        $ancestorsResolver = mock(AncestorsResolver::class);
+        $ancestorsResolver->expects('resolve')->with('\App\Book')->andReturns([
+            '\App\ParentBook',
+            '\App\GrandparentBook',
+            '\App\GrandGrandparentBook',
+        ]);
+
+        $reflector = mock(Reflector::class);
+        $reflector->expects('reflectClass')->with('\App\ParentBook')->andReturns($parentBookClass = mock(ReflectionClass::class));
+        $reflector->expects('reflectClass')->with('\App\GrandparentBook')->andReturns($grandparentBookClass = mock(ReflectionClass::class));
+        $reflector->expects('reflectClass')->with('\App\GrandGrandparentBook')->andReturns($grandGrandparentBookClass = mock(ReflectionClass::class));
+
+        $parentBookClass->expects('getAttributesByInstance')->with('\App\MyAttribute')->andReturns([
+            $parentBookClassResourceAttribute = mock(ReflectionAttribute::class),
+        ]);
+
+        $parentBookClassResourceAttribute->expects('getName')->andReturns('\App\MyAttribute');
+        $parentBookClassResourceAttribute->expects('getArguments')->andReturns(['parent_book']);
+
+        $grandparentBookClass->expects('getAttributesByInstance')->with('\App\MyAttribute')->andReturns([]);
+
+        $grandGrandparentBookClass->expects('getAttributesByInstance')->with('\App\MyAttribute')->andReturns([
+            $grandGrandparentBookClassResourceAttribute = mock(ReflectionAttribute::class),
+        ]);
+
+        $grandGrandparentBookClassResourceAttribute->expects('getName')->andReturns('\App\MyAttribute');
+        $grandGrandparentBookClassResourceAttribute->expects('getArguments')->andReturns(['grand_grandparent_book']);
+
+        $objectFactory = mock(ObjectFactory::class);
+        $objectFactory->expects('create')->with('\App\MyAttribute', 'parent_book')->andReturns($parentBookClassAttributeObject = new stdClass);
+        $objectFactory->expects('create')->with('\App\MyAttribute', 'grand_grandparent_book')->andReturns($grandGrandparentBookClassAttributeObject = new stdClass);
+
+        $testSubject = new AttributeResolver($reflector, $objectFactory, $ancestorsResolver);
+        $result = $testSubject->resolveForAncestors('\App\Book', '\App\MyAttribute');
+
+        expect($result)->toBe([
+            $parentBookClassAttributeObject,
+            $grandGrandparentBookClassAttributeObject,
         ]);
     });
 

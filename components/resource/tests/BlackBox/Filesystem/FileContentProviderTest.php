@@ -3,24 +3,37 @@
 declare(strict_types=1);
 
 use Alphpaca\Component\Resource\Filesystem\FileContentProvider;
+use Alphpaca\Component\Resource\Filesystem\FileExistenceChecker;
 use Alphpaca\Contracts\Resource\Filesystem\Exception\FileCannotBeFoundException;
+use Alphpaca\Contracts\Resource\Filesystem\Exception\FileCannotBeReadException;
 
 describe('File Content Provider', function (): void {
     covers(FileContentProvider::class);
 
-    $provider = new FileContentProvider();
-
-    it('provides a given file content', function () use ($provider) {
+    it('provides a given file content', function () {
         $path = __DIR__ . '/DataFixtures/file.txt';
 
+        $provider = new FileContentProvider(new FileExistenceChecker());
         $result = $provider->provide($path);
 
         expect($result)->toBe('hello :D' . PHP_EOL);
     });
 
-    it('throws an exception if the file does not exist', function () use ($provider) {
+    it('throws an exception if the file does not exist', function () {
         $path = '/app/i-do-not-exist.txt';
 
+        $provider = new FileContentProvider(new FileExistenceChecker());
         $provider->provide($path);
     })->throws(FileCannotBeFoundException::class, 'File "/app/i-do-not-exist.txt" does not exist.');
+
+    it('throws an exception if the file cannot be read', function () {
+        $path = __DIR__ . '/DataFixtures/not_readable_file.txt';
+        chmod($path, 000);
+
+        $provider = new FileContentProvider(new FileExistenceChecker());
+        $provider->provide($path);
+    })->throws(
+        FileCannotBeReadException::class,
+        sprintf('File "%s" cannot be read.', __DIR__ . '/DataFixtures/not_readable_file.txt'),
+    )->after(fn () => chmod(__DIR__ . '/DataFixtures/not_readable_file.txt', 0644));
 });

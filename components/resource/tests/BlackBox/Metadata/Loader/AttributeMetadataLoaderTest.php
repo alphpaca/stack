@@ -21,7 +21,9 @@ describe('Attribute Metadata Loader', function () {
 
     $loader = new AttributeMetadataLoader(
         new FileExistenceChecker(),
-        new FileContentProvider(),
+        new FileContentProvider(
+            new FileExistenceChecker(),
+        ),
         new PhpParser(
             (new ParserFactory())->createForNewestSupportedVersion(),
             new NodeTraverser(),
