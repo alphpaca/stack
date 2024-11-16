@@ -18,6 +18,7 @@ return static function (MBConfig $mbConfig): void {
             'friendsofphp/php-cs-fixer' => '^3.57',
             'mockery/mockery' => '^1.6',
             'pestphp/pest' => '^3.2',
+            'phpstan/phpstan-mockery' => '^2.0',
             'phpstan/phpstan' => '^2.0',
             'shipmonk/composer-dependency-analyser' => '^1.5',
             'symplify/monorepo-builder' => '^11.2',
