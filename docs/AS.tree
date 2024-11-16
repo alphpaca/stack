@@ -4,7 +4,13 @@
 
 <instance-profile id="AS"
                  name="Alphpaca Stack"
-                 start-page="starter-topic.md">
+                 start-page="Discover-Alphpaca-Stack.topic">
 
-    <toc-element topic="starter-topic.md"/>
+    <toc-element topic="Discover-Alphpaca-Stack.topic">
+        <toc-element topic="[discover]What-is-the-Alphpaca-Stack.md"/>
+        <toc-element topic="[discover]Getting-started.md"/>
+    </toc-element>
+    <toc-element topic="Resource.topic">
+        <toc-element topic="[resource]Getting-started.md"/>
+    </toc-element>
 </instance-profile>

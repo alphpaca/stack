@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="50db5102">
+        <description>Created after removal of "What is Alphpaca Stack?" from Alphpaca Stack</description>
+        <accepts>What-is-Alphpaca-Stack.html</accepts>
+    </rule>
+    <rule id="7ee0def7">
+        <description><![CDATA[Created after removal of "<starter-topic.md>" from Alphpaca Stack]]></description>
+        <accepts>starter-topic.html</accepts>
+    </rule>
+    <rule id="537665f8">
+        <description>Created after removal of "[discover]Getting started" from Alphpaca Stack</description>
+        <accepts>Getting-started.html</accepts>
+    </rule>
+</rules>
