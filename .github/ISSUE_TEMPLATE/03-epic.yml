@@ -1,0 +1,65 @@
+name: 🏔️ Epic
+description: Create a new epic to track large features or projects
+title: "🏔️ "
+type: "Epic"
+assignees: []
+body:
+    -   type: markdown
+        attributes:
+            value: |
+                Use this template to create a new epic that will contain multiple related issues.
+
+    -   type: textarea
+        id: objective
+        attributes:
+            label: Epic Objective 🎯
+            description: What is the main goal of this epic?
+            placeholder: This epic aims to...
+        validations:
+            required: true
+
+    -   type: textarea
+        id: scope
+        attributes:
+            label: Scope 📊
+            description: Define what is in and out of scope for this epic
+            placeholder: |
+                In scope:
+                - Feature X
+                - Feature Y
+
+                Out of scope:
+                - Feature Z
+        validations:
+            required: true
+
+    -   type: textarea
+        id: deliverables
+        attributes:
+            label: Key Deliverables 📦
+            description: List the main deliverables or features that will be part of this epic
+            placeholder: |
+                1. [ ] Component A implementation
+                2. [ ] Integration with B
+                3. [ ] Documentation update
+        validations:
+            required: true
+
+    -   type: textarea
+        id: dependencies
+        attributes:
+            label: Dependencies 🔄
+            description: List any dependencies or related epics
+            placeholder: |
+                - Depends on Epic #123
+                - Blocks Epic #456
+        validations:
+            required: false
+
+    -   type: textarea
+        id: technical-considerations
+        attributes:
+            label: Technical Considerations 🛠️
+            description: Any technical details or architecture decisions that need to be considered
+        validations:
+            required: false

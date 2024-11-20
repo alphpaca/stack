@@ -1,0 +1,56 @@
+name: ⚙️ Technical Task
+description: Create a technical implementation task
+title: "⚙️ "
+assignees: []
+body:
+    -   type: markdown
+        attributes:
+            value: |
+                Use this template for specific technical implementation tasks.
+
+    -   type: textarea
+        id: description
+        attributes:
+            label: Technical Description 📄
+            description: Detailed description of what needs to be implemented
+            placeholder: |
+                Implementation details...
+                Technical requirements...
+        validations:
+            required: true
+
+    -   type: textarea
+        id: implementation-steps
+        attributes:
+            label: Implementation Steps 📝
+            description: Break down the implementation into specific steps
+            placeholder: |
+                1. [ ] Step 1
+                2. [ ] Step 2
+                3. [ ] Step 3
+        validations:
+            required: true
+
+    -   type: textarea
+        id: technical-specs
+        attributes:
+            label: Technical Specifications 🔧
+            description: Any specific technical requirements or constraints
+            placeholder: |
+                - PHP Version: 
+                - Dependencies:
+                - Performance requirements:
+        validations:
+            required: true
+
+    -   type: textarea
+        id: testing-requirements
+        attributes:
+            label: Testing Requirements ✅
+            description: Specify testing requirements and approaches
+            placeholder: |
+                - Unit tests for...
+                - Integration tests for...
+                - Performance tests for...
+        validations:
+            required: true

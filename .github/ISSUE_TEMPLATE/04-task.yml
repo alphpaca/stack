@@ -1,0 +1,64 @@
+name: ✅ Task
+description: Create a new task that is part of an epic
+title: "✅ "
+type: "Task"
+assignees: []
+body:
+    -   type: markdown
+        attributes:
+            value: |
+                Create a new task that will be part of an epic. Tasks should be achievable within a reasonable timeframe and have clear acceptance criteria.
+
+    -   type: textarea
+        id: description
+        attributes:
+            label: Task Description 📄
+            description: Clear description of what needs to be done
+            placeholder: |
+                What needs to be done...
+                Why it needs to be done...
+        validations:
+            required: true
+
+    -   type: textarea
+        id: acceptance-criteria
+        attributes:
+            label: Acceptance Criteria ✨
+            description: List the conditions that must be satisfied for this task to be completed
+            placeholder: |
+                - [ ] Criterion 1
+                - [ ] Criterion 2
+                - [ ] Criterion 3
+        validations:
+            required: true
+
+    -   type: textarea
+        id: implementation-details
+        attributes:
+            label: Implementation Details 🛠️
+            description: Technical details about how this should be implemented
+            placeholder: |
+                - Technical approach
+                - Required changes
+                - Potential impacts
+        validations:
+            required: false
+
+    -   type: textarea
+        id: dependencies
+        attributes:
+            label: Dependencies 🔄
+            description: List any dependencies or related tasks
+            placeholder: |
+                - Depends on Task #456
+                - Should be done before Task #789
+        validations:
+            required: false
+
+    -   type: textarea
+        id: additional-context
+        attributes:
+            label: Additional Context 💡
+            description: Any other relevant information
+        validations:
+            required: false

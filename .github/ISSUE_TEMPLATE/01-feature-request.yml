@@ -1,0 +1,44 @@
+name: 💡 Feature Request
+description: Suggest an idea for this project
+title: "💡 "
+labels: ["triage needed"]
+assignees:
+    - jakubtobiasz
+body:
+    -   type: markdown
+        attributes:
+            value: |
+                Thanks for taking the time to suggest a new feature!
+
+    -   type: textarea
+        id: description
+        attributes:
+            label: Description 📄
+            description: Provide a big picture of what and why should be done.
+            placeholder: As a [type of user], I want [goal] so that [benefit]...
+        validations:
+            required: true
+
+    -   type: textarea
+        id: small-wins
+        attributes:
+            label: Small Wins 🏆
+            description: Break your need into smaller steps and requirements
+            placeholder: |
+                - [ ] Feature X is implemented
+                - [ ] Feature Y is implemented
+                - [ ] Feature Z is implemented
+        validations:
+            required: true
+
+    -   type: textarea
+        id: tips
+        attributes:
+            label: Tips & Research 💡
+            description: Share any research, references, or examples
+            placeholder: |
+                - Similar implementations: ...
+                - Reference links: ...
+                - Technical considerations: ...
+        validations:
+            required: false
