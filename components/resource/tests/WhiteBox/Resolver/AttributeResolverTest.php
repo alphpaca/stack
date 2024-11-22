@@ -50,8 +50,6 @@ describe('Attribute Resolver', function () {
 
         $testSubject = new AttributeResolver($classReflectionFactory, mock(AncestorsResolver::class));
         $result = $testSubject->resolveFirst('\App\Book', '\App\MyAttribute');
-
-        expect($result)->toBeNull();
     })->throws(ResolvingException::class, 'Attribute "\App\MyAttribute" cannot be resolved from class "\App\Book"');
 
     it('returns ancestors attributes', function () {
