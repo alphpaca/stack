@@ -13,18 +13,16 @@ declare(strict_types=1);
 
 namespace Alphpaca\Component\Resource\Resolver;
 
-use Alphpaca\Contracts\Resource\Factory\ObjectFactory;
+use Alphpaca\Contracts\Resource\Factory\ClassReflectionFactory;
+use Alphpaca\Contracts\Resource\Factory\Exception\ClassCannotBeReflectedException;
 use Alphpaca\Contracts\Resource\Resolver\AncestorsResolver;
 use Alphpaca\Contracts\Resource\Resolver\AttributeResolver as AttributeResolverContract;
 use Alphpaca\Contracts\Resource\Resolver\Exception\ResolvingException;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
 
 final readonly class AttributeResolver implements AttributeResolverContract
 {
     public function __construct(
-        private Reflector $reflector,
-        private ObjectFactory $objectFactory,
+        private ClassReflectionFactory $classReflectionFactory,
         private AncestorsResolver $ancestorsResolver,
     ) {
     }
@@ -42,22 +40,20 @@ final readonly class AttributeResolver implements AttributeResolverContract
     public function resolveFirst(string $className, string $attributeName): mixed
     {
         try {
-            $reflectedClass = $this->reflector->reflectClass($className);
-        } catch (IdentifierNotFound $e) {
-            throw new ResolvingException(sprintf('Class "%s" does not exist.', $className), previous: $e);
+            $reflectedClass = $this->classReflectionFactory->create($className);
+        } catch (ClassCannotBeReflectedException $e) {
+            throw new ResolvingException(sprintf('Attribute "%s" cannot be resolved from class "%s".', $attributeName, $className), previous: $e);
         }
 
-        $foundAttributes = $reflectedClass->getAttributesByInstance($attributeName);
+        $foundAttributes = $reflectedClass->getAttributes($attributeName, \ReflectionAttribute::IS_INSTANCEOF);
 
         if (0 === count($foundAttributes)) {
             return null;
         }
 
         $firstFoundAttribute = array_shift($foundAttributes);
-        /** @var class-string<T> $foundAttributeName */
-        $foundAttributeName = $firstFoundAttribute->getName();
 
-        return $this->objectFactory->create($foundAttributeName, ...$firstFoundAttribute->getArguments());
+        return $firstFoundAttribute->newInstance();
     }
 
     public function resolveForAncestors(string $className, string $attributeName): array
