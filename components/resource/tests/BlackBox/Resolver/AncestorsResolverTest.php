@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Alphpaca\Component\Resource\Resolver\AncestorsResolver;
+use Alphpaca\Contracts\Resource\Resolver\Exception\ResolvingException;
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\ChildBook;
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\GrandparentBook;
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\ParentBook;
@@ -20,4 +21,8 @@ describe('Ancestors Resolver', function () {
             GrandparentBook::class => GrandparentBook::class,
         ]);
     });
+
+    it('throws an exception if a given class does not exist', function () use ($resolver) {
+        $resolver->resolve('\Foo');
+    })->throws(ResolvingException::class, 'Could not resolve ancestors for class "\Foo".');
 });
