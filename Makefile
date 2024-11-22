@@ -1,8 +1,8 @@
 cs.check:
-	@vendor/bin/php-cs-fixer check
+	@PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer check
 
 cs.fix:
-	@vendor/bin/php-cs-fixer fix
+	@PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer fix
 
 ci:
 	@vendor/bin/composer-dependency-analyser

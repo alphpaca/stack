@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.4
 
 FROM php:${PHP_VERSION}-cli
 
@@ -19,7 +19,7 @@ RUN mkdir /workspace && \
     apt-get update && \
     apt-get install -y git wget && \
     apt-get clean cache && \
-    install-php-extensions ast intl pdo pdo_mysql pdo_pgsql xdebug xsl zip
+    install-php-extensions ast intl pdo pdo_mysql pdo_pgsql xdebug-3.4.0beta1 xsl zip
 
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
