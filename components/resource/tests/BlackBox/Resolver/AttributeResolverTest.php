@@ -2,22 +2,18 @@
 
 declare(strict_types=1);
 
-use Alphpaca\Component\Resource\Factory\ObjectFactory;
+use Alphpaca\Component\Resource\Factory\ClassReflectionFactory;
 use Alphpaca\Component\Resource\Resolver\AncestorsResolver;
 use Alphpaca\Component\Resource\Resolver\AttributeResolver;
 use Alphpaca\Contracts\Resource\Metadata\AsResource;
-use Roave\BetterReflection\BetterReflection;
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\ChildBook;
 
 describe('Attribute Resolver', function () {
     covers(AttributeResolver::class);
 
     $resolver = new AttributeResolver(
-        (new BetterReflection())->reflector(),
-        new ObjectFactory(),
-        new AncestorsResolver(
-            (new BetterReflection())->reflector(),
-        ),
+        new ClassReflectionFactory(),
+        new AncestorsResolver(),
     );
 
     it('resolves a first matching attribute for a given class', function () use ($resolver) {

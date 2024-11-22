@@ -4,7 +4,6 @@ use Pest\Arch\Contracts\ArchExpectation;
 use Pest\Arch\Expectations\Targeted;
 use Pest\Arch\Support\FileLineFinder;
 use PHPUnit\Architecture\Elements\ObjectDescription;
-use Roave\BetterReflection\BetterReflection;
 use Tests\Pest\ComponentType;
 
 pest()
@@ -14,12 +13,10 @@ pest()
 
 expect()->extend('toBeOneOf', function (ComponentType ...$allowedTypes): ArchExpectation {
     $isAttribute = function (string $className): bool {
-        $reflector = (new BetterReflection())->reflector();
-        $reflectedClass = $reflector->reflectClass($className);
+        $reflectedClass = new \ReflectionClass($className);
+        $foundAttributes = $reflectedClass->getAttributes(\Attribute::class, \ReflectionAttribute::IS_INSTANCEOF);
 
-        $attributeAttributes = $reflectedClass->getAttributesByName(\Attribute::class);
-
-        return count($attributeAttributes) > 0;
+        return count($foundAttributes) > 0;
     };
 
     return Targeted::make(
