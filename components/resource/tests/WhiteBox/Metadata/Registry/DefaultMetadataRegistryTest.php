@@ -14,6 +14,7 @@ describe('Default Resource Metadata Registry', function () {
         $dummyMetadata = mock(ResourceMetadata::class);
         $dummyMetadata->allows('getName')->andReturns('app_dummy');
         $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
+        $dummyMetadata->allows('getPriority')->andReturns(0);
 
         expect($registry->getByName('app_dummy'))->toBeNull();
 
@@ -28,10 +29,12 @@ describe('Default Resource Metadata Registry', function () {
         $dummyMetadata = mock(ResourceMetadata::class);
         $dummyMetadata->allows('getName')->andReturns('app_dummy');
         $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
+        $dummyMetadata->allows('getPriority')->andReturns(0);
 
         $zummyMetadata = mock(ResourceMetadata::class);
         $zummyMetadata->allows('getName')->andReturns('app_zummy');
         $zummyMetadata->allows('getClass')->andReturns('\App\Zummy');
+        $zummyMetadata->allows('getPriority')->andReturns(1);
 
         $registry->add($dummyMetadata);
         $registry->add($zummyMetadata);
@@ -53,10 +56,12 @@ describe('Default Resource Metadata Registry', function () {
         $dummyMetadata = mock(ResourceMetadata::class);
         $dummyMetadata->allows('getName')->andReturns('app_dummy');
         $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
+        $dummyMetadata->allows('getPriority')->andReturns(0);
 
         $zummyMetadata = mock(ResourceMetadata::class);
         $zummyMetadata->allows('getName')->andReturns('app_zummy');
         $zummyMetadata->allows('getClass')->andReturns('\App\Zummy');
+        $zummyMetadata->allows('getPriority')->andReturns(0);
 
         $registry->add($dummyMetadata);
         $registry->add($zummyMetadata);

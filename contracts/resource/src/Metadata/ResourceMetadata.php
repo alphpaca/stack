@@ -53,4 +53,12 @@ interface ResourceMetadata
      * @return class-string<Resource<Identity<int|string>>>
      */
     public function getClass(): string;
+
+    /**
+     * Returns the priority of the resource. It is used to determine the order of the resources sharing the same name while
+     * the merging process.
+     *
+     * @since 0.1
+     */
+    public function getPriority(): int;
 }

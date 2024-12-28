@@ -52,8 +52,22 @@ describe('Default Metadata Registry', function () {
         $registry->add($bummyMetadata);
         $registry->add($dummyMetadata);
 
-        expect($registry->getByClassName(Dummy::class))->toBe($dummyMetadata)
-            ->and($registry->getByClassName(Bummy::class))->toBe($bummyMetadata)
+        expect($registry->getByClassName(Dummy::class))
+            ->toMatchObject([
+                'name' => 'app_dummy',
+                'source' => Dummy::class,
+                'sourceType' => MetadataSourceType::ATTRIBUTE,
+                'class' => Dummy::class,
+                'priority' => 0,
+            ])
+            ->and($registry->getByClassName(Bummy::class))
+            ->toMatchObject([
+                'name' => 'app_bummy',
+                'source' => Bummy::class,
+                'sourceType' => MetadataSourceType::ATTRIBUTE,
+                'class' => Bummy::class,
+                'priority' => 0,
+            ])
         ;
     });
 });
