@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Metadata;
 
+use Alphpaca\Contracts\Resource\Identity;
+use Alphpaca\Contracts\Resource\Resource;
+
 /**
  * A representation of a resource metadata.
  *
@@ -41,4 +44,13 @@ interface ResourceMetadata
      * @since 0.1
      */
     public function getSourceType(): MetadataSourceType;
+
+    /**
+     * Returns the class name of the resource.
+     *
+     * @since 0.1
+     *
+     * @return class-string<Resource<Identity<int|string>>>
+     */
+    public function getClass(): string;
 }

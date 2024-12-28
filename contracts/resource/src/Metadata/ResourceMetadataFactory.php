@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Metadata;
 
+use Alphpaca\Contracts\Resource\Identity;
+use Alphpaca\Contracts\Resource\Resource;
+
 /**
  * A representation of a service factoring a resource metadata object.
  *
@@ -23,7 +26,7 @@ interface ResourceMetadataFactory
     /**
      * Creates a resource metadata from a `AsResource` attribute.
      *
-     * @param class-string $className
+     * @param class-string<Resource<Identity<int|string>>> $className
      *
      * @since 0.1
      */

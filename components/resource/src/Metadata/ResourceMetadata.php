@@ -13,15 +13,21 @@ declare(strict_types=1);
 
 namespace Alphpaca\Component\Resource\Metadata;
 
+use Alphpaca\Contracts\Resource\Identity;
 use Alphpaca\Contracts\Resource\Metadata\MetadataSourceType;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata as ResourceMetadataContract;
+use Alphpaca\Contracts\Resource\Resource;
 
-class ResourceMetadata implements ResourceMetadataContract
+readonly class ResourceMetadata implements ResourceMetadataContract
 {
+    /**
+     * @param class-string<Resource<Identity<int|string>>> $class
+     */
     public function __construct(
-        public readonly string $name,
-        public readonly string $source,
-        public readonly MetadataSourceType $sourceType,
+        public string $name,
+        public string $source,
+        public MetadataSourceType $sourceType,
+        public string $class,
     ) {
     }
 
@@ -38,5 +44,10 @@ class ResourceMetadata implements ResourceMetadataContract
     public function getSourceType(): MetadataSourceType
     {
         return $this->sourceType;
+    }
+
+    public function getClass(): string
+    {
+        return $this->class;
     }
 }
