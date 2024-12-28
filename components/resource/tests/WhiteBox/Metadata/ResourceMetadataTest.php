@@ -12,11 +12,13 @@ describe('Resource Metadata', function () {
         string $name = 'app_dummy',
         string $source = '',
         MetadataSourceType $sourceType = MetadataSourceType::ATTRIBUTE,
+        string $class = '\App\Resource\Dummy',
     ): ResourceMetadata {
         return new ResourceMetadata(
             $name,
             $source,
             $sourceType,
+            $class,
         );
     };
 
@@ -36,5 +38,11 @@ describe('Resource Metadata', function () {
         $metadata = $metadataFactoryMethod(sourceType: MetadataSourceType::ATTRIBUTE);
 
         expect($metadata->getSourceType())->toBe(MetadataSourceType::ATTRIBUTE);
+    });
+
+    it('returns its class name', function () use ($metadataFactoryMethod) {
+        $metadata = $metadataFactoryMethod(class: '\App\Resource\Book');
+
+        expect($metadata->getClass())->toBe('\App\Resource\Book');
     });
 });

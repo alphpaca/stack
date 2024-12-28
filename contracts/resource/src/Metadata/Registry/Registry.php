@@ -2,9 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Alphpaca\Contracts\Resource\Metadata\Registry;
 
+use Alphpaca\Contracts\Resource\Identity;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
+use Alphpaca\Contracts\Resource\Resource;
 
 /**
  * A representation of a resource metadata registry.
@@ -19,4 +30,16 @@ interface Registry
      * @since 0.1
      */
     public function add(ResourceMetadata $resourceMetadata): void;
+
+    /**
+     * Returns a resource metadata matching the given name. If no resource metadata is found, returns null.
+     */
+    public function getByName(string $name): ?ResourceMetadata;
+
+    /**
+     * Returns a resource metadata matching the given class name. If no resource metadata is found, returns null.
+     *
+     * @param class-string<Resource<Identity<int|string>>> $className
+     */
+    public function getByClassName(string $className): ?ResourceMetadata;
 }

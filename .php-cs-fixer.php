@@ -25,6 +25,7 @@ return (new PhpCsFixer\Config())
             with this source code in the file LICENSE.
             EOF,
         ],
+        'phpdoc_types' => false,
     ])
     ->setFinder($finder)
 ;

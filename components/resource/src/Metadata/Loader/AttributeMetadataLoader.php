@@ -15,6 +15,7 @@ namespace Alphpaca\Component\Resource\Metadata\Loader;
 
 use Alphpaca\Contracts\Resource\Filesystem\FileContentProvider;
 use Alphpaca\Contracts\Resource\Filesystem\FileExistenceChecker;
+use Alphpaca\Contracts\Resource\Identity;
 use Alphpaca\Contracts\Resource\Metadata\AsResource;
 use Alphpaca\Contracts\Resource\Metadata\Loader\Exception\ResourceMetadataLoadingException;
 use Alphpaca\Contracts\Resource\Metadata\Loader\ResourceMetadataLoader;
@@ -23,6 +24,7 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataFactory;
 use Alphpaca\Contracts\Resource\Parser\Finder\ClassNameFinder;
 use Alphpaca\Contracts\Resource\Parser\PhpParser;
 use Alphpaca\Contracts\Resource\Resolver\AttributeResolver;
+use Alphpaca\Contracts\Resource\Resource;
 
 final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
 {
@@ -44,6 +46,7 @@ final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
 
         $content = $this->fileContentProvider->provide($path);
         $ast = $this->phpParser->parse($content);
+        /** @var class-string<Resource<Identity<int|string>>>|null $className */
         $className = $this->classNameFinder->findFirst($ast);
 
         if (null === $className) {
