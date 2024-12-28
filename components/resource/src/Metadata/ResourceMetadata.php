@@ -28,6 +28,7 @@ readonly class ResourceMetadata implements ResourceMetadataContract
         public string $source,
         public MetadataSourceType $sourceType,
         public string $class,
+        public int $priority = 0,
     ) {
     }
 
@@ -49,5 +50,10 @@ readonly class ResourceMetadata implements ResourceMetadataContract
     public function getClass(): string
     {
         return $this->class;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
     }
 }

@@ -20,25 +20,60 @@ use Alphpaca\Contracts\Resource\Resource;
 
 final class DefaultMetadataRegistry implements Registry
 {
-    /** @var array<string, ResourceMetadata> */
+    /** @var array<string, \SplPriorityQueue<int, ResourceMetadata>> */
     private array $resourceNameToMetadataMap = [];
 
-    /** @var array<class-string<Resource<Identity<string|int>>>, ResourceMetadata> */
+    /** @var array<class-string<Resource<Identity<string|int>>>, \SplPriorityQueue<int, ResourceMetadata>> */
     private array $resourceClassNameToMetadataMap = [];
 
     public function add(ResourceMetadata $resourceMetadata): void
     {
-        $this->resourceNameToMetadataMap[$resourceMetadata->getName()] = $resourceMetadata;
-        $this->resourceClassNameToMetadataMap[$resourceMetadata->getClass()] = $resourceMetadata;
+        $this->addResourceByName($resourceMetadata->getName(), $resourceMetadata);
+        $this->addResourceByClassName($resourceMetadata->getClass(), $resourceMetadata);
+    }
+
+    private function addResourceByName(string $name, ResourceMetadata $resourceMetadata): void
+    {
+        if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
+            $this->resourceNameToMetadataMap[$name] = new \SplPriorityQueue();
+            $this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
+
+            return;
+        }
+
+        $this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
+    }
+
+    /**
+     * @param class-string<Resource<Identity<int|string>>> $class
+     */
+    private function addResourceByClassName(string $class, ResourceMetadata $resourceMetadata): void
+    {
+        if (!array_key_exists($class, $this->resourceClassNameToMetadataMap)) {
+            $this->resourceClassNameToMetadataMap[$class] = new \SplPriorityQueue();
+            $this->resourceClassNameToMetadataMap[$class]->insert($resourceMetadata, $resourceMetadata->getPriority());
+
+            return;
+        }
+
+        $this->resourceClassNameToMetadataMap[$class]->insert($resourceMetadata, $resourceMetadata->getPriority());
     }
 
     public function getByName(string $name): ?ResourceMetadata
     {
-        return $this->resourceNameToMetadataMap[$name] ?? null;
+        if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
+            return null;
+        }
+
+        return $this->resourceNameToMetadataMap[$name]->top();
     }
 
     public function getByClassName(string $className): ?ResourceMetadata
     {
-        return $this->resourceClassNameToMetadataMap[$className] ?? null;
+        if (!array_key_exists($className, $this->resourceClassNameToMetadataMap)) {
+            return null;
+        }
+
+        return $this->resourceClassNameToMetadataMap[$className]->top();
     }
 }
