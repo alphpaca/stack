@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use Alphpaca\Component\Resource\Metadata\Registry\DefaultMetadataRegistry;
+use Alphpaca\Contracts\Resource\Metadata\Merger\Merger;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
 
 describe('Default Resource Metadata Registry', function () {
     covers(DefaultMetadataRegistry::class);
 
     it('stores resource metadata', function () {
-        $registry = new DefaultMetadataRegistry();
+        $registry = new DefaultMetadataRegistry(mock(Merger::class));
 
         $dummyMetadata = mock(ResourceMetadata::class);
         $dummyMetadata->allows('getName')->andReturns('app_dummy');
@@ -24,7 +25,7 @@ describe('Default Resource Metadata Registry', function () {
     });
 
     it('retrieves resource metadata by name', function () {
-        $registry = new DefaultMetadataRegistry();
+        $registry = new DefaultMetadataRegistry(mock(Merger::class));
 
         $dummyMetadata = mock(ResourceMetadata::class);
         $dummyMetadata->allows('getName')->andReturns('app_dummy');
@@ -44,36 +45,37 @@ describe('Default Resource Metadata Registry', function () {
         ;
     });
 
-    it('returns null if a resource metadata with a given name is not found', function () {
-        $registry = new DefaultMetadataRegistry();
-
-        expect($registry->getByName('app_dummy'))->toBeNull();
-    });
-
-    it('retrieves resource metadata by class name', function () {
-        $registry = new DefaultMetadataRegistry();
+    it('returns merged resource metadata objects if two or more resource metadata objects have the same name', function () {
+        $registry = new DefaultMetadataRegistry($merger = mock(Merger::class));
 
         $dummyMetadata = mock(ResourceMetadata::class);
         $dummyMetadata->allows('getName')->andReturns('app_dummy');
         $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
         $dummyMetadata->allows('getPriority')->andReturns(0);
 
+        $superDummyMetadata = mock(ResourceMetadata::class);
+        $superDummyMetadata->allows('getName')->andReturns('app_dummy');
+        $superDummyMetadata->allows('getClass')->andReturns('\App\SuperDummy');
+        $superDummyMetadata->allows('getPriority')->andReturns(-10);
+
         $zummyMetadata = mock(ResourceMetadata::class);
-        $zummyMetadata->allows('getName')->andReturns('app_zummy');
+        $zummyMetadata->allows('getName')->andReturns('app_dummy');
         $zummyMetadata->allows('getClass')->andReturns('\App\Zummy');
-        $zummyMetadata->allows('getPriority')->andReturns(0);
+        $zummyMetadata->allows('getPriority')->andReturns(10);
 
         $registry->add($dummyMetadata);
         $registry->add($zummyMetadata);
+        $registry->add($superDummyMetadata);
 
-        expect($registry->getByClassName('\App\Dummy'))->toBe($dummyMetadata)
-            ->and($registry->getByClassName('\App\Zummy'))->toBe($zummyMetadata)
-        ;
+        $merger->expects('merge')->once()->with($superDummyMetadata, $dummyMetadata)->andReturns($mergingResult = mock(ResourceMetadata::class));
+        $merger->expects('merge')->once()->with($mergingResult, $zummyMetadata)->andReturns($finalMergingResult = mock(ResourceMetadata::class));
+
+        expect($registry->getByName('app_dummy'))->toBe($finalMergingResult);
     });
 
-    it('returns null if a resource metadata with a given class name is not found', function () {
-        $registry = new DefaultMetadataRegistry();
+    it('returns null if a resource metadata with a given name is not found', function () {
+        $registry = new DefaultMetadataRegistry(mock(Merger::class));
 
-        expect($registry->getByClassName('\App\Dummy'))->toBeNull();
+        expect($registry->getByName('app_dummy'))->toBeNull();
     });
 });

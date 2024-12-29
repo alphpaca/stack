@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Metadata\Registry;
 
-use Alphpaca\Contracts\Resource\Identity;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
-use Alphpaca\Contracts\Resource\Resource;
 
 /**
  * A representation of a resource metadata registry.
@@ -35,11 +33,4 @@ interface Registry
      * Returns a resource metadata matching the given name. If no resource metadata is found, returns null.
      */
     public function getByName(string $name): ?ResourceMetadata;
-
-    /**
-     * Returns a resource metadata matching the given class name. If no resource metadata is found, returns null.
-     *
-     * @param class-string<Resource<Identity<int|string>>> $className
-     */
-    public function getByClassName(string $className): ?ResourceMetadata;
 }

@@ -27,6 +27,7 @@ final readonly class ResourceMetadataFactory implements ResourceMetadataFactoryC
             source: $className,
             sourceType: MetadataSourceType::ATTRIBUTE,
             class: $className,
+            priority: $attribute->getPriority(),
         );
     }
 }

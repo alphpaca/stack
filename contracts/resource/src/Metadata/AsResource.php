@@ -23,6 +23,7 @@ class AsResource
      */
     public function __construct(
         protected readonly string $name,
+        protected readonly int $priority = 0,
     ) {
     }
 
@@ -32,5 +33,13 @@ class AsResource
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the priority of the resource.
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
     }
 }

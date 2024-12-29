@@ -11,11 +11,8 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Alphpaca\Contracts\Resource\Metadata;
+namespace Alphpaca\Contracts\Resource\Metadata\Merger\Exception;
 
-enum MetadataSourceType: string
+class ResourceMetadataObjectsMergingException extends \RuntimeException
 {
-    case ATTRIBUTE = 'attribute';
-
-    case MERGING = 'merging';
 }

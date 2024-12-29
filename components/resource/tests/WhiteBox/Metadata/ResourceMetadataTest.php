@@ -45,4 +45,10 @@ describe('Resource Metadata', function () {
 
         expect($metadata->getClass())->toBe('\App\Resource\Book');
     });
+
+    it('returns its priority', function () use ($metadataFactoryMethod) {
+        $metadata = $metadataFactoryMethod();
+
+        expect($metadata->getPriority())->toBe(0);
+    });
 });
