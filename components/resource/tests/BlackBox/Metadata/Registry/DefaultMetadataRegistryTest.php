@@ -2,18 +2,23 @@
 
 declare(strict_types=1);
 
+use Alphpaca\Component\Resource\Metadata\Merger\DefaultMerger;
 use Alphpaca\Component\Resource\Metadata\Registry\DefaultMetadataRegistry;
 use Alphpaca\Component\Resource\Metadata\ResourceMetadata;
 use Alphpaca\Contracts\Resource\Metadata\MetadataSourceType;
 use Tests\Alphpaca\Component\Resource\BlackBox\Metadata\Registry\DataFixtures\Bummy;
 use Tests\Alphpaca\Component\Resource\BlackBox\Metadata\Registry\DataFixtures\Dummy;
+use Tests\Alphpaca\Component\Resource\BlackBox\Metadata\Registry\DataFixtures\SuperDummy;
+use Tests\Alphpaca\Component\Resource\BlackBox\Metadata\Registry\DataFixtures\UltraDummy;
 
 describe('Default Metadata Registry', function () {
     covers(DefaultMetadataRegistry::class);
 
-    $registry = new DefaultMetadataRegistry();
+    $registryFactory = fn () => new DefaultMetadataRegistry(new DefaultMerger());
 
-    it('returns a resource metadata matching the given name', function () use ($registry) {
+    it('returns a resource metadata matching the given name', function () use ($registryFactory) {
+        $registry = $registryFactory();
+
         $bummyMetadata = new ResourceMetadata(
             'app_bummy',
             Bummy::class,
@@ -35,7 +40,45 @@ describe('Default Metadata Registry', function () {
         ;
     });
 
-    it('returns a resource metadata matching the given class', function () use ($registry) {
+    it('returns merged resource metadata objects if two or more resource metadata objects have the same name', function () use ($registryFactory) {
+        $registry = $registryFactory();
+
+        $dummyMetadata = new ResourceMetadata(
+            'app_dummy',
+            Dummy::class,
+            MetadataSourceType::ATTRIBUTE,
+            Dummy::class,
+        );
+        $superDummy = new ResourceMetadata(
+            'app_dummy',
+            SuperDummy::class,
+            MetadataSourceType::ATTRIBUTE,
+            SuperDummy::class,
+            priority: 10,
+        );
+        $ultraDummy = new ResourceMetadata(
+            'app_dummy',
+            UltraDummy::class,
+            MetadataSourceType::ATTRIBUTE,
+            UltraDummy::class,
+            priority: 20,
+        );
+
+        $registry->add($dummyMetadata);
+        $registry->add($superDummy);
+        $registry->add($ultraDummy);
+
+        expect($registry->getByName('app_dummy'))->toMatchObject([
+            'name' => 'app_dummy',
+            'source' => DefaultMerger::class,
+            'sourceType' => MetadataSourceType::MERGING,
+            'class' => UltraDummy::class,
+        ]);
+    });
+
+    it('returns a resource metadata matching the given class', function () use ($registryFactory) {
+        $registry = $registryFactory();
+
         $bummyMetadata = new ResourceMetadata(
             'app_bummy',
             Bummy::class,

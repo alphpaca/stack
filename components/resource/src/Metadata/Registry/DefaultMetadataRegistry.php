@@ -14,17 +14,23 @@ declare(strict_types=1);
 namespace Alphpaca\Component\Resource\Metadata\Registry;
 
 use Alphpaca\Contracts\Resource\Identity;
+use Alphpaca\Contracts\Resource\Metadata\Merger\Merger;
 use Alphpaca\Contracts\Resource\Metadata\Registry\Registry;
 use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
 use Alphpaca\Contracts\Resource\Resource;
 
 final class DefaultMetadataRegistry implements Registry
 {
-    /** @var array<string, \SplPriorityQueue<int, ResourceMetadata>> */
+    /** @var array<string, EntriesCollection> */
     private array $resourceNameToMetadataMap = [];
 
-    /** @var array<class-string<Resource<Identity<string|int>>>, \SplPriorityQueue<int, ResourceMetadata>> */
+    /** @var array<class-string<Resource<Identity<string|int>>>, EntriesCollection> */
     private array $resourceClassNameToMetadataMap = [];
+
+    public function __construct(
+        private readonly Merger $resourceMetadataMerger,
+    ) {
+    }
 
     public function add(ResourceMetadata $resourceMetadata): void
     {
@@ -35,7 +41,7 @@ final class DefaultMetadataRegistry implements Registry
     private function addResourceByName(string $name, ResourceMetadata $resourceMetadata): void
     {
         if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
-            $this->resourceNameToMetadataMap[$name] = new \SplPriorityQueue();
+            $this->resourceNameToMetadataMap[$name] = new EntriesCollection();
             $this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
 
             return;
@@ -50,7 +56,7 @@ final class DefaultMetadataRegistry implements Registry
     private function addResourceByClassName(string $class, ResourceMetadata $resourceMetadata): void
     {
         if (!array_key_exists($class, $this->resourceClassNameToMetadataMap)) {
-            $this->resourceClassNameToMetadataMap[$class] = new \SplPriorityQueue();
+            $this->resourceClassNameToMetadataMap[$class] = new EntriesCollection();
             $this->resourceClassNameToMetadataMap[$class]->insert($resourceMetadata, $resourceMetadata->getPriority());
 
             return;
@@ -65,7 +71,20 @@ final class DefaultMetadataRegistry implements Registry
             return null;
         }
 
-        return $this->resourceNameToMetadataMap[$name]->top();
+        $map = $this->resourceNameToMetadataMap[$name];
+
+        if ($map->isEmpty()) {
+            return null;
+        }
+
+        $result = $map->extract();
+        assert($result instanceof ResourceMetadata); // @pest-mutate-ignore
+
+        foreach ($map as $resourceMetadata) {
+            $result = $this->resourceMetadataMerger->merge($result, $resourceMetadata);
+        }
+
+        return $result;
     }
 
     public function getByClassName(string $className): ?ResourceMetadata
@@ -74,6 +93,19 @@ final class DefaultMetadataRegistry implements Registry
             return null;
         }
 
-        return $this->resourceClassNameToMetadataMap[$className]->top();
+        $map = $this->resourceClassNameToMetadataMap[$className];
+
+        if ($map->isEmpty()) {
+            return null;
+        }
+
+        $result = $map->extract();
+        assert($result instanceof ResourceMetadata); // @pest-mutate-ignore
+
+        foreach ($map as $resourceMetadata) {
+            $result = $this->resourceMetadataMerger->merge($result, $resourceMetadata);
+        }
+
+        return $result;
     }
 }
