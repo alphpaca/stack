@@ -53,70 +53,29 @@ describe('Default Resource Metadata Registry', function () {
         $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
         $dummyMetadata->allows('getPriority')->andReturns(0);
 
+        $superDummyMetadata = mock(ResourceMetadata::class);
+        $superDummyMetadata->allows('getName')->andReturns('app_dummy');
+        $superDummyMetadata->allows('getClass')->andReturns('\App\SuperDummy');
+        $superDummyMetadata->allows('getPriority')->andReturns(-10);
+
         $zummyMetadata = mock(ResourceMetadata::class);
         $zummyMetadata->allows('getName')->andReturns('app_dummy');
         $zummyMetadata->allows('getClass')->andReturns('\App\Zummy');
-        $zummyMetadata->allows('getPriority')->andReturns(1);
+        $zummyMetadata->allows('getPriority')->andReturns(10);
 
         $registry->add($dummyMetadata);
         $registry->add($zummyMetadata);
+        $registry->add($superDummyMetadata);
 
-        $merger->expects('merge')->once()->with($dummyMetadata, $zummyMetadata)->andReturns($mergingResult = mock(ResourceMetadata::class));
+        $merger->expects('merge')->once()->with($superDummyMetadata, $dummyMetadata)->andReturns($mergingResult = mock(ResourceMetadata::class));
+        $merger->expects('merge')->once()->with($mergingResult, $zummyMetadata)->andReturns($finalMergingResult = mock(ResourceMetadata::class));
 
-        expect($registry->getByName('app_dummy'))->toBe($mergingResult);
+        expect($registry->getByName('app_dummy'))->toBe($finalMergingResult);
     });
 
     it('returns null if a resource metadata with a given name is not found', function () {
         $registry = new DefaultMetadataRegistry(mock(Merger::class));
 
         expect($registry->getByName('app_dummy'))->toBeNull();
-    });
-
-    it('retrieves resource metadata by class name', function () {
-        $registry = new DefaultMetadataRegistry(mock(Merger::class));
-
-        $dummyMetadata = mock(ResourceMetadata::class);
-        $dummyMetadata->allows('getName')->andReturns('app_dummy');
-        $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
-        $dummyMetadata->allows('getPriority')->andReturns(0);
-
-        $zummyMetadata = mock(ResourceMetadata::class);
-        $zummyMetadata->allows('getName')->andReturns('app_zummy');
-        $zummyMetadata->allows('getClass')->andReturns('\App\Zummy');
-        $zummyMetadata->allows('getPriority')->andReturns(0);
-
-        $registry->add($dummyMetadata);
-        $registry->add($zummyMetadata);
-
-        expect($registry->getByClassName('\App\Dummy'))->toBe($dummyMetadata)
-            ->and($registry->getByClassName('\App\Zummy'))->toBe($zummyMetadata)
-        ;
-    });
-
-    it('returns merged resource metadata objects if two or more resource metadata objects have the same class', function () {
-        $registry = new DefaultMetadataRegistry($merger = mock(Merger::class));
-
-        $dummyMetadata = mock(ResourceMetadata::class);
-        $dummyMetadata->allows('getName')->andReturns('app_dummy');
-        $dummyMetadata->allows('getClass')->andReturns('\App\Dummy');
-        $dummyMetadata->allows('getPriority')->andReturns(0);
-
-        $zummyMetadata = mock(ResourceMetadata::class);
-        $zummyMetadata->allows('getName')->andReturns('app_dummy');
-        $zummyMetadata->allows('getClass')->andReturns('\App\Dummy');
-        $zummyMetadata->allows('getPriority')->andReturns(0);
-
-        $registry->add($dummyMetadata);
-        $registry->add($zummyMetadata);
-
-        $merger->expects('merge')->once()->with($dummyMetadata, $zummyMetadata)->andReturns($mergingResult = mock(ResourceMetadata::class));
-
-        expect($registry->getByClassName('\App\Dummy'))->toBe($mergingResult);
-    });
-
-    it('returns null if a resource metadata with a given class name is not found', function () {
-        $registry = new DefaultMetadataRegistry(mock(Merger::class));
-
-        expect($registry->getByClassName('\App\Dummy'))->toBeNull();
     });
 });

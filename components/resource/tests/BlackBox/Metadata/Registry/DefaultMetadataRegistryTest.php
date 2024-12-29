@@ -75,42 +75,4 @@ describe('Default Metadata Registry', function () {
             'class' => UltraDummy::class,
         ]);
     });
-
-    it('returns a resource metadata matching the given class', function () use ($registryFactory) {
-        $registry = $registryFactory();
-
-        $bummyMetadata = new ResourceMetadata(
-            'app_bummy',
-            Bummy::class,
-            MetadataSourceType::ATTRIBUTE,
-            Bummy::class,
-        );
-        $dummyMetadata = new ResourceMetadata(
-            'app_dummy',
-            Dummy::class,
-            MetadataSourceType::ATTRIBUTE,
-            Dummy::class,
-        );
-
-        $registry->add($bummyMetadata);
-        $registry->add($dummyMetadata);
-
-        expect($registry->getByClassName(Dummy::class))
-            ->toMatchObject([
-                'name' => 'app_dummy',
-                'source' => Dummy::class,
-                'sourceType' => MetadataSourceType::ATTRIBUTE,
-                'class' => Dummy::class,
-                'priority' => 0,
-            ])
-            ->and($registry->getByClassName(Bummy::class))
-            ->toMatchObject([
-                'name' => 'app_bummy',
-                'source' => Bummy::class,
-                'sourceType' => MetadataSourceType::ATTRIBUTE,
-                'class' => Bummy::class,
-                'priority' => 0,
-            ])
-        ;
-    });
 });
