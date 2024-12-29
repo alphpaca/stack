@@ -18,8 +18,13 @@ use Tests\Alphpaca\Component\Resource\Helper\Resource\ExampleResource;
  */
 class ResourceMetadataFactory
 {
+    /** @var array<string> */
+    public const array ALLOWED_PROPERTIES = ['name', 'source', 'sourceType', 'class', 'priority'];
+
     public static function example(mixed ...$args): ResourceMetadataContract
     {
+
+
         $args['name'] ??= 'app_example';
         $args['source'] ??= ExampleResource::class;
         $args['sourceType'] ??= MetadataSourceType::ATTRIBUTE;
@@ -33,6 +38,23 @@ class ResourceMetadataFactory
     {
         if (str_starts_with($name, 'with')) {
             $propertyName = lcfirst(substr($name, 4));
+
+            if (empty($propertyName)) {
+                throw new \InvalidArgumentException('Invalid property name: property name cannot be empty');
+            }
+
+            if (empty($arguments)) {
+                throw new \InvalidArgumentException(sprintf('No value provided for property "%s"', $propertyName));
+            }
+
+            if (!in_array($propertyName, self::ALLOWED_PROPERTIES, true)) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Invalid property "%s". Allowed properties: %s',
+                    $propertyName,
+                    implode(', ', self::ALLOWED_PROPERTIES),
+                ));
+            }
+
             $value = $arguments[0] ?? null;
             $resourceMetadata = $arguments[1] ?? null;
 
@@ -52,12 +74,16 @@ class ResourceMetadataFactory
 
     private static function getPropertiesWithValues(ResourceMetadataContract $resourceMetadata): array
     {
-        $result =  [];
+        $result = [];
         $reflection = new \ReflectionClass($resourceMetadata);
 
         $properties = $reflection->getProperties();
 
         foreach ($properties as $property) {
+            if (!$property->isPublic()) {
+                continue;
+            }
+
             $result[$property->getName()] = $property->getValue($resourceMetadata);
         }
 
