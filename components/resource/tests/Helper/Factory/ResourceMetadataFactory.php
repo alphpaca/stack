@@ -42,7 +42,7 @@ class ResourceMetadataFactory
         throw new \BadMethodCallException(sprintf('Call to undefined method %s::%s()', self::class, $name));
     }
 
-    public static function withProperty(string $property, string $value, ?ResourceMetadataContract $resourceMetadata = null): ResourceMetadataContract
+    private static function withProperty(string $property, mixed $value, ?ResourceMetadataContract $resourceMetadata = null): ResourceMetadataContract
     {
         $existingProperties = $resourceMetadata ? self::getPropertiesWithValues($resourceMetadata) : [];
         $existingProperties[$property] = $value;
