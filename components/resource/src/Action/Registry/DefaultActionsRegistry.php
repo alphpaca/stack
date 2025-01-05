@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace Alphpaca\Component\Resource\Action\Registry;
+
+use Alphpaca\Contracts\Resource\Action\Action;
+use Alphpaca\Contracts\Resource\Action\Registry\ActionCannotBeAddedException;
+use Alphpaca\Contracts\Resource\Action\Registry\Registry;
+
+final class DefaultActionsRegistry implements Registry
+{
+    /** @var array<string, Action> */
+    private array $resourceActions = [];
+
+    public function add(Action $resourceAction): void
+    {
+        if (isset($this->resourceActions[$resourceAction->getName()])) {
+            throw new ActionCannotBeAddedException($resourceAction, 'Action "%s" cannot be added to the registry as the action with the same name already exists.');
+        }
+
+        $this->resourceActions[$resourceAction->getName()] = $resourceAction;
+    }
+
+    public function getByName(string $name): ?Action
+    {
+        return $this->resourceActions[$name] ?? null;
+    }
+}
