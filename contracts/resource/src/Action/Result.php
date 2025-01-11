@@ -20,4 +20,5 @@ namespace Alphpaca\Contracts\Resource\Action;
  */
 interface Result
 {
+    public function isSuccessful(): bool;
 }
