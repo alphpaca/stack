@@ -18,13 +18,14 @@ use Alphpaca\Contracts\Resource\Action\Action;
 class ActionCannotBeAddedException extends \RuntimeException
 {
     public function __construct(
+        string $actionName,
         private readonly Action $action,
         string $message = 'Action "%s" cannot be added to the registry.',
         int $code = 0,
         ?\Throwable $previous = null,
     ) {
         parent::__construct(
-            sprintf($message, $this->action->getName()),
+            sprintf($message, $actionName),
             $code,
             $previous,
         );

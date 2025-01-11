@@ -34,13 +34,4 @@ interface Action
      * @since 0.1
      */
     public function __invoke(Input $input, Context $context): Result;
-
-    /**
-     * Returns the name of the action. It should be unique across all actions.
-     *
-     * @return string the name of the action
-     *
-     * @since 0.1
-     */
-    public function getName(): string;
 }

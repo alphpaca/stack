@@ -12,7 +12,7 @@ describe('Default Actions Registry', function () {
     it('stores resource actions', function () {
         $registry = new DefaultActionsRegistry();
 
-        $registry->add($dummyAction = new DummyAction(name: 'app_dummy_action'));
+        $registry->add('app_dummy_action', $dummyAction = new DummyAction());
 
         expect($registry->getByName('app_dummy_action'))->toBe($dummyAction);
     });
@@ -20,7 +20,7 @@ describe('Default Actions Registry', function () {
     it('returns resource actions by name', function () {
         $registry = new DefaultActionsRegistry();
 
-        $registry->add($dummyAction = new DummyAction(name: 'app_dummy_action'));
+        $registry->add('app_dummy_action', $dummyAction = new DummyAction());
 
         expect($registry->getByName('app_dummy_action'))->toBe($dummyAction)
             ->and($registry->getByName('app_dummy_action_2'))->toBeNull()
@@ -30,7 +30,7 @@ describe('Default Actions Registry', function () {
     it('prevents adding actions with the same name', function () {
         $registry = new DefaultActionsRegistry();
 
-        $registry->add(new DummyAction(name: 'app_dummy_action'));
-        $registry->add(new DummyAction(name: 'app_dummy_action'));
+        $registry->add('app_dummy_action', new DummyAction());
+        $registry->add('app_dummy_action', new DummyAction());
     })->throws(ActionCannotBeAddedException::class, 'Action "app_dummy_action" cannot be added to the registry as the action with the same name already exists.');
 });

@@ -22,13 +22,13 @@ final class DefaultActionsRegistry implements Registry
     /** @var array<string, Action> */
     private array $resourceActions = [];
 
-    public function add(Action $resourceAction): void
+    public function add(string $name, Action $resourceAction): void
     {
-        if (isset($this->resourceActions[$resourceAction->getName()])) {
-            throw new ActionCannotBeAddedException($resourceAction, 'Action "%s" cannot be added to the registry as the action with the same name already exists.');
+        if (isset($this->resourceActions[$name])) {
+            throw new ActionCannotBeAddedException($name, $resourceAction, 'Action "%s" cannot be added to the registry as the action with the same name already exists.');
         }
 
-        $this->resourceActions[$resourceAction->getName()] = $resourceAction;
+        $this->resourceActions[$name] = $resourceAction;
     }
 
     public function getByName(string $name): ?Action
