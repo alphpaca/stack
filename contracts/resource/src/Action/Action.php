@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Action;
 
+use Alphpaca\Contracts\Resource\Action\Input\Input;
+
 /**
  * A representation of a class performing an action related to a resource.
  *
@@ -23,11 +25,13 @@ interface Action
     /**
      * Performs the action.
      *
+     * @param Input $input additional data passed to the action
+     *
      * @return Result the result of the action
      *
      * @since 0.1
      */
-    public function __invoke(): Result;
+    public function __invoke(Input $input): Result;
 
     /**
      * Returns the name of the action. It should be unique across all actions.
