@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Alphpaca\Contracts\Resource\Action;
 
+use Alphpaca\Contracts\Resource\Action\Context\Context;
 use Alphpaca\Contracts\Resource\Action\Input\Input;
 
 /**
@@ -26,12 +27,13 @@ interface Action
      * Performs the action.
      *
      * @param Input $input additional data passed to the action
+     * @param Context $context the context of the action
      *
      * @return Result the result of the action
      *
      * @since 0.1
      */
-    public function __invoke(Input $input): Result;
+    public function __invoke(Input $input, Context $context): Result;
 
     /**
      * Returns the name of the action. It should be unique across all actions.
