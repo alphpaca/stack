@@ -53,15 +53,16 @@ final class DefaultActionsRegistry implements Registry
      */
     public function getDefaultMiddlewares(): array
     {
-        if ($this->defaultMiddlewares->isEmpty()) {
-            return [];
-        }
-
         $queue = clone $this->defaultMiddlewares;
         $queue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
 
         $result = [];
 
+        /**
+         * @var array{data: Middleware, priority: int} $item
+         *
+         * @phpstan-ignore varTag.nativeType
+         */
         foreach ($queue as $item) {
             $result[] = [
                 'middleware' => $item['data'],
@@ -75,11 +76,7 @@ final class DefaultActionsRegistry implements Registry
     public function addActionMiddleware(string $actionName, Middleware $middleware, int $priority = 0): void
     {
         if (!isset($this->actions[$actionName])) {
-            throw new ActionMiddlewareCannotBeAddedException(
-                $actionName,
-                $middleware,
-                '"%s" middleware cannot be added, as the "%s" action does not exist.',
-            );
+            throw new ActionMiddlewareCannotBeAddedException($actionName, $middleware, '"%s" middleware cannot be added, as the "%s" action does not exist.');
         }
 
         if (!isset($this->middlewares[$actionName])) {
@@ -103,6 +100,7 @@ final class DefaultActionsRegistry implements Registry
 
         $result = [];
 
+        /** @var array{data: Middleware, priority: int} $item */
         foreach ($queue as $item) {
             $result[] = [
                 'middleware' => $item['data'],

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Alphpaca\Contracts\Resource\Action\Registry;
 
 use Alphpaca\Contracts\Resource\Action\Middleware;
@@ -15,7 +24,7 @@ class ActionMiddlewareCannotBeAddedException extends \RuntimeException
 {
     /**
      * @param string          $actionName action name which cannot be added
-     * @param Middleware          $middleware     related action middleware object
+     * @param Middleware      $middleware related action middleware object
      * @param string          $message    exception message
      * @param int             $code       exception code
      * @param \Throwable|null $previous   previous exception

@@ -41,6 +41,12 @@ describe('Default Actions Registry', function () {
         $registry->add('app_dummy_action', new DummyAction());
     })->throws(ActionCannotBeAddedException::class, 'Action "app_dummy_action" cannot be added to the registry as the action with the same name already exists.');
 
+    it('returns an empty array while trying to get default middlewares, and no default middlewares are defined', function () {
+        $registry = new DefaultActionsRegistry();
+
+        expect($registry->getDefaultMiddlewares())->toBe([]);
+    });
+
     it('stores default middlewares', function () {
         $registry = new DefaultActionsRegistry();
 
@@ -80,6 +86,12 @@ describe('Default Actions Registry', function () {
             ['middleware' => $dummyMiddleware, 'priority' => 0],
             ['middleware' => $dummyMiddleware, 'priority' => 10],
         ]);
+    });
+
+    it('returns an empty array when trying to get action middlewares for a non-existing action', function () {
+        $registry = new DefaultActionsRegistry();
+
+        expect($registry->getActionMiddlewares('im_not_existing_action'))->toBe([]);
     });
 
     it('throws an exception when trying to add an action middleware for a non-existing action', function () {
