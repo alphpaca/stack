@@ -20,19 +20,19 @@ use Alphpaca\Contracts\Resource\Action\Registry\Registry;
 final class DefaultActionsRegistry implements Registry
 {
     /** @var array<string, Action> */
-    private array $resourceActions = [];
+    private array $actions = [];
 
     public function add(string $name, Action $resourceAction): void
     {
-        if (isset($this->resourceActions[$name])) {
+        if (isset($this->actions[$name])) {
             throw new ActionCannotBeAddedException($name, $resourceAction, 'Action "%s" cannot be added to the registry as the action with the same name already exists.');
         }
 
-        $this->resourceActions[$name] = $resourceAction;
+        $this->actions[$name] = $resourceAction;
     }
 
     public function getByName(string $name): ?Action
     {
-        return $this->resourceActions[$name] ?? null;
+        return $this->actions[$name] ?? null;
     }
 }
