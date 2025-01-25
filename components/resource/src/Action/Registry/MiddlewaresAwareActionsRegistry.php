@@ -24,7 +24,7 @@ final class MiddlewaresAwareActionsRegistry implements MiddlewaresAwareRegistry
 {
     private MiddlewaresCollection $defaultMiddlewares;
 
-    /** @var array<class-string<Action>, MiddlewaresCollection> */
+    /** @var array<string, MiddlewaresCollection> */
     private array $middlewares = [];
 
     public function __construct(
