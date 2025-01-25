@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Alphpaca\Contracts\Resource\Action\Registry;
 
 use Alphpaca\Contracts\Resource\Action\Action;
-use Alphpaca\Contracts\Resource\Action\Middleware;
 
 /**
  * A representation of a resource actions registry.
@@ -43,15 +42,4 @@ interface Registry
      * @since 0.1
      */
     public function getByName(string $name): ?Action;
-
-    /**
-     * Assigns a given middleware to a specific action. If the action does not exist, an exception will be thrown.
-     *
-     * @param class-string<Action> $actionName action name for which the middleware will be added
-     * @param Middleware           $middleware middleware to be added
-     * @param int                  $priority   priority of the middleware; the higher the priority, the earlier the middleware will be executed
-     *
-     * @throws ActionMiddlewareCannotBeAddedException
-     */
-    public function addActionMiddleware(string $actionName, Middleware $middleware, int $priority = 0): void;
 }
