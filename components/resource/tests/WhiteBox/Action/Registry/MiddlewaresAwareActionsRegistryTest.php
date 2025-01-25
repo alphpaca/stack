@@ -102,14 +102,17 @@ describe('Middlewares Aware Actions Registry', function () {
         ob_end_clean();
 
         expect($output)->toBe(
-            'Start Default priority -10' . PHP_EOL .
-            'Start Action priority 5' . PHP_EOL .
-            'Start Default priority 10' . PHP_EOL .
-            'Start Action priority 20' . PHP_EOL .
-            'End Action priority 20' . PHP_EOL .
-            'End Default priority 10' . PHP_EOL .
-            'End Action priority 5' . PHP_EOL .
-            'End Default priority -10' . PHP_EOL
+            <<<OUTPUT
+            Start Default priority -10
+            Start Action priority 5
+            Start Default priority 10
+            Start Action priority 20
+            End Action priority 20
+            End Default priority 10
+            End Action priority 5
+            End Default priority -10
+            
+            OUTPUT
         )->and($result->getText())->toBe('Hello from middleware chain!');
     });
 });
