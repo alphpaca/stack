@@ -12,5 +12,9 @@
     </toc-element>
     <toc-element topic="Resource.topic">
         <toc-element topic="[resource]Getting-started.md"/>
+        <toc-element topic="Actions.topic">
+            <toc-element topic="[resource-actions]Introduction.md"/>
+            <toc-element topic="[resource-actions]Middleware.md"/>
+        </toc-element>
     </toc-element>
 </instance-profile>
