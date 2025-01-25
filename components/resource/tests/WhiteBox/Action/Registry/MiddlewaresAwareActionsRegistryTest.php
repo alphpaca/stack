@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Alphpaca\Component\Resource\Action\Context\ContextBag;
+use Alphpaca\Component\Resource\Action\Input\InputBag;
 use Alphpaca\Component\Resource\Action\Registry\DefaultActionsRegistry;
 use Alphpaca\Component\Resource\Action\Registry\MiddlewaresAwareActionsRegistry;
 use Alphpaca\Component\Resource\Action\Result\SuccessResult;
@@ -12,27 +14,11 @@ use Alphpaca\Contracts\Resource\Action\Registry\ActionMiddlewareCannotBeAddedExc
 use Alphpaca\Contracts\Resource\Action\Result;
 use Tests\Alphpaca\Component\Resource\WhiteBox\Action\Registry\DataFixtures\DummyAction;
 use Tests\Alphpaca\Component\Resource\WhiteBox\Action\Registry\DataFixtures\DummyMiddleware;
+use Tests\Alphpaca\Component\Resource\WhiteBox\Action\Registry\DataFixtures\DummyResult;
+use Tests\Alphpaca\Component\Resource\WhiteBox\Action\Registry\DataFixtures\EchoingMiddleware;
 
 describe('Middlewares Aware Actions Registry', function () {
     covers(MiddlewaresAwareActionsRegistry::class);
-
-    it('stores resource actions', function () {
-        $registry = new MiddlewaresAwareActionsRegistry(new DefaultActionsRegistry());
-
-        $registry->add('app_dummy_action', $dummyAction = new DummyAction());
-
-        expect($registry->getByName('app_dummy_action'))->toBe($dummyAction);
-    });
-
-    it('returns resource actions by name', function () {
-        $registry = new MiddlewaresAwareActionsRegistry(new DefaultActionsRegistry());
-
-        $registry->add('app_dummy_action', $dummyAction = new DummyAction());
-
-        expect($registry->getByName('app_dummy_action'))->toBe($dummyAction)
-            ->and($registry->getByName('app_dummy_action_2'))->toBeNull()
-        ;
-    });
 
     it('returns an empty array while trying to get default middlewares, and no default middlewares are defined', function () {
         $registry = new MiddlewaresAwareActionsRegistry(new DefaultActionsRegistry());
@@ -95,4 +81,35 @@ describe('Middlewares Aware Actions Registry', function () {
         ActionMiddlewareCannotBeAddedException::class,
         sprintf('"%s" middleware cannot be added, as the "%s" action does not exist.', DummyMiddleware::class, 'app_dummy_action'),
     );
+
+    it('returns original action wrapped in a middleware chain action', function () {
+        $registry = new MiddlewaresAwareActionsRegistry(new DefaultActionsRegistry());
+
+        $registry->add('app_dummy', new DummyAction(fn () => new DummyResult('Hello from middleware chain!')));
+
+        $registry->addDefaultMiddleware(new EchoingMiddleware('Default priority -10'), -10);
+        $registry->addDefaultMiddleware(new EchoingMiddleware('Default priority 10'), 10);
+
+        $registry->addActionMiddleware('app_dummy', new EchoingMiddleware('Action priority 5'), 5);
+        $registry->addActionMiddleware('app_dummy', new EchoingMiddleware('Action priority 20'), 20);
+
+        $action = $registry->getByName('app_dummy');
+
+        ob_start();
+        $result = $action(new InputBag(), new ContextBag());
+        assert($result instanceof DummyResult);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        expect($output)->toBe(
+            'Start Default priority -10' . PHP_EOL .
+            'Start Action priority 5' . PHP_EOL .
+            'Start Default priority 10' . PHP_EOL .
+            'Start Action priority 20' . PHP_EOL .
+            'End Action priority 20' . PHP_EOL .
+            'End Default priority 10' . PHP_EOL .
+            'End Action priority 5' . PHP_EOL .
+            'End Default priority -10' . PHP_EOL
+        )->and($result->getText())->toBe('Hello from middleware chain!');
+    });
 });

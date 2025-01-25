@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Alphpaca\Component\Resource\Action\Registry;
 
+use Alphpaca\Component\Resource\Action\MiddlewareChainAction;
 use Alphpaca\Contracts\Resource\Action\Action;
 use Alphpaca\Contracts\Resource\Action\Middleware;
 use Alphpaca\Contracts\Resource\Action\Registry\ActionMiddlewareCannotBeAddedException;
@@ -39,7 +40,23 @@ final class MiddlewaresAwareActionsRegistry implements MiddlewaresAwareRegistry
 
     public function getByName(string $name): ?Action
     {
-        return $this->decorated->getByName($name);
+        $action = $this->decorated->getByName($name);
+
+        if (null === $action) {
+            return null;
+        }
+
+        $middlewares = new MiddlewaresCollection();
+
+        foreach ($this->getDefaultMiddlewares() as $middleware) {
+            $middlewares->insert($middleware['middleware'], $middleware['priority']);
+        }
+
+        foreach ($this->getActionMiddlewares($name) as $middleware) {
+            $middlewares->insert($middleware['middleware'], $middleware['priority']);
+        }
+
+        return new MiddlewareChainAction($action, ...$middlewares);
     }
 
     public function addDefaultMiddleware(Middleware $middleware, int $priority = 0): void

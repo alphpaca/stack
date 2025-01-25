@@ -26,8 +26,8 @@ interface MiddlewaresAwareRegistry extends Registry
     /**
      * Adds a default middleware to the registry.
      *
-     * @param Middleware $middleware The middleware to add.
-     * @param int        $priority   The priority of the middleware (default is 0).
+     * @param Middleware $middleware the middleware to add
+     * @param int        $priority   the priority of the middleware (default is 0)
      *
      * @since 0.1
      */
@@ -36,7 +36,7 @@ interface MiddlewaresAwareRegistry extends Registry
     /**
      * Retrieves all default middlewares.
      *
-     * @return array<array{middleware: Middleware, priority: int}> An array of default middlewares.
+     * @return array<array{middleware: Middleware, priority: int}> an array of default middlewares
      *
      * @since 0.1
      */
