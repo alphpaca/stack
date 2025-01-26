@@ -7,7 +7,7 @@ declare(strict_types=1);
  *
  * (c) Jacob Tobiasz <jacob@alphpaca.io>
  *
- * This source file is subject to the MIT license that is bundled
+ * This source file is subject to the Apache License 2.0 that is bundled
  * with this source code in the file LICENSE.
  */
 
