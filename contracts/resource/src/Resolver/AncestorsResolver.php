@@ -20,16 +20,16 @@ use Alphpaca\Contracts\Resource\Resolver\Exception\ResolvingException;
  */
 interface AncestorsResolver
 {
-    /**
-     * Resolve ancestors for a given class.
-     *
-     * @param class-string $class
-     *
-     * @return array<class-string>
-     *
-     * @throws ResolvingException
-     *
-     * @since 0.1
-     */
-    public function resolve(string $class): array;
+	/**
+	 * Resolve ancestors for a given class.
+	 *
+	 * @param class-string $class
+	 *
+	 * @return array<class-string>
+	 *
+	 * @throws ResolvingException
+	 *
+	 * @since 0.1
+	 */
+	public function resolve(string $class): array;
 }

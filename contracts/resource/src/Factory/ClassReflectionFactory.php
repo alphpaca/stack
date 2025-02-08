@@ -20,18 +20,18 @@ use Alphpaca\Contracts\Resource\Factory\Exception\ClassCannotBeReflectedExceptio
  */
 interface ClassReflectionFactory
 {
-    /**
-     * @template T of object
-     *
-     * Creates a class reflection object.
-     *
-     * @param class-string<T> $className the class name for which a reflection object is desired
-     *
-     * @return \ReflectionClass<T>
-     *
-     * @throws ClassCannotBeReflectedException
-     *
-     * @since 0.1
-     */
-    public function create(string $className): \ReflectionClass;
+	/**
+	 * @template T of object
+	 *
+	 * Creates a class reflection object.
+	 *
+	 * @param class-string<T> $className the class name for which a reflection object is desired
+	 *
+	 * @return \ReflectionClass<T>
+	 *
+	 * @throws ClassCannotBeReflectedException
+	 *
+	 * @since 0.1
+	 */
+	public function create(string $className): \ReflectionClass;
 }

@@ -15,8 +15,8 @@ use Alphpaca\Contracts\Resource\Action\Result;
 
 readonly class GenericErrorResult implements Result
 {
-    public function isSuccessful(): bool
-    {
-        return false;
-    }
+	public function isSuccessful(): bool
+	{
+		return false;
+	}
 }

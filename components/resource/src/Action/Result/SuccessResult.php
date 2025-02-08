@@ -15,8 +15,8 @@ use Alphpaca\Contracts\Resource\Action\Result;
 
 readonly class SuccessResult implements Result
 {
-    public function isSuccessful(): bool
-    {
-        return true;
-    }
+	public function isSuccessful(): bool
+	{
+		return true;
+	}
 }

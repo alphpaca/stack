@@ -18,41 +18,41 @@ use Alphpaca\Contracts\Resource\Resource;
 
 readonly class ResourceMetadata implements ResourceMetadataContract
 {
-    /**
-     * @param class-string<Resource<Identity<int|string>>> $class
-     */
-    public function __construct(
-        public string             $name,
-        public string             $source,
-        public MetadataSourceType $sourceType,
-        public string             $class,
-        public int                $priority = 0,
-    )
-    {
-    }
+	/**
+	 * @param class-string<Resource<Identity<int|string>>> $class
+	 */
+	public function __construct(
+		public string             $name,
+		public string             $source,
+		public MetadataSourceType $sourceType,
+		public string             $class,
+		public int                $priority = 0,
+	)
+	{
+	}
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
+	public function getName(): string
+	{
+		return $this->name;
+	}
 
-    public function getSource(): string
-    {
-        return $this->source;
-    }
+	public function getSource(): string
+	{
+		return $this->source;
+	}
 
-    public function getSourceType(): MetadataSourceType
-    {
-        return $this->sourceType;
-    }
+	public function getSourceType(): MetadataSourceType
+	{
+		return $this->sourceType;
+	}
 
-    public function getClass(): string
-    {
-        return $this->class;
-    }
+	public function getClass(): string
+	{
+		return $this->class;
+	}
 
-    public function getPriority(): int
-    {
-        return $this->priority;
-    }
+	public function getPriority(): int
+	{
+		return $this->priority;
+	}
 }

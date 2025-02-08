@@ -21,22 +21,22 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
  */
 interface ResourceMetadataLoader
 {
-    /**
-     * Loads a resource metadata from a given file path.
-     *
-     * If the loader does not support the given file path, it throws an exception.
-     * Call the `supports` method to check if the loader supports the given file path.
-     *
-     * @throws ResourceMetadataLoadingException
-     *
-     * @since 0.1
-     */
+	/**
+	 * Loads a resource metadata from a given file path.
+	 *
+	 * If the loader does not support the given file path, it throws an exception.
+	 * Call the `supports` method to check if the loader supports the given file path.
+	 *
+	 * @throws ResourceMetadataLoadingException
+	 *
+	 * @since 0.1
+	 */
 	public function loadFromFile(string $path): null|ResourceMetadata;
 
-    /**
-     * Returns whether the given file path is supported by the loader.
-     *
-     * @since 0.1
-     */
-    public function supports(string $path): bool;
+	/**
+	 * Returns whether the given file path is supported by the loader.
+	 *
+	 * @since 0.1
+	 */
+	public function supports(string $path): bool;
 }

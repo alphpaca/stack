@@ -21,6 +21,6 @@ class DeleteAction implements Action
 {
 	public function __invoke(Input $input, Context $context): Result
 	{
-        return new SuccessResult();
-    }
+		return new SuccessResult();
+	}
 }

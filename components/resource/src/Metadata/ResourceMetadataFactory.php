@@ -18,14 +18,14 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataFactory as ResourceMeta
 
 final readonly class ResourceMetadataFactory implements ResourceMetadataFactoryContract
 {
-    public function createFromAttribute(string $className, AsResource $attribute): ResourceMetadataContract
-    {
-        return new ResourceMetadata(
-            name: $attribute->getName(),
-            source: $className,
-            sourceType: MetadataSourceType::ATTRIBUTE,
-            class: $className,
-            priority: $attribute->getPriority(),
-        );
-    }
+	public function createFromAttribute(string $className, AsResource $attribute): ResourceMetadataContract
+	{
+		return new ResourceMetadata(
+			name: $attribute->getName(),
+			source: $className,
+			sourceType: MetadataSourceType::ATTRIBUTE,
+			class: $className,
+			priority: $attribute->getPriority(),
+		);
+	}
 }

@@ -16,20 +16,20 @@ use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\Grandparent
 use Tests\Alphpaca\Component\Resource\BlackBox\Resolver\DataFixtures\ParentBook;
 
 describe('Ancestors Resolver', function () {
-    covers(AncestorsResolver::class);
+	covers(AncestorsResolver::class);
 
-    $resolver = new AncestorsResolver();
+	$resolver = new AncestorsResolver();
 
-    it('returns ancestors for a given class', function () use ($resolver) {
-        $result = $resolver->resolve(ChildBook::class);
+	it('returns ancestors for a given class', function () use ($resolver) {
+		$result = $resolver->resolve(ChildBook::class);
 
-        expect($result)->toBe([
-            GrandparentBook::class => GrandparentBook::class,
-	        ParentBook::class => ParentBook::class,
-        ]);
-    });
+		expect($result)->toBe([
+			GrandparentBook::class => GrandparentBook::class,
+			ParentBook::class => ParentBook::class,
+		]);
+	});
 
-    it('throws an exception if a given class does not exist', function () use ($resolver) {
-        $resolver->resolve('\Foo');
-    })->throws(ResolvingException::class, 'Could not resolve ancestors for class "\Foo".');
+	it('throws an exception if a given class does not exist', function () use ($resolver) {
+		$resolver->resolve('\Foo');
+	})->throws(ResolvingException::class, 'Could not resolve ancestors for class "\Foo".');
 });

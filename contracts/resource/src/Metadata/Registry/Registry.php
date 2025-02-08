@@ -20,15 +20,15 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
  */
 interface Registry
 {
-    /**
-     * Adds a resource metadata to the registry.
-     *
-     * @since 0.1
-     */
-    public function add(ResourceMetadata $resourceMetadata): void;
+	/**
+	 * Adds a resource metadata to the registry.
+	 *
+	 * @since 0.1
+	 */
+	public function add(ResourceMetadata $resourceMetadata): void;
 
-    /**
-     * Returns a resource metadata matching the given name. If no resource metadata is found, returns null.
-     */
+	/**
+	 * Returns a resource metadata matching the given name. If no resource metadata is found, returns null.
+	 */
 	public function getByName(string $name): null|ResourceMetadata;
 }

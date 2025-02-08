@@ -15,14 +15,14 @@ use Alphpaca\Component\Resource\Action\Input\InputBag;
 use Alphpaca\Component\Resource\Action\Result\SuccessResult;
 
 describe('Get Collection Action', function () {
-    covers(GetCollectionAction::class);
+	covers(GetCollectionAction::class);
 
-    it('returns success result', function () {
-        $action = new GetCollectionAction();
+	it('returns success result', function () {
+		$action = new GetCollectionAction();
 
-        $input = new InputBag();
-        $context = new ContextBag();
+		$input = new InputBag();
+		$context = new ContextBag();
 
-        expect($action($input, $context))->toBeInstanceOf(SuccessResult::class);
-    });
+		expect($action($input, $context))->toBeInstanceOf(SuccessResult::class);
+	});
 });

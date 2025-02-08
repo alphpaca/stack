@@ -18,37 +18,37 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataExtension;
 
 final class ExtendableMetadataLoader implements ExtendableResourceMetadataLoader
 {
-    /** @var array<ResourceMetadataExtension> */
-    private array $extensions = [];
+	/** @var array<ResourceMetadataExtension> */
+	private array $extensions = [];
 
-    public function __construct(
-        private readonly ResourceMetadataLoader $baseLoader,
-    )
-    {
-    }
+	public function __construct(
+		private readonly ResourceMetadataLoader $baseLoader,
+	)
+	{
+	}
 
 	public function loadFromFile(string $path): null|ResourceMetadata
-    {
-        $resourceMetadata = $this->baseLoader->loadFromFile($path);
+	{
+		$resourceMetadata = $this->baseLoader->loadFromFile($path);
 
-	    if ($resourceMetadata === null) {
-            return null;
-        }
+		if ($resourceMetadata === null) {
+			return null;
+		}
 
-        foreach ($this->extensions as $extension) {
-            $extension->extend($resourceMetadata);
-        }
+		foreach ($this->extensions as $extension) {
+			$extension->extend($resourceMetadata);
+		}
 
-        return $resourceMetadata;
-    }
+		return $resourceMetadata;
+	}
 
-    public function addExtension(ResourceMetadataExtension $extension): void
-    {
-        $this->extensions[] = $extension;
-    }
+	public function addExtension(ResourceMetadataExtension $extension): void
+	{
+		$this->extensions[] = $extension;
+	}
 
-    public function supports(string $path): bool
-    {
-        return $this->baseLoader->supports($path);
-    }
+	public function supports(string $path): bool
+	{
+		return $this->baseLoader->supports($path);
+	}
 }

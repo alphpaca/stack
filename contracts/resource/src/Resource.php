@@ -18,8 +18,8 @@ namespace Alphpaca\Contracts\Resource;
  */
 interface Resource
 {
-    /**
-     * @phpstan-return TIdentity
-     */
-    public function getIdentity(): Identity;
+	/**
+	 * @phpstan-return TIdentity
+	 */
+	public function getIdentity(): Identity;
 }

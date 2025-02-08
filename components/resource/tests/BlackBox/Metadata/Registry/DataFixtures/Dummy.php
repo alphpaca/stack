@@ -16,8 +16,8 @@ use Alphpaca\Contracts\Resource\Resource;
 
 class Dummy implements Resource
 {
-    public function getIdentity(): Identity
-    {
-        return new MockIdentifier(1);
-    }
+	public function getIdentity(): Identity
+	{
+		return new MockIdentifier(1);
+	}
 }

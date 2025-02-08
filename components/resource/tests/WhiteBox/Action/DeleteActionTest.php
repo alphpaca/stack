@@ -15,14 +15,14 @@ use Alphpaca\Component\Resource\Action\Input\InputBag;
 use Alphpaca\Component\Resource\Action\Result\SuccessResult;
 
 describe('Delete Action', function () {
-    covers(DeleteAction::class);
+	covers(DeleteAction::class);
 
-    it('returns success result once a resource is deleted', function () {
-        $action = new DeleteAction();
+	it('returns success result once a resource is deleted', function () {
+		$action = new DeleteAction();
 
-        $input = new InputBag();
-        $context = new ContextBag();
+		$input = new InputBag();
+		$context = new ContextBag();
 
-        expect($action($input, $context))->toBeInstanceOf(SuccessResult::class);
-    });
+		expect($action($input, $context))->toBeInstanceOf(SuccessResult::class);
+	});
 });

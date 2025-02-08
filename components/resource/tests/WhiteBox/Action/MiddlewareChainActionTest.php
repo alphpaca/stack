@@ -20,84 +20,82 @@ use Alphpaca\Contracts\Resource\Action\Middleware;
 use Alphpaca\Contracts\Resource\Action\Result;
 
 describe('Middleware Chain Action', function () {
-    covers(MiddlewareChainAction::class);
+	covers(MiddlewareChainAction::class);
 
-    it('invokes the middleware chain in the correct order', function () {
-        $validationMiddleware = new class implements Middleware {
+	it('invokes the middleware chain in the correct order', function () {
+		$validationMiddleware = new class implements Middleware {
 
-            public function __invoke(Input $input, Context $context, callable $next): Result
-            {
-                echo 'Validation middleware start';
+			public function __invoke(Input $input, Context $context, callable $next): Result
+			{
+				echo 'Validation middleware start';
 
-                $result = $next($input, $context);
+				$result = $next($input, $context);
 
-                echo 'Validation middleware end';
+				echo 'Validation middleware end';
 
-                return $result;
-            }
-        };
+				return $result;
+			}
+		};
 
-        $enrichInputMiddleware = new class implements Middleware {
-            public function __invoke(Input $input, Context $context, callable $next): Result
-            {
-                echo 'Enrich input middleware start';
+		$enrichInputMiddleware = new class implements Middleware {
+			public function __invoke(Input $input, Context $context, callable $next): Result
+			{
+				echo 'Enrich input middleware start';
 
-                $result = $next($input, $context);
+				$result = $next($input, $context);
 
-                echo 'Enrich input middleware end';
+				echo 'Enrich input middleware end';
 
-                return $result;
-            }
-        };
+				return $result;
+			}
+		};
 
-        $action = new class implements Action {
-            public function __invoke(Input $input, Context $context): Result
-            {
-                echo 'Action start';
+		$action = new class implements Action {
+			public function __invoke(Input $input, Context $context): Result
+			{
+				echo 'Action start';
 
-                $result = new SuccessResult();
+				$result = new SuccessResult();
 
-                echo 'Action end';
+				echo 'Action end';
 
-                return $result;
-            }
-        };
+				return $result;
+			}
+		};
 
-        $middlewareChain = new MiddlewareChainAction($action, $validationMiddleware, $enrichInputMiddleware);
+		$middlewareChain = new MiddlewareChainAction($action, $validationMiddleware, $enrichInputMiddleware);
 
-        ob_start();
-        $result = $middlewareChain(new InputBag(), new ContextBag());
-        $output = ob_get_contents();
-        ob_end_clean();
+		ob_start();
+		$result = $middlewareChain(new InputBag(), new ContextBag());
+		$output = ob_get_contents();
+		ob_end_clean();
 
-        expect($result)->toBeInstanceOf(SuccessResult::class)
-            ->and($output)->toBe('Validation middleware startEnrich input middleware startAction startAction endEnrich input middleware endValidation middleware end')
-        ;
-    });
+		expect($result)->toBeInstanceOf(SuccessResult::class)
+			->and($output)->toBe('Validation middleware startEnrich input middleware startAction startAction endEnrich input middleware endValidation middleware end');
+	});
 
-    it('invokes only the action if no middleware is provided', function () {
-        $originalAction = new class implements Action {
-            public function __invoke(Input $input, Context $context): Result
-            {
-                echo 'Action start';
+	it('invokes only the action if no middleware is provided', function () {
+		$originalAction = new class implements Action {
+			public function __invoke(Input $input, Context $context): Result
+			{
+				echo 'Action start';
 
-                $result = new SuccessResult();
+				$result = new SuccessResult();
 
-                echo 'Action end';
+				echo 'Action end';
 
-                return $result;
-            }
-        };
+				return $result;
+			}
+		};
 
-        $middlewareChain = new MiddlewareChainAction($originalAction);
+		$middlewareChain = new MiddlewareChainAction($originalAction);
 
-        ob_start();
-        $result = $middlewareChain(new InputBag(), new ContextBag());
-        $output = ob_get_contents();
-        ob_end_clean();
+		ob_start();
+		$result = $middlewareChain(new InputBag(), new ContextBag());
+		$output = ob_get_contents();
+		ob_end_clean();
 
-        expect($result)->toBeInstanceOf(SuccessResult::class)
-            ->and($output)->toBe('Action startAction end')
-        ;
-    });
+		expect($result)->toBeInstanceOf(SuccessResult::class)
+			->and($output)->toBe('Action startAction end');
+	});
 });

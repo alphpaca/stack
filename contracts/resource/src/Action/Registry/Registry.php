@@ -20,24 +20,24 @@ use Alphpaca\Contracts\Resource\Action\Action;
  */
 interface Registry
 {
-    /**
-     * Adds a resource metadata to the registry.
-     *
-     * @param string $name the name of the action, must be unique across the registry
-     * @param Action $resourceAction the action to be added
-     *
-     * @throws ActionCannotBeAddedException
-     *
-     * @since 0.1
-     */
-    public function add(string $name, Action $resourceAction): void;
+	/**
+	 * Adds a resource metadata to the registry.
+	 *
+	 * @param string $name the name of the action, must be unique across the registry
+	 * @param Action $resourceAction the action to be added
+	 *
+	 * @throws ActionCannotBeAddedException
+	 *
+	 * @since 0.1
+	 */
+	public function add(string $name, Action $resourceAction): void;
 
-    /**
-     * Looks in the registry for an action matching the given name.
-     *
-     * @returns Action|null an action matching the given name or null if no matching action is found
-     *
-     * @since 0.1
-     */
+	/**
+	 * Looks in the registry for an action matching the given name.
+	 *
+	 * @returns Action|null an action matching the given name or null if no matching action is found
+	 *
+	 * @since 0.1
+	 */
 	public function getByName(string $name): null|Action;
 }

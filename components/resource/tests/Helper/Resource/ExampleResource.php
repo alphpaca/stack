@@ -18,13 +18,14 @@ use Alphpaca\Contracts\Resource\Resource;
 #[AsResource('app_example')]
 class ExampleResource implements Resource
 {
-    public function __construct(
-        private Identity $identity,
-    ) {
-    }
+	public function __construct(
+		private Identity $identity,
+	)
+	{
+	}
 
-    public function getIdentity(): Identity
-    {
-        return $this->identity;
-    }
+	public function getIdentity(): Identity
+	{
+		return $this->identity;
+	}
 }

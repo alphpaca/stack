@@ -15,8 +15,8 @@ use Alphpaca\Contracts\Resource\Filesystem\FileExistenceChecker as FileExistence
 
 final readonly class FileExistenceChecker implements FileExistenceCheckerContract
 {
-    public function exists(string $path): bool
-    {
-        return file_exists($path);
-    }
+	public function exists(string $path): bool
+	{
+		return file_exists($path);
+	}
 }

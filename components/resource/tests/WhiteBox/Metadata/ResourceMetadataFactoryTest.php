@@ -14,20 +14,19 @@ use Alphpaca\Contracts\Resource\Metadata\AsResource;
 use Alphpaca\Contracts\Resource\Metadata\MetadataSourceType;
 
 describe('Resource Metadata Factory', function () {
-    covers(ResourceMetadataFactory::class);
+	covers(ResourceMetadataFactory::class);
 
-    it('factors a resource metadata object from an `AsResource` attribute', function () {
-        $resourceAttribute = mock(AsResource::class);
-        $resourceAttribute->expects('getName')->andReturns('book');
-        $resourceAttribute->expects('getPriority')->andReturns(10);
+	it('factors a resource metadata object from an `AsResource` attribute', function () {
+		$resourceAttribute = mock(AsResource::class);
+		$resourceAttribute->expects('getName')->andReturns('book');
+		$resourceAttribute->expects('getPriority')->andReturns(10);
 
-        $testSubject = new ResourceMetadataFactory();
-        $result = $testSubject->createFromAttribute('\App\Book', $resourceAttribute);
+		$testSubject = new ResourceMetadataFactory();
+		$result = $testSubject->createFromAttribute('\App\Book', $resourceAttribute);
 
-        expect($result->getName())->toBe('book')
-            ->and($result->getSource())->toBe('\App\Book')
-            ->and($result->getSourceType())->toBe(MetadataSourceType::ATTRIBUTE)
-            ->and($result->getPriority())->toBe(10)
-        ;
-    });
+		expect($result->getName())->toBe('book')
+			->and($result->getSource())->toBe('\App\Book')
+			->and($result->getSourceType())->toBe(MetadataSourceType::ATTRIBUTE)
+			->and($result->getPriority())->toBe(10);
+	});
 });

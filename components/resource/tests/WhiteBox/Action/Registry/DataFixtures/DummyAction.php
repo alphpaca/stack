@@ -18,13 +18,14 @@ use Alphpaca\Contracts\Resource\Action\Result;
 
 final readonly class DummyAction implements Action
 {
-    public function __construct(
-	    private null|\Closure $invokeBody = null,
-    ) {
-    }
+	public function __construct(
+		private null|\Closure $invokeBody = null,
+	)
+	{
+	}
 
-    public function __invoke(Input $input, Context $context): Result
-    {
-        return $this->invokeBody ? ($this->invokeBody)() : new DummyResult();
-    }
+	public function __invoke(Input $input, Context $context): Result
+	{
+		return $this->invokeBody ? ($this->invokeBody)() : new DummyResult();
+	}
 }

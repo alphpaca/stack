@@ -21,12 +21,12 @@ use Alphpaca\Contracts\Resource\Resource;
  */
 interface ResourceAwareContext extends Context
 {
-    /**
-     * Returns the resource associated with the current context.
-     *
-     * @return Resource<Identity<int|string>> the resource
-     *
-     * @since 0.1
-     */
-    public function getResource(): Resource;
+	/**
+	 * Returns the resource associated with the current context.
+	 *
+	 * @return Resource<Identity<int|string>> the resource
+	 *
+	 * @since 0.1
+	 */
+	public function getResource(): Resource;
 }

@@ -18,22 +18,22 @@ namespace Alphpaca\Contracts\Resource;
  */
 interface Identity extends \Stringable, \Serializable, \JsonSerializable
 {
-    /**
-     * Returns the underlying value.
-     *
-     * @phpstan-return TValue
-     *
-     * @since 0.1
-     */
-    public function getValue(): string|int;
+	/**
+	 * Returns the underlying value.
+	 *
+	 * @phpstan-return TValue
+	 *
+	 * @since 0.1
+	 */
+	public function getValue(): string|int;
 
-    /**
-     * Returns a string representation of the identity.
-     *
-     * This method is identical to {@see __toString()} and exists for
-     * compatibility with interfaces like {@see \Stringable}.
-     *
-     * @since 0.1
-     */
-    public function toString(): string;
+	/**
+	 * Returns a string representation of the identity.
+	 *
+	 * This method is identical to {@see __toString()} and exists for
+	 * compatibility with interfaces like {@see \Stringable}.
+	 *
+	 * @since 0.1
+	 */
+	public function toString(): string;
 }

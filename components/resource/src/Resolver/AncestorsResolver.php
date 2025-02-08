@@ -16,14 +16,14 @@ use Alphpaca\Contracts\Resource\Resolver\Exception\ResolvingException;
 
 final readonly class AncestorsResolver implements AncestorsResolverContract
 {
-    public function resolve(string $class): array
-    {
-        $result = class_parents($class);
+	public function resolve(string $class): array
+	{
+		$result = class_parents($class);
 
-	    if ($result === false) {
-            throw new ResolvingException(sprintf('Could not resolve ancestors for class "%s".', $class));
-        }
+		if ($result === false) {
+			throw new ResolvingException(sprintf('Could not resolve ancestors for class "%s".', $class));
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 }

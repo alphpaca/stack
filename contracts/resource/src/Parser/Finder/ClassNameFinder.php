@@ -18,14 +18,14 @@ namespace Alphpaca\Contracts\Resource\Parser\Finder;
  */
 interface ClassNameFinder
 {
-    /**
-     * Returns the first Full Qualified Class Name found in the given PHP code. If no class name is found, null will be returned.
-     *
-     * @param array<mixed> $nodes
-     *
-     * @phpstan-return class-string|null
-     *
-     * @since v0.1
-     */
+	/**
+	 * Returns the first Full Qualified Class Name found in the given PHP code. If no class name is found, null will be returned.
+	 *
+	 * @param array<mixed> $nodes
+	 *
+	 * @phpstan-return class-string|null
+	 *
+	 * @since v0.1
+	 */
 	public function findFirst(array $nodes): null|string;
 }

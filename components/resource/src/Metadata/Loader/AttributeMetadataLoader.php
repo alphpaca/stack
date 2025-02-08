@@ -26,43 +26,43 @@ use Alphpaca\Contracts\Resource\Resource;
 
 final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
 {
-    public function __construct(
-        private FileExistenceChecker    $fileExistenceChecker,
-        private FileContentProvider     $fileContentProvider,
-        private PhpParser               $phpParser,
-        private ClassNameFinder         $classNameFinder,
-        private AttributeResolver       $attributeResolver,
-        private ResourceMetadataFactory $resourceMetadataFactory,
-    )
-    {
-    }
+	public function __construct(
+		private FileExistenceChecker    $fileExistenceChecker,
+		private FileContentProvider     $fileContentProvider,
+		private PhpParser               $phpParser,
+		private ClassNameFinder         $classNameFinder,
+		private AttributeResolver       $attributeResolver,
+		private ResourceMetadataFactory $resourceMetadataFactory,
+	)
+	{
+	}
 
 	public function loadFromFile(string $path): null|ResourceMetadata
-    {
-        if (!$this->supports($path)) {
-            throw new ResourceMetadataLoadingException(sprintf('File "%s" is not supported by this loader.', $path));
-        }
+	{
+		if (!$this->supports($path)) {
+			throw new ResourceMetadataLoadingException(sprintf('File "%s" is not supported by this loader.', $path));
+		}
 
-        $content = $this->fileContentProvider->provide($path);
-        $ast = $this->phpParser->parse($content);
-        /** @var class-string<Resource<Identity<int|string>>>|null $className */
-        $className = $this->classNameFinder->findFirst($ast);
+		$content = $this->fileContentProvider->provide($path);
+		$ast = $this->phpParser->parse($content);
+		/** @var class-string<Resource<Identity<int|string>>>|null $className */
+		$className = $this->classNameFinder->findFirst($ast);
 
-	    if ($className === null) {
-            return null;
-        }
+		if ($className === null) {
+			return null;
+		}
 
-        $resolvedResourceAttribute = $this->attributeResolver->resolveFirst($className, AsResource::class);
+		$resolvedResourceAttribute = $this->attributeResolver->resolveFirst($className, AsResource::class);
 
-	    if ($resolvedResourceAttribute === null) {
-            return null;
-        }
+		if ($resolvedResourceAttribute === null) {
+			return null;
+		}
 
-        return $this->resourceMetadataFactory->createFromAttribute($className, $resolvedResourceAttribute);
-    }
+		return $this->resourceMetadataFactory->createFromAttribute($className, $resolvedResourceAttribute);
+	}
 
-    public function supports(string $path): bool
-    {
-        return $this->fileExistenceChecker->exists($path) && str_ends_with($path, '.php');
-    }
+	public function supports(string $path): bool
+	{
+		return $this->fileExistenceChecker->exists($path) && str_ends_with($path, '.php');
+	}
 }

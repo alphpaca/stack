@@ -23,36 +23,36 @@ use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 
 describe('Attribute Metadata Loader', function () {
-    covers(AttributeMetadataLoader::class);
+	covers(AttributeMetadataLoader::class);
 
-    $loader = new AttributeMetadataLoader(
-        new FileExistenceChecker(),
-        new FileContentProvider(
-            new FileExistenceChecker(),
-        ),
-        new PhpParser(
-            (new ParserFactory())->createForNewestSupportedVersion(),
-            new NodeTraverser(),
-        ),
-        new ClassNameFinder(
-            new NodeFinder(),
-        ),
-        new AttributeResolver(
-            new ClassReflectionFactory(),
-            new AncestorsResolver(),
-        ),
-        new ResourceMetadataFactory(),
-    );
+	$loader = new AttributeMetadataLoader(
+		new FileExistenceChecker(),
+		new FileContentProvider(
+			new FileExistenceChecker(),
+		),
+		new PhpParser(
+			(new ParserFactory())->createForNewestSupportedVersion(),
+			new NodeTraverser(),
+		),
+		new ClassNameFinder(
+			new NodeFinder(),
+		),
+		new AttributeResolver(
+			new ClassReflectionFactory(),
+			new AncestorsResolver(),
+		),
+		new ResourceMetadataFactory(),
+	);
 
-    it('loads a metadata from a file', function () use ($loader) {
-        $metadata = $loader->loadFromFile(__DIR__ . '/DataFixtures/BestsellerBook.php');
+	it('loads a metadata from a file', function () use ($loader) {
+		$metadata = $loader->loadFromFile(__DIR__ . '/DataFixtures/BestsellerBook.php');
 
-        expect($metadata->getName())->toBe('alphpaca_book');
-    });
+		expect($metadata->getName())->toBe('alphpaca_book');
+	});
 
-    it('returns null if no `AsResource` attribute is found', function () use ($loader) {
-        $metadata = $loader->loadFromFile(__DIR__ . '/DataFixtures/Shelf.php');
+	it('returns null if no `AsResource` attribute is found', function () use ($loader) {
+		$metadata = $loader->loadFromFile(__DIR__ . '/DataFixtures/Shelf.php');
 
-        expect($metadata)->toBeNull();
-    });
+		expect($metadata)->toBeNull();
+	});
 });

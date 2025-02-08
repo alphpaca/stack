@@ -13,7 +13,7 @@ namespace Alphpaca\Contracts\Resource\Metadata;
 
 enum MetadataSourceType: string
 {
-    case ATTRIBUTE = 'attribute';
+	case ATTRIBUTE = 'attribute';
 
-    case MERGING = 'merging';
+	case MERGING = 'merging';
 }

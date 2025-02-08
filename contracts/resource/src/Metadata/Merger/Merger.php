@@ -21,29 +21,29 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
  */
 interface Merger
 {
-    /**
-     * Returns whether two resource metadata objects can be merged.
-     *
-     * @param ResourceMetadata $source the resource metadata object which will be merged
-     * @param ResourceMetadata $target the resource metadata object target of the merging
-     *
-     * @return bool whether the two resource metadata objects can be merged
-     * @since 0.1
-     *
-     */
-    public function canBeMerged(ResourceMetadata $source, ResourceMetadata $target): bool;
+	/**
+	 * Returns whether two resource metadata objects can be merged.
+	 *
+	 * @param ResourceMetadata $source the resource metadata object which will be merged
+	 * @param ResourceMetadata $target the resource metadata object target of the merging
+	 *
+	 * @return bool whether the two resource metadata objects can be merged
+	 * @since 0.1
+	 *
+	 */
+	public function canBeMerged(ResourceMetadata $source, ResourceMetadata $target): bool;
 
-    /**
-     * Merges two resource metadata objects.
-     *
-     * @param ResourceMetadata $source the resource metadata object which will be merged
-     * @param ResourceMetadata $target the resource metadata object target of the merging
-     *
-     * @return ResourceMetadata resulting merged resource metadata object
-     *
-     * @throws ResourceMetadataObjectsMergingException
-     * @since 0.1
-     *
-     */
-    public function merge(ResourceMetadata $source, ResourceMetadata $target): ResourceMetadata;
+	/**
+	 * Merges two resource metadata objects.
+	 *
+	 * @param ResourceMetadata $source the resource metadata object which will be merged
+	 * @param ResourceMetadata $target the resource metadata object target of the merging
+	 *
+	 * @return ResourceMetadata resulting merged resource metadata object
+	 *
+	 * @throws ResourceMetadataObjectsMergingException
+	 * @since 0.1
+	 *
+	 */
+	public function merge(ResourceMetadata $source, ResourceMetadata $target): ResourceMetadata;
 }

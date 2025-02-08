@@ -19,8 +19,8 @@ use Alphpaca\Contracts\Resource\Action\Result;
 
 class CreateAction implements Action
 {
-    public function __invoke(Input $input, Context $context): Result
-    {
-        return new SuccessResult();
-    }
+	public function __invoke(Input $input, Context $context): Result
+	{
+		return new SuccessResult();
+	}
 }

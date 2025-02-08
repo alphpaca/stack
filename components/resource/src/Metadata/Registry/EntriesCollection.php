@@ -20,8 +20,8 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
  */
 final class EntriesCollection extends \SplPriorityQueue
 {
-    public function compare(mixed $priority1, mixed $priority2): int
-    {
-        return $priority2 - $priority1;
-    }
+	public function compare(mixed $priority1, mixed $priority2): int
+	{
+		return $priority2 - $priority1;
+	}
 }

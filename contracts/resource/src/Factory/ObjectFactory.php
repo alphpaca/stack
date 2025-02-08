@@ -20,17 +20,17 @@ use Alphpaca\Contracts\Resource\Factory\Exception\ObjectCannotBeFactoredExceptio
  */
 interface ObjectFactory
 {
-    /**
-     * @template T of object
-     *
-     * @param class-string<T> $className
-     * @param array<mixed> $args
-     *
-     * @phpstan-return T
-     *
-     * @throws ObjectCannotBeFactoredException
-     *
-     * @since 0.1
-     */
-    public function create(string $className, mixed ...$args): object;
+	/**
+	 * @template T of object
+	 *
+	 * @param class-string<T> $className
+	 * @param array<mixed> $args
+	 *
+	 * @phpstan-return T
+	 *
+	 * @throws ObjectCannotBeFactoredException
+	 *
+	 * @since 0.1
+	 */
+	public function create(string $className, mixed ...$args): object;
 }

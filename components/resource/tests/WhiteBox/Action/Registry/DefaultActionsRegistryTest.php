@@ -14,30 +14,29 @@ use Alphpaca\Contracts\Resource\Action\Registry\ActionCannotBeAddedException;
 use Tests\Alphpaca\Component\Resource\WhiteBox\Action\Registry\DataFixtures\DummyAction;
 
 describe('Default Actions Registry', function () {
-    covers(DefaultActionsRegistry::class);
+	covers(DefaultActionsRegistry::class);
 
-    it('stores resource actions', function () {
-        $registry = new DefaultActionsRegistry();
+	it('stores resource actions', function () {
+		$registry = new DefaultActionsRegistry();
 
-        $registry->add('app_dummy_action', $dummyAction = new DummyAction());
+		$registry->add('app_dummy_action', $dummyAction = new DummyAction());
 
-        expect($registry->getByName('app_dummy_action'))->toBe($dummyAction);
-    });
+		expect($registry->getByName('app_dummy_action'))->toBe($dummyAction);
+	});
 
-    it('returns resource actions by name', function () {
-        $registry = new DefaultActionsRegistry();
+	it('returns resource actions by name', function () {
+		$registry = new DefaultActionsRegistry();
 
-        $registry->add('app_dummy_action', $dummyAction = new DummyAction());
+		$registry->add('app_dummy_action', $dummyAction = new DummyAction());
 
-        expect($registry->getByName('app_dummy_action'))->toBe($dummyAction)
-            ->and($registry->getByName('app_dummy_action_2'))->toBeNull()
-        ;
-    });
+		expect($registry->getByName('app_dummy_action'))->toBe($dummyAction)
+			->and($registry->getByName('app_dummy_action_2'))->toBeNull();
+	});
 
-    it('prevents adding actions with the same name', function () {
-        $registry = new DefaultActionsRegistry();
+	it('prevents adding actions with the same name', function () {
+		$registry = new DefaultActionsRegistry();
 
-        $registry->add('app_dummy_action', new DummyAction());
-        $registry->add('app_dummy_action', new DummyAction());
-    })->throws(ActionCannotBeAddedException::class, 'Action "app_dummy_action" cannot be added to the registry as the action with the same name already exists.');
+		$registry->add('app_dummy_action', new DummyAction());
+		$registry->add('app_dummy_action', new DummyAction());
+	})->throws(ActionCannotBeAddedException::class, 'Action "app_dummy_action" cannot be added to the registry as the action with the same name already exists.');
 });

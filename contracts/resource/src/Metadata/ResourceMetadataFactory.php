@@ -21,12 +21,12 @@ use Alphpaca\Contracts\Resource\Resource;
  */
 interface ResourceMetadataFactory
 {
-    /**
-     * Creates a resource metadata from a `AsResource` attribute.
-     *
-     * @param class-string<Resource<Identity<int|string>>> $className
-     *
-     * @since 0.1
-     */
-    public function createFromAttribute(string $className, AsResource $attribute): ResourceMetadata;
+	/**
+	 * Creates a resource metadata from a `AsResource` attribute.
+	 *
+	 * @param class-string<Resource<Identity<int|string>>> $className
+	 *
+	 * @since 0.1
+	 */
+	public function createFromAttribute(string $className, AsResource $attribute): ResourceMetadata;
 }

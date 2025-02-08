@@ -15,14 +15,14 @@ use Alphpaca\Component\Resource\Action\Input\InputBag;
 use Alphpaca\Component\Resource\Action\Result\SuccessResult;
 
 describe('Create Action', function () {
-    covers(CreateAction::class);
+	covers(CreateAction::class);
 
-    it('returns success result once a resource is created', function () {
-        $action = new CreateAction();
+	it('returns success result once a resource is created', function () {
+		$action = new CreateAction();
 
-        $input = new InputBag();
-        $context = new ContextBag();
+		$input = new InputBag();
+		$context = new ContextBag();
 
-        expect($action($input, $context))->toBeInstanceOf(SuccessResult::class);
-    });
+		expect($action($input, $context))->toBeInstanceOf(SuccessResult::class);
+	});
 });

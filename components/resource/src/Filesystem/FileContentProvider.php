@@ -18,24 +18,24 @@ use Alphpaca\Contracts\Resource\Filesystem\FileExistenceChecker;
 
 final readonly class FileContentProvider implements FileContentProviderContract
 {
-    public function __construct(
-        private FileExistenceChecker $fileExistenceChecker,
-    )
-    {
-    }
+	public function __construct(
+		private FileExistenceChecker $fileExistenceChecker,
+	)
+	{
+	}
 
-    public function provide(string $path): string
-    {
-        if (!$this->fileExistenceChecker->exists($path)) {
-            throw new FileCannotBeFoundException(sprintf('File "%s" does not exist.', $path));
-        }
+	public function provide(string $path): string
+	{
+		if (!$this->fileExistenceChecker->exists($path)) {
+			throw new FileCannotBeFoundException(sprintf('File "%s" does not exist.', $path));
+		}
 
-        $content = file_get_contents($path);
+		$content = file_get_contents($path);
 
-	    if ($content === false) {
-            throw new FileCannotBeReadException(sprintf('File "%s" cannot be read.', $path));
-        }
+		if ($content === false) {
+			throw new FileCannotBeReadException(sprintf('File "%s" cannot be read.', $path));
+		}
 
-        return $content;
-    }
+		return $content;
+	}
 }

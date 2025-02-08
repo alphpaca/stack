@@ -20,31 +20,31 @@ use Alphpaca\Contracts\Resource\Resolver\Exception\ResolvingException;
  */
 interface AttributeResolver
 {
-    /**
-     * @template T of object
-     *
-     * @param class-string $className
-     * @param class-string<T> $attributeName
-     *
-     * @phpstan-return T|null
-     *
-     * @throws ResolvingException
-     *
-     * @since 0.1
-     */
-    public function resolveFirst(string $className, string $attributeName): mixed;
+	/**
+	 * @template T of object
+	 *
+	 * @param class-string $className
+	 * @param class-string<T> $attributeName
+	 *
+	 * @phpstan-return T|null
+	 *
+	 * @throws ResolvingException
+	 *
+	 * @since 0.1
+	 */
+	public function resolveFirst(string $className, string $attributeName): mixed;
 
-    /**
-     * @template T of object
-     *
-     * @param class-string $className
-     * @param class-string<T> $attributeName
-     *
-     * @phpstan-return array<T>
-     *
-     * @throws ResolvingException
-     *
-     * @since 0.1
-     */
-    public function resolveForAncestors(string $className, string $attributeName): array;
+	/**
+	 * @template T of object
+	 *
+	 * @param class-string $className
+	 * @param class-string<T> $attributeName
+	 *
+	 * @phpstan-return array<T>
+	 *
+	 * @throws ResolvingException
+	 *
+	 * @since 0.1
+	 */
+	public function resolveForAncestors(string $className, string $attributeName): array;
 }

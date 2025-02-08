@@ -19,41 +19,41 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata as ResourceMetadataCon
 
 final readonly class DefaultMerger implements Merger
 {
-    public function canBeMerged(ResourceMetadataContract $source, ResourceMetadataContract $target): bool
-    {
-        if (!$this->areNamesEqual($source, $target)) {
-            return false;
-        }
+	public function canBeMerged(ResourceMetadataContract $source, ResourceMetadataContract $target): bool
+	{
+		if (!$this->areNamesEqual($source, $target)) {
+			return false;
+		}
 
-        if (!$this->isAncestor($source, $target)) {
-            return false;
-        }
+		if (!$this->isAncestor($source, $target)) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    private function areNamesEqual(ResourceMetadataContract $source, ResourceMetadataContract $target): bool
-    {
-        return $source->getName() === $target->getName();
-    }
+	private function areNamesEqual(ResourceMetadataContract $source, ResourceMetadataContract $target): bool
+	{
+		return $source->getName() === $target->getName();
+	}
 
-    private function isAncestor(ResourceMetadataContract $source, ResourceMetadataContract $target): bool
-    {
-        return is_a($target->getClass(), $source->getClass(), true);
-    }
+	private function isAncestor(ResourceMetadataContract $source, ResourceMetadataContract $target): bool
+	{
+		return is_a($target->getClass(), $source->getClass(), true);
+	}
 
-    public function merge(ResourceMetadataContract $source, ResourceMetadataContract $target): ResourceMetadataContract
-    {
-        if (!$this->canBeMerged($source, $target)) {
-            throw new ResourceMetadataObjectsMergingException('The provided resource metadata objects are not compatible.');
-        }
+	public function merge(ResourceMetadataContract $source, ResourceMetadataContract $target): ResourceMetadataContract
+	{
+		if (!$this->canBeMerged($source, $target)) {
+			throw new ResourceMetadataObjectsMergingException('The provided resource metadata objects are not compatible.');
+		}
 
-        return new ResourceMetadata(
-            $target->getName(),
-            self::class,
-            MetadataSourceType::MERGING,
-            $target->getClass(),
-            $target->getPriority(),
-        );
-    }
+		return new ResourceMetadata(
+			$target->getName(),
+			self::class,
+			MetadataSourceType::MERGING,
+			$target->getClass(),
+			$target->getPriority(),
+		);
+	}
 }

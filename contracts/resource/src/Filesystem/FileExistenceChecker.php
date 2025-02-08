@@ -18,10 +18,10 @@ namespace Alphpaca\Contracts\Resource\Filesystem;
  */
 interface FileExistenceChecker
 {
-    /**
-     * Returns true if the given file exists, false otherwise.
-     *
-     * @since v0.1
-     */
-    public function exists(string $path): bool;
+	/**
+	 * Returns true if the given file exists, false otherwise.
+	 *
+	 * @since v0.1
+	 */
+	public function exists(string $path): bool;
 }

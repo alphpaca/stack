@@ -21,87 +21,87 @@ use Alphpaca\Contracts\Resource\Parser\PhpParser;
 use Alphpaca\Contracts\Resource\Resolver\AttributeResolver;
 
 describe('Attribute Metadata Loader', function () {
-    covers(AttributeMetadataLoader::class);
+	covers(AttributeMetadataLoader::class);
 
-    it('loads a resource metadata from an attribute', function () {
-        $fileExistenceChecker = mock(FileExistenceChecker::class);
-        $fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(true);
+	it('loads a resource metadata from an attribute', function () {
+		$fileExistenceChecker = mock(FileExistenceChecker::class);
+		$fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(true);
 
-        $fileContentProvider = mock(FileContentProvider::class);
-        $fileContentProvider->expects('provide')->with('/app/Book.php')->andReturn('<?php class Book {}');
+		$fileContentProvider = mock(FileContentProvider::class);
+		$fileContentProvider->expects('provide')->with('/app/Book.php')->andReturn('<?php class Book {}');
 
-        $phpParser = mock(PhpParser::class);
-        $phpParser->expects('parse')->with('<?php class Book {}')->andReturn(['stmt']);
+		$phpParser = mock(PhpParser::class);
+		$phpParser->expects('parse')->with('<?php class Book {}')->andReturn(['stmt']);
 
-        $classNameFinder = mock(ClassNameFinder::class);
-        $classNameFinder->expects('findFirst')->with(['stmt'])->andReturn('\App\Book');
+		$classNameFinder = mock(ClassNameFinder::class);
+		$classNameFinder->expects('findFirst')->with(['stmt'])->andReturn('\App\Book');
 
-        $attributeResolver = mock(AttributeResolver::class);
-        $attributeResolver->expects('resolveFirst')->with('\App\Book', AsResource::class)->andReturn($attribute = mock(AsResource::class));
+		$attributeResolver = mock(AttributeResolver::class);
+		$attributeResolver->expects('resolveFirst')->with('\App\Book', AsResource::class)->andReturn($attribute = mock(AsResource::class));
 
-        $resourceMetadataFactory = mock(ResourceMetadataFactory::class);
-        $resourceMetadataFactory->expects('createFromAttribute')->with('\App\Book', $attribute)->andReturn($metadata = mock(ResourceMetadata::class));
+		$resourceMetadataFactory = mock(ResourceMetadataFactory::class);
+		$resourceMetadataFactory->expects('createFromAttribute')->with('\App\Book', $attribute)->andReturn($metadata = mock(ResourceMetadata::class));
 
-        $loader = new AttributeMetadataLoader(
-            $fileExistenceChecker,
-            $fileContentProvider,
-            $phpParser,
-            $classNameFinder,
-            $attributeResolver,
-            $resourceMetadataFactory,
-        );
-        $result = $loader->loadFromFile('/app/Book.php');
+		$loader = new AttributeMetadataLoader(
+			$fileExistenceChecker,
+			$fileContentProvider,
+			$phpParser,
+			$classNameFinder,
+			$attributeResolver,
+			$resourceMetadataFactory,
+		);
+		$result = $loader->loadFromFile('/app/Book.php');
 
-        expect($result)->toBe($metadata);
-    });
+		expect($result)->toBe($metadata);
+	});
 
-    it('throws an exception if the file is not supported, but it is tried to be loaded', function () {
-        $fileExistenceChecker = mock(FileExistenceChecker::class);
-        $fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(false);
+	it('throws an exception if the file is not supported, but it is tried to be loaded', function () {
+		$fileExistenceChecker = mock(FileExistenceChecker::class);
+		$fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(false);
 
-        $fileContentProvider = mock(FileContentProvider::class);
-        $phpParser = mock(PhpParser::class);
-        $classNameFinder = mock(ClassNameFinder::class);
-        $attributeResolver = mock(AttributeResolver::class);
-        $resourceMetadataFactory = mock(ResourceMetadataFactory::class);
+		$fileContentProvider = mock(FileContentProvider::class);
+		$phpParser = mock(PhpParser::class);
+		$classNameFinder = mock(ClassNameFinder::class);
+		$attributeResolver = mock(AttributeResolver::class);
+		$resourceMetadataFactory = mock(ResourceMetadataFactory::class);
 
-        $loader = new AttributeMetadataLoader(
-            $fileExistenceChecker,
-            $fileContentProvider,
-            $phpParser,
-            $classNameFinder,
-            $attributeResolver,
-            $resourceMetadataFactory,
-        );
-        $loader->loadFromFile('/app/Book.php');
-    })->throws(ResourceMetadataLoadingException::class, 'File "/app/Book.php" is not supported by this loader.');
+		$loader = new AttributeMetadataLoader(
+			$fileExistenceChecker,
+			$fileContentProvider,
+			$phpParser,
+			$classNameFinder,
+			$attributeResolver,
+			$resourceMetadataFactory,
+		);
+		$loader->loadFromFile('/app/Book.php');
+	})->throws(ResourceMetadataLoadingException::class, 'File "/app/Book.php" is not supported by this loader.');
 
-    it('returns null if a file does not contain a class', function () {
-        $fileExistenceChecker = mock(FileExistenceChecker::class);
-        $fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(true);
+	it('returns null if a file does not contain a class', function () {
+		$fileExistenceChecker = mock(FileExistenceChecker::class);
+		$fileExistenceChecker->expects('exists')->with('/app/Book.php')->andReturn(true);
 
-        $fileContentProvider = mock(FileContentProvider::class);
-        $fileContentProvider->expects('provide')->with('/app/Book.php')->andReturn('<?php class Book {}');
+		$fileContentProvider = mock(FileContentProvider::class);
+		$fileContentProvider->expects('provide')->with('/app/Book.php')->andReturn('<?php class Book {}');
 
-        $phpParser = mock(PhpParser::class);
-        $phpParser->expects('parse')->with('<?php class Book {}')->andReturn(['stmt']);
+		$phpParser = mock(PhpParser::class);
+		$phpParser->expects('parse')->with('<?php class Book {}')->andReturn(['stmt']);
 
-        $classNameFinder = mock(ClassNameFinder::class);
-        $classNameFinder->expects('findFirst')->with(['stmt'])->andReturn(null);
+		$classNameFinder = mock(ClassNameFinder::class);
+		$classNameFinder->expects('findFirst')->with(['stmt'])->andReturn(null);
 
-        $attributeResolver = mock(AttributeResolver::class);
-        $resourceMetadataFactory = mock(ResourceMetadataFactory::class);
+		$attributeResolver = mock(AttributeResolver::class);
+		$resourceMetadataFactory = mock(ResourceMetadataFactory::class);
 
-        $loader = new AttributeMetadataLoader(
-            $fileExistenceChecker,
-            $fileContentProvider,
-            $phpParser,
-            $classNameFinder,
-            $attributeResolver,
-            $resourceMetadataFactory,
-        );
-        $result = $loader->loadFromFile('/app/Book.php');
+		$loader = new AttributeMetadataLoader(
+			$fileExistenceChecker,
+			$fileContentProvider,
+			$phpParser,
+			$classNameFinder,
+			$attributeResolver,
+			$resourceMetadataFactory,
+		);
+		$result = $loader->loadFromFile('/app/Book.php');
 
-        expect($result)->toBeNull();
-    });
+		expect($result)->toBeNull();
+	});
 });
