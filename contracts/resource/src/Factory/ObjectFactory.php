@@ -26,7 +26,7 @@ interface ObjectFactory
      * @template T of object
      *
      * @param class-string<T> $className
-     * @param array<mixed>    $args
+     * @param array<mixed> $args
      *
      * @phpstan-return T
      *

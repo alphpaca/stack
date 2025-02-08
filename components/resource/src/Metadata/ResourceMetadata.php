@@ -24,12 +24,13 @@ readonly class ResourceMetadata implements ResourceMetadataContract
      * @param class-string<Resource<Identity<int|string>>> $class
      */
     public function __construct(
-        public string $name,
-        public string $source,
+        public string             $name,
+        public string             $source,
         public MetadataSourceType $sourceType,
-        public string $class,
-        public int $priority = 0,
-    ) {
+        public string             $class,
+        public int                $priority = 0,
+    )
+    {
     }
 
     public function getName(): string

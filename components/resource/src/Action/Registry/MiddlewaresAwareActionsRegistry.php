@@ -29,7 +29,8 @@ final class MiddlewaresAwareActionsRegistry implements MiddlewaresAwareRegistry
 
     public function __construct(
         private readonly Registry $decorated,
-    ) {
+    )
+    {
         $this->defaultMiddlewares = new MiddlewaresCollection();
     }
 

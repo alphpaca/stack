@@ -26,7 +26,7 @@ interface Action
     /**
      * Performs the action.
      *
-     * @param Input   $input   additional data passed to the action
+     * @param Input $input additional data passed to the action
      * @param Context $context the context of the action
      *
      * @return Result the result of the action

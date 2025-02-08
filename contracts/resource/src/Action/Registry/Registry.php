@@ -25,7 +25,7 @@ interface Registry
     /**
      * Adds a resource metadata to the registry.
      *
-     * @param string $name           the name of the action, must be unique across the registry
+     * @param string $name the name of the action, must be unique across the registry
      * @param Action $resourceAction the action to be added
      *
      * @throws ActionCannotBeAddedException

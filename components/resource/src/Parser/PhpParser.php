@@ -22,9 +22,10 @@ use PhpParser\Parser;
 final readonly class PhpParser implements PhpParserContract
 {
     public function __construct(
-        private Parser $parser,
+        private Parser                 $parser,
         private NodeTraverserInterface $nodeTraverser,
-    ) {
+    )
+    {
     }
 
     /**

@@ -23,14 +23,15 @@ final readonly class AttributeResolver implements AttributeResolverContract
 {
     public function __construct(
         private ClassReflectionFactory $classReflectionFactory,
-        private AncestorsResolver $ancestorsResolver,
-    ) {
+        private AncestorsResolver      $ancestorsResolver,
+    )
+    {
     }
 
     /**
      * @template T of object
      *
-     * @param class-string    $className
+     * @param class-string $className
      * @param class-string<T> $attributeName
      *
      * @phpstan-return T|null

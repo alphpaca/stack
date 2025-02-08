@@ -26,17 +26,18 @@ class MiddlewareChainAction implements Action
 
     public function __construct(
         private readonly Action $action,
-        Middleware ...$middlewares,
-    ) {
+        Middleware              ...$middlewares,
+    )
+    {
         $this->middlewares = array_reverse($middlewares);
     }
 
     public function __invoke(Input $input, Context $context): Result
     {
-        $next = fn (Input $input, Context $context): Result => $this->action->__invoke($input, $context);
+        $next = fn(Input $input, Context $context): Result => $this->action->__invoke($input, $context);
 
         foreach ($this->middlewares as $middleware) {
-            $next = fn (Input $input, Context $context): Result => $middleware($input, $context, $next);
+            $next = fn(Input $input, Context $context): Result => $middleware($input, $context, $next);
         }
 
         return $next($input, $context);

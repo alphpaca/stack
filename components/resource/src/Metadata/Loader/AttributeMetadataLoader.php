@@ -29,13 +29,14 @@ use Alphpaca\Contracts\Resource\Resource;
 final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
 {
     public function __construct(
-        private FileExistenceChecker $fileExistenceChecker,
-        private FileContentProvider $fileContentProvider,
-        private PhpParser $phpParser,
-        private ClassNameFinder $classNameFinder,
-        private AttributeResolver $attributeResolver,
+        private FileExistenceChecker    $fileExistenceChecker,
+        private FileContentProvider     $fileContentProvider,
+        private PhpParser               $phpParser,
+        private ClassNameFinder         $classNameFinder,
+        private AttributeResolver       $attributeResolver,
         private ResourceMetadataFactory $resourceMetadataFactory,
-    ) {
+    )
+    {
     }
 
     public function loadFromFile(string $path): ?ResourceMetadata

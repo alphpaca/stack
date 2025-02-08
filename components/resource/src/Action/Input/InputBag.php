@@ -22,7 +22,8 @@ class InputBag implements Input
      */
     public function __construct(
         private array $input = [],
-    ) {
+    )
+    {
     }
 
     public function add(string $key, mixed $value): void

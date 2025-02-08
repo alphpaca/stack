@@ -24,7 +24,8 @@ final class DefaultMetadataRegistry implements Registry
 
     public function __construct(
         private readonly Merger $resourceMetadataMerger,
-    ) {
+    )
+    {
     }
 
     public function add(ResourceMetadata $resourceMetadata): void

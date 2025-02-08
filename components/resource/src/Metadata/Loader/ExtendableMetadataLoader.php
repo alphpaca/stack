@@ -25,7 +25,8 @@ final class ExtendableMetadataLoader implements ExtendableResourceMetadataLoader
 
     public function __construct(
         private readonly ResourceMetadataLoader $baseLoader,
-    ) {
+    )
+    {
     }
 
     public function loadFromFile(string $path): ?ResourceMetadata

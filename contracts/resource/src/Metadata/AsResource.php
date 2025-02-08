@@ -23,8 +23,9 @@ class AsResource
      */
     public function __construct(
         protected readonly string $name,
-        protected readonly int $priority = 0,
-    ) {
+        protected readonly int    $priority = 0,
+    )
+    {
     }
 
     /**

@@ -29,9 +29,9 @@ interface Merger
      * @param ResourceMetadata $source the resource metadata object which will be merged
      * @param ResourceMetadata $target the resource metadata object target of the merging
      *
+     * @return bool whether the two resource metadata objects can be merged
      * @since 0.1
      *
-     * @return bool whether the two resource metadata objects can be merged
      */
     public function canBeMerged(ResourceMetadata $source, ResourceMetadata $target): bool;
 
@@ -41,11 +41,11 @@ interface Merger
      * @param ResourceMetadata $source the resource metadata object which will be merged
      * @param ResourceMetadata $target the resource metadata object target of the merging
      *
-     * @since 0.1
-     *
      * @return ResourceMetadata resulting merged resource metadata object
      *
      * @throws ResourceMetadataObjectsMergingException
+     * @since 0.1
+     *
      */
     public function merge(ResourceMetadata $source, ResourceMetadata $target): ResourceMetadata;
 }

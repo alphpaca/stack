@@ -25,7 +25,7 @@ interface AttributeResolver
     /**
      * @template T of object
      *
-     * @param class-string    $className
+     * @param class-string $className
      * @param class-string<T> $attributeName
      *
      * @phpstan-return T|null
@@ -39,7 +39,7 @@ interface AttributeResolver
     /**
      * @template T of object
      *
-     * @param class-string    $className
+     * @param class-string $className
      * @param class-string<T> $attributeName
      *
      * @phpstan-return array<T>

@@ -22,7 +22,8 @@ final readonly class FileContentProvider implements FileContentProviderContract
 {
     public function __construct(
         private FileExistenceChecker $fileExistenceChecker,
-    ) {
+    )
+    {
     }
 
     public function provide(string $path): string

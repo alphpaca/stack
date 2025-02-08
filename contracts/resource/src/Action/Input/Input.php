@@ -23,8 +23,8 @@ interface Input
     /**
      * Adds a value to the input bag.
      *
-     * @param string $key   the key of the value
-     * @param mixed  $value the value
+     * @param string $key the key of the value
+     * @param mixed $value the value
      *
      * @since 0.1
      */
@@ -33,8 +33,8 @@ interface Input
     /**
      * Returns a value from the input bag.
      *
-     * @param string $key     the key of the value
-     * @param mixed  $default the default value to return if the key is not found
+     * @param string $key the key of the value
+     * @param mixed $default the default value to return if the key is not found
      *
      * @since 0.1
      */

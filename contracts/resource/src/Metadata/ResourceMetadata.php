@@ -48,9 +48,9 @@ interface ResourceMetadata
     /**
      * Returns the class name of the resource.
      *
+     * @return class-string<Resource<Identity<int|string>>>
      * @since 0.1
      *
-     * @return class-string<Resource<Identity<int|string>>>
      */
     public function getClass(): string;
 

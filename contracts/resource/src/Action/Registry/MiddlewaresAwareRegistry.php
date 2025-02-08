@@ -27,7 +27,7 @@ interface MiddlewaresAwareRegistry extends Registry
      * Adds a default middleware to the registry.
      *
      * @param Middleware $middleware the middleware to add
-     * @param int        $priority   the priority of the middleware (default is 0)
+     * @param int $priority the priority of the middleware (default is 0)
      *
      * @since 0.1
      */
@@ -46,8 +46,8 @@ interface MiddlewaresAwareRegistry extends Registry
      * Assigns a given middleware to a specific action. If the action does not exist, an exception will be thrown.
      *
      * @param class-string<Action> $actionName action name for which the middleware will be added
-     * @param Middleware           $middleware middleware to be added
-     * @param int                  $priority   priority of the middleware; the higher the priority, the earlier the middleware will be executed
+     * @param Middleware $middleware middleware to be added
+     * @param int $priority priority of the middleware; the higher the priority, the earlier the middleware will be executed
      *
      * @throws ActionMiddlewareCannotBeAddedException
      *

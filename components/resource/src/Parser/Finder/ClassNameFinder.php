@@ -21,7 +21,8 @@ final readonly class ClassNameFinder implements ClassNameFinderContract
 {
     public function __construct(
         private NodeFinder $nodeFinder,
-    ) {
+    )
+    {
     }
 
     /**
