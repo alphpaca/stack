@@ -1,0 +1,5 @@
+{
+	"require": {
+		"captainhook/captainhook": "^5.23"
+	}
+}
