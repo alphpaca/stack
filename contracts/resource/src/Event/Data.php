@@ -9,15 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Alphpaca\Contracts\Resource\Action\Context;
+namespace Alphpaca\Contracts\Resource\Event;
 
 use Alphpaca\Contracts\Resource\Shared\DataBag\DataBag;
 
 /**
- * A representation of a resource action context.
+ * A representation of an event data.
  *
  * @since 0.1
  */
-interface Context extends DataBag
+interface Data extends DataBag
 {
 }
