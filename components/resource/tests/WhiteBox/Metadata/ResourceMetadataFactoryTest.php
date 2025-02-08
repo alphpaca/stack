@@ -17,9 +17,7 @@ describe('Resource Metadata Factory', function () {
 	covers(ResourceMetadataFactory::class);
 
 	it('factors a resource metadata object from an `AsResource` attribute', function () {
-		$resourceAttribute = mock(AsResource::class);
-		$resourceAttribute->expects('getName')->andReturns('book');
-		$resourceAttribute->expects('getPriority')->andReturns(10);
+		$resourceAttribute = new AsResource(name: 'book', priority: 10);
 
 		$testSubject = new ResourceMetadataFactory();
 		$result = $testSubject->createFromAttribute('\App\Book', $resourceAttribute);

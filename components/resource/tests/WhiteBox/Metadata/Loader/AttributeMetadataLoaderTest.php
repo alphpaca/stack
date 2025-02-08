@@ -37,7 +37,7 @@ describe('Attribute Metadata Loader', function () {
 		$classNameFinder->expects('findFirst')->with(['stmt'])->andReturn('\App\Book');
 
 		$attributeResolver = mock(AttributeResolver::class);
-		$attributeResolver->expects('resolveFirst')->with('\App\Book', AsResource::class)->andReturn($attribute = mock(AsResource::class));
+		$attributeResolver->expects('resolveFirst')->with('\App\Book', AsResource::class)->andReturn($attribute = new AsResource(name: 'dummy'));
 
 		$resourceMetadataFactory = mock(ResourceMetadataFactory::class);
 		$resourceMetadataFactory->expects('createFromAttribute')->with('\App\Book', $attribute)->andReturn($metadata = mock(ResourceMetadata::class));

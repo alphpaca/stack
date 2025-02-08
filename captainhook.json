@@ -11,16 +11,16 @@
         "enabled": true,
         "actions": [
             {
-                "action": "vendor/bin/composer-dependency-analyser"
+              "action": "bin/composer-dependency-analyser"
             },
             {
-                "action": "vendor/bin/php-cs-fixer check"
+              "action": "bin/ecs"
             },
             {
-                "action": "vendor/bin/phpstan analyse"
+              "action": "bin/phpstan analyse"
             },
             {
-                "action": "vendor/bin/pest"
+              "action": "bin/pest"
             }
         ]
     },

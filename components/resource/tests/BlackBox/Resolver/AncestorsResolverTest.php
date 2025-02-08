@@ -24,8 +24,8 @@ describe('Ancestors Resolver', function () {
 		$result = $resolver->resolve(ChildBook::class);
 
 		expect($result)->toBe([
-			GrandparentBook::class => GrandparentBook::class,
 			ParentBook::class => ParentBook::class,
+			GrandparentBook::class => GrandparentBook::class,
 		]);
 	});
 
