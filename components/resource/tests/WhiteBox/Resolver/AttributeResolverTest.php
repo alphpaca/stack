@@ -1,6 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the Apache License 2.0 that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 use Alphpaca\Component\Resource\Resolver\AttributeResolver;
 use Alphpaca\Contracts\Resource\Factory\ClassReflectionFactory;
@@ -13,11 +20,11 @@ describe('Attribute Resolver', function () {
 
     it('resolves first attribute with a given name', function () {
         $classReflectionFactory = mock(ClassReflectionFactory::class);
-        $classReflectionFactory->expects('create')->with('\App\Book')->andReturns($reflection = mock(\ReflectionClass::class));
+	    $classReflectionFactory->expects('create')->with('\App\Book')->andReturns($reflection = mock(ReflectionClass::class));
 
-        $reflection->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([
-            $firstFoundAttribute = mock(\ReflectionAttribute::class),
-            mock(\ReflectionAttribute::class),
+	    $reflection->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([
+		    $firstFoundAttribute = mock(ReflectionAttribute::class),
+		    mock(ReflectionAttribute::class),
         ]);
 
         $firstFoundAttribute->expects('newInstance')->andReturns($object = new stdClass);
@@ -32,9 +39,9 @@ describe('Attribute Resolver', function () {
 
     it('returns null if no attribute is found', function () {
         $classReflectionFactory = mock(ClassReflectionFactory::class);
-        $classReflectionFactory->expects('create')->with('\App\Book')->andReturns($reflection = mock(\ReflectionClass::class));
+	    $classReflectionFactory->expects('create')->with('\App\Book')->andReturns($reflection = mock(ReflectionClass::class));
 
-        $reflection->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([]);
+	    $reflection->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([]);
 
         $testSubject = new AttributeResolver($classReflectionFactory, mock(AncestorsResolver::class));
         $result = $testSubject->resolveFirst('\App\Book', '\App\MyAttribute');
@@ -63,14 +70,14 @@ describe('Attribute Resolver', function () {
         $classReflectionFactory->expects('create')->with('\App\ParentBook')->andReturns($parentBookClass = mock(ReflectionClass::class));
         $classReflectionFactory->expects('create')->with('\App\GrandparentBook')->andReturns($grandparentBookClass = mock(ReflectionClass::class));
 
-        $parentBookClass->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([
-            $parentBookClassResourceAttribute = mock(\ReflectionAttribute::class),
+	    $parentBookClass->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([
+		    $parentBookClassResourceAttribute = mock(ReflectionAttribute::class),
         ]);
 
         $parentBookClassResourceAttribute->expects('newInstance')->andReturns($parentBookClassAttributeObject = new stdClass());
 
-        $grandparentBookClass->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([
-            $grandparentBookClassResourceAttribute = mock(\ReflectionAttribute::class),
+	    $grandparentBookClass->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([
+		    $grandparentBookClassResourceAttribute = mock(ReflectionAttribute::class),
         ]);
 
         $grandparentBookClassResourceAttribute->expects('newInstance')->andReturns($grandparentBookClassAttributeObject = new stdClass());
@@ -93,20 +100,20 @@ describe('Attribute Resolver', function () {
         ]);
 
         $classReflectionFactory = mock(ClassReflectionFactory::class);
-        $classReflectionFactory->expects('create')->with('\App\ParentBook')->andReturns($parentBookClass = mock(\ReflectionClass::class));
-        $classReflectionFactory->expects('create')->with('\App\GrandparentBook')->andReturns($grandparentBookClass = mock(\ReflectionClass::class));
-        $classReflectionFactory->expects('create')->with('\App\GrandGrandparentBook')->andReturns($grandGrandparentBookClass = mock(\ReflectionClass::class));
+	    $classReflectionFactory->expects('create')->with('\App\ParentBook')->andReturns($parentBookClass = mock(ReflectionClass::class));
+	    $classReflectionFactory->expects('create')->with('\App\GrandparentBook')->andReturns($grandparentBookClass = mock(ReflectionClass::class));
+	    $classReflectionFactory->expects('create')->with('\App\GrandGrandparentBook')->andReturns($grandGrandparentBookClass = mock(ReflectionClass::class));
 
-        $parentBookClass->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([
-            $parentBookClassResourceAttribute = mock(\ReflectionAttribute::class),
+	    $parentBookClass->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([
+		    $parentBookClassResourceAttribute = mock(ReflectionAttribute::class),
         ]);
 
         $parentBookClassResourceAttribute->expects('newInstance')->andReturns($parentBookClassAttributeObject = new stdClass());
 
-        $grandparentBookClass->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([]);
+	    $grandparentBookClass->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([]);
 
-        $grandGrandparentBookClass->expects('getAttributes')->with('\App\MyAttribute', \ReflectionAttribute::IS_INSTANCEOF)->andReturns([
-            $grandGrandparentBookClassResourceAttribute = mock(\ReflectionAttribute::class),
+	    $grandGrandparentBookClass->expects('getAttributes')->with('\App\MyAttribute', ReflectionAttribute::IS_INSTANCEOF)->andReturns([
+		    $grandGrandparentBookClassResourceAttribute = mock(ReflectionAttribute::class),
         ]);
 
         $grandGrandparentBookClassResourceAttribute->expects('newInstance')->andReturns($grandGrandparentBookClassAttributeObject = new stdClass());

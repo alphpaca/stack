@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -39,11 +37,11 @@ final class MiddlewaresAwareActionsRegistry implements MiddlewaresAwareRegistry
         $this->decorated->add($name, $resourceAction);
     }
 
-    public function getByName(string $name): ?Action
+	public function getByName(string $name): null|Action
     {
         $action = $this->decorated->getByName($name);
 
-        if (null === $action) {
+	    if ($action === null) {
             return null;
         }
 
@@ -89,7 +87,7 @@ final class MiddlewaresAwareActionsRegistry implements MiddlewaresAwareRegistry
 
     public function addActionMiddleware(string $actionName, Middleware $middleware, int $priority = 0): void
     {
-        if (null === $this->getByName($actionName)) {
+	    if ($this->getByName($actionName) === null) {
             throw new ActionMiddlewareCannotBeAddedException($actionName, $middleware, '"%s" middleware cannot be added, as the "%s" action does not exist.');
         }
 

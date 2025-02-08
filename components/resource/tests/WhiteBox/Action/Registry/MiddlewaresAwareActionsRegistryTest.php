@@ -1,6 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the Apache License 2.0 that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 use Alphpaca\Component\Resource\Action\Context\ContextBag;
 use Alphpaca\Component\Resource\Action\Input\InputBag;
@@ -111,7 +118,7 @@ describe('Middlewares Aware Actions Registry', function () {
             End Default priority 10
             End Action priority 5
             End Default priority -10
-            
+
             OUTPUT
         )->and($result->getText())->toBe('Hello from middleware chain!');
     });

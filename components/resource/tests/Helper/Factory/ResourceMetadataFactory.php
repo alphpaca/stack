@@ -1,6 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the Apache License 2.0 that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace Tests\Alphpaca\Component\Resource\Helper\Factory;
 
@@ -16,7 +23,7 @@ use Tests\Alphpaca\Component\Resource\Helper\Resource\ExampleResource;
  * @method static ResourceMetadataContract withClass(string $class, ResourceMetadataContract $resourceMetadata = null)
  * @method static ResourceMetadataContract withPriority(int $priority, ResourceMetadataContract $resourceMetadata = null)
  */
-class ResourceMetadataFactory
+final class ResourceMetadataFactory
 {
     /** @var array<string> */
     public const array ALLOWED_PROPERTIES = ['name', 'source', 'sourceType', 'class', 'priority'];
@@ -64,7 +71,7 @@ class ResourceMetadataFactory
         throw new \BadMethodCallException(sprintf('Call to undefined method %s::%s()', self::class, $name));
     }
 
-    private static function withProperty(string $property, mixed $value, ?ResourceMetadataContract $resourceMetadata = null): ResourceMetadataContract
+	private static function withProperty(string $property, mixed $value, null|ResourceMetadataContract $resourceMetadata = null): ResourceMetadataContract
     {
         $existingProperties = $resourceMetadata ? self::getPropertiesWithValues($resourceMetadata) : [];
         $existingProperties[$property] = $value;

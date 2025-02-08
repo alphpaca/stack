@@ -1,6 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the Apache License 2.0 that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 use Alphpaca\Component\Resource\Metadata\Merger\DefaultMerger;
 use Alphpaca\Component\Resource\Metadata\Registry\DefaultMetadataRegistry;
@@ -69,10 +76,10 @@ describe('Default Metadata Registry', function () {
         $registry->add($ultraDummy);
 
         expect($registry->getByName('app_dummy'))->toMatchObject([
+	        'class' => UltraDummy::class,
             'name' => 'app_dummy',
             'source' => DefaultMerger::class,
             'sourceType' => MetadataSourceType::MERGING,
-            'class' => UltraDummy::class,
         ]);
     });
 });

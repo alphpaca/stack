@@ -1,6 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the Apache License 2.0 that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 use Alphpaca\Component\Resource\Metadata\Merger\DefaultMerger;
 use Alphpaca\Contracts\Resource\Metadata\Merger\Exception\ResourceMetadataObjectsMergingException;
@@ -80,11 +87,11 @@ describe('Default Merger', function () {
 
         expect($mergingResult)->not->toBe($dummyResource)
             ->and($mergingResult)->toMatchObject([
-                'name' => 'app_dummy',
                 'class' => SuperDummyResource::class,
+		        'name' => 'app_dummy',
+		        'priority' => 10,
                 'source' => DefaultMerger::class,
                 'sourceType' => MetadataSourceType::MERGING,
-                'priority' => 10,
             ])
         ;
     });

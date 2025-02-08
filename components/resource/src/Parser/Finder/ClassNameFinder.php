@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -28,11 +26,11 @@ final readonly class ClassNameFinder implements ClassNameFinderContract
     /**
      * @param array<Stmt> $nodes
      */
-    public function findFirst(array $nodes): ?string
+	public function findFirst(array $nodes): null|string
     {
         $class = $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Class_::class);
 
-        if (null === $class || null === $class->name) {
+	    if ($class === null || $class->name === null) {
             return null;
         }
 
@@ -45,7 +43,7 @@ final readonly class ClassNameFinder implements ClassNameFinderContract
     /**
      * @param array<Stmt> $nodes
      */
-    private function findNamespace(array $nodes): ?string
+	private function findNamespace(array $nodes): null|string
     {
         return $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Namespace_::class)->name->name ?? null;
     }

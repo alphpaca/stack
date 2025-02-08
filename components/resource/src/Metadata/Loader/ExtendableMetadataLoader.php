@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -29,11 +27,11 @@ final class ExtendableMetadataLoader implements ExtendableResourceMetadataLoader
     {
     }
 
-    public function loadFromFile(string $path): ?ResourceMetadata
+	public function loadFromFile(string $path): null|ResourceMetadata
     {
         $resourceMetadata = $this->baseLoader->loadFromFile($path);
 
-        if (null === $resourceMetadata) {
+	    if ($resourceMetadata === null) {
             return null;
         }
 

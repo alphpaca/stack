@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -42,7 +40,7 @@ final class DefaultMetadataRegistry implements Registry
         $this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
     }
 
-    public function getByName(string $name): ?ResourceMetadata
+	public function getByName(string $name): null|ResourceMetadata
     {
         if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
             return null;

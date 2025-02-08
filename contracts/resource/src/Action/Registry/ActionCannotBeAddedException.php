@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,7 +18,7 @@ use Alphpaca\Contracts\Resource\Action\Action;
  *
  * @since 0.1
  */
-class ActionCannotBeAddedException extends \RuntimeException
+final class ActionCannotBeAddedException extends \RuntimeException
 {
     /**
      * @param string $actionName action name which cannot be added
@@ -34,7 +32,7 @@ class ActionCannotBeAddedException extends \RuntimeException
         private readonly Action $action,
         string                  $message = 'Action "%s" cannot be added to the registry.',
         int                     $code = 0,
-        ?\Throwable             $previous = null,
+        null|\Throwable $previous = null,
     )
     {
         parent::__construct(

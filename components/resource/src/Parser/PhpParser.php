@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -35,7 +33,7 @@ final readonly class PhpParser implements PhpParserContract
     {
         $statements = $this->parser->parse($code);
 
-        if (null === $statements) {
+	    if ($statements === null) {
             throw new ParsingException();
         }
 

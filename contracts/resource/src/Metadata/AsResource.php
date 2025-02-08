@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -14,7 +12,7 @@ declare(strict_types=1);
 namespace Alphpaca\Contracts\Resource\Metadata;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
-class AsResource
+final class AsResource
 {
     /**
      * Constructs a new `AsResource` attribute.

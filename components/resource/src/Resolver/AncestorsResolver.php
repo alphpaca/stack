@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -22,7 +20,7 @@ final readonly class AncestorsResolver implements AncestorsResolverContract
     {
         $result = class_parents($class);
 
-        if (false === $result) {
+	    if ($result === false) {
             throw new ResolvingException(sprintf('Could not resolve ancestors for class "%s".', $class));
         }
 

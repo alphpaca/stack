@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,7 +18,7 @@ use Alphpaca\Contracts\Resource\Action\Middleware;
  *
  * @since 0.1
  */
-class ActionMiddlewareCannotBeAddedException extends \RuntimeException
+final class ActionMiddlewareCannotBeAddedException extends \RuntimeException
 {
 	/**
 	 * @param string $actionName action name which cannot be added
@@ -34,7 +32,7 @@ class ActionMiddlewareCannotBeAddedException extends \RuntimeException
 		Middleware  $middleware,
 		string      $message = '"%s" middleware cannot be added for the "%s" action.',
 		int         $code = 0,
-		?\Throwable $previous = null,
+		null|\Throwable $previous = null,
 	)
 	{
 		parent::__construct(

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -39,7 +37,7 @@ final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
     {
     }
 
-    public function loadFromFile(string $path): ?ResourceMetadata
+	public function loadFromFile(string $path): null|ResourceMetadata
     {
         if (!$this->supports($path)) {
             throw new ResourceMetadataLoadingException(sprintf('File "%s" is not supported by this loader.', $path));
@@ -50,13 +48,13 @@ final readonly class AttributeMetadataLoader implements ResourceMetadataLoader
         /** @var class-string<Resource<Identity<int|string>>>|null $className */
         $className = $this->classNameFinder->findFirst($ast);
 
-        if (null === $className) {
+	    if ($className === null) {
             return null;
         }
 
         $resolvedResourceAttribute = $this->attributeResolver->resolveFirst($className, AsResource::class);
 
-        if (null === $resolvedResourceAttribute) {
+	    if ($resolvedResourceAttribute === null) {
             return null;
         }
 

@@ -1,5 +1,6 @@
 {
 	"require": {
+		"slevomat/coding-standard": "^8.15",
 		"symplify/easy-coding-standard": "^12.5"
 	}
 }

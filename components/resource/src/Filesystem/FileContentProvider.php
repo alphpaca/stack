@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -34,7 +32,7 @@ final readonly class FileContentProvider implements FileContentProviderContract
 
         $content = file_get_contents($path);
 
-        if (false === $content) {
+	    if ($content === false) {
             throw new FileCannotBeReadException(sprintf('File "%s" cannot be read.', $path));
         }
 

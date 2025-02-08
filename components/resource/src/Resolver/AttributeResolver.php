@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -48,7 +46,7 @@ final readonly class AttributeResolver implements AttributeResolverContract
 
         $foundAttributes = $reflectedClass->getAttributes($attributeName, \ReflectionAttribute::IS_INSTANCEOF);
 
-        if (0 === count($foundAttributes)) {
+	    if (count($foundAttributes) === 0) {
             return null;
         }
 
@@ -65,7 +63,7 @@ final readonly class AttributeResolver implements AttributeResolverContract
         foreach ($ancestors as $ancestor) {
             $resolvedAncestorAttribute = $this->resolveFirst($ancestor, $attributeName);
 
-            if (null === $resolvedAncestorAttribute) {
+	        if ($resolvedAncestorAttribute === null) {
                 continue;
             }
 
