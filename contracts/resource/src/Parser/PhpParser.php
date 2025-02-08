@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -22,14 +20,14 @@ use Alphpaca\Contracts\Resource\Parser\Exception\ParsingException;
  */
 interface PhpParser
 {
-    /**
-     * Parses a given PHP code into an AST. If the code cannot be parsed, an exception will be thrown.
-     *
-     * @return array<mixed>
-     *
-     * @throws ParsingException
-     *
-     * @since v0.1
-     */
-    public function parse(string $code): array;
+	/**
+	 * Parses a given PHP code into an AST. If the code cannot be parsed, an exception will be thrown.
+	 *
+	 * @return array<mixed>
+	 *
+	 * @throws ParsingException
+	 *
+	 * @since v0.1
+	 */
+	public function parse(string $code): array;
 }

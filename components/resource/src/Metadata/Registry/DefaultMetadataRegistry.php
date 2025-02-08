@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -19,44 +17,45 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
 
 final class DefaultMetadataRegistry implements Registry
 {
-    /** @var array<string, EntriesCollection> */
-    private array $resourceNameToMetadataMap = [];
+	/** @var array<string, EntriesCollection> */
+	private array $resourceNameToMetadataMap = [];
 
-    public function __construct(
-        private readonly Merger $resourceMetadataMerger,
-    ) {
-    }
+	public function __construct(
+		private readonly Merger $resourceMetadataMerger,
+	)
+	{
+	}
 
-    public function add(ResourceMetadata $resourceMetadata): void
-    {
-        $name = $resourceMetadata->getName();
+	public function add(ResourceMetadata $resourceMetadata): void
+	{
+		$name = $resourceMetadata->getName();
 
-        if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
-            $this->resourceNameToMetadataMap[$name] = new EntriesCollection();
-            $this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
+		if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
+			$this->resourceNameToMetadataMap[$name] = new EntriesCollection();
+			$this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
 
-            return;
-        }
+			return;
+		}
 
-        $this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
-    }
+		$this->resourceNameToMetadataMap[$name]->insert($resourceMetadata, $resourceMetadata->getPriority());
+	}
 
-    public function getByName(string $name): ?ResourceMetadata
-    {
-        if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
-            return null;
-        }
+	public function getByName(string $name): null|ResourceMetadata
+	{
+		if (!array_key_exists($name, $this->resourceNameToMetadataMap)) {
+			return null;
+		}
 
-        $map = $this->resourceNameToMetadataMap[$name];
-        assert(!$map->isEmpty()); // @pest-mutate-ignore
+		$map = $this->resourceNameToMetadataMap[$name];
+		assert(!$map->isEmpty()); // @pest-mutate-ignore
 
-        $result = $map->extract();
-        assert($result instanceof ResourceMetadata); // @pest-mutate-ignore
+		$result = $map->extract();
+		assert($result instanceof ResourceMetadata); // @pest-mutate-ignore
 
-        foreach ($map as $resourceMetadata) {
-            $result = $this->resourceMetadataMerger->merge($result, $resourceMetadata);
-        }
+		foreach ($map as $resourceMetadata) {
+			$result = $this->resourceMetadataMerger->merge($result, $resourceMetadata);
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 }

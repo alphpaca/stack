@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,8 +18,8 @@ namespace Alphpaca\Contracts\Resource;
  */
 interface Resource
 {
-    /**
-     * @phpstan-return TIdentity
-     */
-    public function getIdentity(): Identity;
+	/**
+	 * @phpstan-return TIdentity
+	 */
+	public function getIdentity(): Identity;
 }

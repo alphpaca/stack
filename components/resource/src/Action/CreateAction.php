@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -21,8 +19,8 @@ use Alphpaca\Contracts\Resource\Action\Result;
 
 class CreateAction implements Action
 {
-    public function __invoke(Input $input, Context $context): Result
-    {
-        return new SuccessResult();
-    }
+	public function __invoke(Input $input, Context $context): Result
+	{
+		return new SuccessResult();
+	}
 }

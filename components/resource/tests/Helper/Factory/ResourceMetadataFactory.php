@@ -1,6 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the Apache License 2.0 that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace Tests\Alphpaca\Component\Resource\Helper\Factory;
 
@@ -16,77 +23,77 @@ use Tests\Alphpaca\Component\Resource\Helper\Resource\ExampleResource;
  * @method static ResourceMetadataContract withClass(string $class, ResourceMetadataContract $resourceMetadata = null)
  * @method static ResourceMetadataContract withPriority(int $priority, ResourceMetadataContract $resourceMetadata = null)
  */
-class ResourceMetadataFactory
+final class ResourceMetadataFactory
 {
-    /** @var array<string> */
-    public const array ALLOWED_PROPERTIES = ['name', 'source', 'sourceType', 'class', 'priority'];
+	/** @var array<string> */
+	public const array ALLOWED_PROPERTIES = ['name', 'source', 'sourceType', 'class', 'priority'];
 
-    public static function example(mixed ...$args): ResourceMetadataContract
-    {
+	public static function example(mixed ...$args): ResourceMetadataContract
+	{
 
 
-        $args['name'] ??= 'app_example';
-        $args['source'] ??= ExampleResource::class;
-        $args['sourceType'] ??= MetadataSourceType::ATTRIBUTE;
-        $args['class'] ??= ExampleResource::class;
-        $args['priority'] ??= 0;
+		$args['name'] ??= 'app_example';
+		$args['source'] ??= ExampleResource::class;
+		$args['sourceType'] ??= MetadataSourceType::ATTRIBUTE;
+		$args['class'] ??= ExampleResource::class;
+		$args['priority'] ??= 0;
 
-        return new ResourceMetadata(...$args);
-    }
+		return new ResourceMetadata(...$args);
+	}
 
-    public static function __callStatic(string $name, array $arguments)
-    {
-        if (str_starts_with($name, 'with')) {
-            $propertyName = lcfirst(substr($name, 4));
+	public static function __callStatic(string $name, array $arguments)
+	{
+		if (str_starts_with($name, 'with')) {
+			$propertyName = lcfirst(substr($name, 4));
 
-            if (empty($propertyName)) {
-                throw new \InvalidArgumentException('Invalid property name: property name cannot be empty');
-            }
+			if (empty($propertyName)) {
+				throw new \InvalidArgumentException('Invalid property name: property name cannot be empty');
+			}
 
-            if (empty($arguments)) {
-                throw new \InvalidArgumentException(sprintf('No value provided for property "%s"', $propertyName));
-            }
+			if (empty($arguments)) {
+				throw new \InvalidArgumentException(sprintf('No value provided for property "%s"', $propertyName));
+			}
 
-            if (!in_array($propertyName, self::ALLOWED_PROPERTIES, true)) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Invalid property "%s". Allowed properties: %s',
-                    $propertyName,
-                    implode(', ', self::ALLOWED_PROPERTIES),
-                ));
-            }
+			if (!in_array($propertyName, self::ALLOWED_PROPERTIES, true)) {
+				throw new \InvalidArgumentException(sprintf(
+					'Invalid property "%s". Allowed properties: %s',
+					$propertyName,
+					implode(', ', self::ALLOWED_PROPERTIES),
+				));
+			}
 
-            $value = $arguments[0] ?? null;
-            $resourceMetadata = $arguments[1] ?? null;
+			$value = $arguments[0] ?? null;
+			$resourceMetadata = $arguments[1] ?? null;
 
-            return self::withProperty($propertyName, $value, $resourceMetadata);
-        }
+			return self::withProperty($propertyName, $value, $resourceMetadata);
+		}
 
-        throw new \BadMethodCallException(sprintf('Call to undefined method %s::%s()', self::class, $name));
-    }
+		throw new \BadMethodCallException(sprintf('Call to undefined method %s::%s()', self::class, $name));
+	}
 
-    private static function withProperty(string $property, mixed $value, ?ResourceMetadataContract $resourceMetadata = null): ResourceMetadataContract
-    {
-        $existingProperties = $resourceMetadata ? self::getPropertiesWithValues($resourceMetadata) : [];
-        $existingProperties[$property] = $value;
+	private static function withProperty(string $property, mixed $value, null|ResourceMetadataContract $resourceMetadata = null): ResourceMetadataContract
+	{
+		$existingProperties = $resourceMetadata ? self::getPropertiesWithValues($resourceMetadata) : [];
+		$existingProperties[$property] = $value;
 
-        return self::example(...$existingProperties);
-    }
+		return self::example(...$existingProperties);
+	}
 
-    private static function getPropertiesWithValues(ResourceMetadataContract $resourceMetadata): array
-    {
-        $result = [];
-        $reflection = new \ReflectionClass($resourceMetadata);
+	private static function getPropertiesWithValues(ResourceMetadataContract $resourceMetadata): array
+	{
+		$result = [];
+		$reflection = new \ReflectionClass($resourceMetadata);
 
-        $properties = $reflection->getProperties();
+		$properties = $reflection->getProperties();
 
-        foreach ($properties as $property) {
-            if (!$property->isPublic()) {
-                continue;
-            }
+		foreach ($properties as $property) {
+			if (!$property->isPublic()) {
+				continue;
+			}
 
-            $result[$property->getName()] = $property->getValue($resourceMetadata);
-        }
+			$result[$property->getName()] = $property->getValue($resourceMetadata);
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 }

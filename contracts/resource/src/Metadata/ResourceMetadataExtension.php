@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,10 +18,10 @@ namespace Alphpaca\Contracts\Resource\Metadata;
  */
 interface ResourceMetadataExtension
 {
-    /**
-     * Manipulates a loaded resource metadata.
-     *
-     * @since 0.1
-     */
-    public function extend(ResourceMetadata $loadedMetadata): void;
+	/**
+	 * Manipulates a loaded resource metadata.
+	 *
+	 * @since 0.1
+	 */
+	public function extend(ResourceMetadata $loadedMetadata): void;
 }

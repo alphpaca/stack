@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,10 +18,10 @@ namespace Alphpaca\Contracts\Resource\Filesystem;
  */
 interface FileExistenceChecker
 {
-    /**
-     * Returns true if the given file exists, false otherwise.
-     *
-     * @since v0.1
-     */
-    public function exists(string $path): bool;
+	/**
+	 * Returns true if the given file exists, false otherwise.
+	 *
+	 * @since v0.1
+	 */
+	public function exists(string $path): bool;
 }

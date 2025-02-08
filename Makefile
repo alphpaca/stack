@@ -1,24 +1,24 @@
 cs.check:
-	@PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer check
+	@PHP_CS_FIXER_IGNORE_ENV=true bin/ecs
 
 cs.fix:
-	@PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer fix
+	@PHP_CS_FIXER_IGNORE_ENV=true bin/ecs --fix
 
 ci:
-	@vendor/bin/composer-dependency-analyser
+	@bin/composer-dependency-analyser
 	@make cs.check
-	@vendor/bin/phpstan analyse
+	@bin/phpstan analyse
 	@echo "Architecture tests:"
-	@vendor/bin/pest tests/Architecture.php --compact
+	@bin/pest tests/Architecture.php --compact
 	@echo "Pest tests:"
-	@vendor/bin/pest --compact
+	@bin/pest --compact
 	@echo "Coverage tests:"
-	@XDEBUG_MODE=coverage vendor/bin/pest --coverage --min=90 --compact
+	@XDEBUG_MODE=coverage bin/pest --coverage --min=90 --compact
 	@echo "Mutating tests:"
-	@XDEBUG_MODE=coverage vendor/bin/pest --mutate --min=80 --compact
+	@XDEBUG_MODE=coverage bin/pest --mutate --min=80 --compact
 
 mono.merge:
-	@vendor/bin/monorepo-builder merge
+	@bin/monorepo-builder merge
 	@composer update
 
 ssh:

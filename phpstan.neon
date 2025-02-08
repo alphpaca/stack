@@ -1,5 +1,5 @@
 includes:
-    - vendor/phpstan/phpstan-mockery/extension.neon
+    - tools/phpstan/vendor/phpstan/phpstan-mockery/extension.neon
 
 parameters:
     level: 8

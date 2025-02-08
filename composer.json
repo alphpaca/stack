@@ -1,50 +1,58 @@
 {
-    "name": "alphpaca/stack",
-    "description": "Set of framework-agnostic PHP components for your project",
-    "license": "MIT",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Jacob Tobiasz",
-            "email": "jacob@alphpaca.io"
-        }
-    ],
-    "require": {
-        "php": "^8.3",
-        "nikic/php-parser": "^5.0"
-    },
-    "require-dev": {
-        "alphpaca/monocle-constraint": "^0.1.2",
-        "captainhook/captainhook": "^5.23",
-        "friendsofphp/php-cs-fixer": "^3.57",
-        "mockery/mockery": "^1.6",
-        "pestphp/pest": "^3.2",
-        "phpstan/phpstan": "^2.0",
-        "phpstan/phpstan-mockery": "^2.0",
-        "shipmonk/composer-dependency-analyser": "^1.5",
-        "symplify/monorepo-builder": "^11.2"
-    },
-    "replace": {
-        "alphpaca/contracts-resource": "self.version",
-        "alphpaca/resource": "self.version"
-    },
-    "autoload": {
-        "psr-4": {
-            "Alphpaca\\Component\\Resource\\": "components/resource/src/",
-            "Alphpaca\\Contracts\\Resource\\": "contracts/resource/src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests",
-            "Tests\\Alphpaca\\Component\\Resource\\": "components/resource/tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "alphpaca/monocle-constraint": true,
-            "pestphp/pest-plugin": true
-        },
-        "sort-packages": true
-    }
+	"name": "alphpaca/stack",
+	"description": "Set of framework-agnostic PHP components for your project",
+	"license": "MIT",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Jacob Tobiasz",
+			"email": "jacob@alphpaca.io"
+		}
+	],
+	"require": {
+		"php": "^8.3",
+		"nikic/php-parser": "^5.0"
+	},
+	"require-dev": {
+		"mockery/mockery": "^1.6",
+		"pestphp/pest": "^3.2"
+	},
+	"replace": {
+		"alphpaca/contracts-resource": "self.version",
+		"alphpaca/resource": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"Alphpaca\\Component\\Resource\\": "components/resource/src/",
+			"Alphpaca\\Contracts\\Resource\\": "contracts/resource/src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests",
+			"Tests\\Alphpaca\\Component\\Resource\\": "components/resource/tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"@composer install --working-dir=tools/captainhook",
+			"@composer install --working-dir=tools/composer-dependency-analyser",
+			"@composer install --working-dir=tools/easy-coding-standard",
+			"@composer install --working-dir=tools/monorepo-builder",
+			"@composer install --working-dir=tools/phpstan"
+		],
+		"post-update-cmd": [
+			"@composer update --working-dir=tools/captainhook",
+			"@composer update --working-dir=tools/composer-dependency-analyser",
+			"@composer update --working-dir=tools/easy-coding-standard",
+			"@composer update --working-dir=tools/monorepo-builder",
+			"@composer update --working-dir=tools/phpstan"
+		]
+	}
 }

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,12 +18,12 @@ namespace Alphpaca\Contracts\Resource\Action;
  */
 interface Result
 {
-    /**
-     * Returns whether the result is successful.
-     *
-     * @return bool whether the result is successful
-     *
-     * @since 0.1
-     */
-    public function isSuccessful(): bool;
+	/**
+	 * Returns whether the result is successful.
+	 *
+	 * @return bool whether the result is successful
+	 *
+	 * @since 0.1
+	 */
+	public function isSuccessful(): bool;
 }

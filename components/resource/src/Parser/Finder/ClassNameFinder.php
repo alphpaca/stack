@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -19,33 +17,34 @@ use PhpParser\NodeFinder;
 
 final readonly class ClassNameFinder implements ClassNameFinderContract
 {
-    public function __construct(
-        private NodeFinder $nodeFinder,
-    ) {
-    }
+	public function __construct(
+		private NodeFinder $nodeFinder,
+	)
+	{
+	}
 
-    /**
-     * @param array<Stmt> $nodes
-     */
-    public function findFirst(array $nodes): ?string
-    {
-        $class = $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Class_::class);
+	/**
+	 * @param array<Stmt> $nodes
+	 */
+	public function findFirst(array $nodes): null|string
+	{
+		$class = $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Class_::class);
 
-        if (null === $class || null === $class->name) {
-            return null;
-        }
+		if ($class === null || $class->name === null) {
+			return null;
+		}
 
-        /** @var class-string $foundClassName */
-        $foundClassName = $class->namespacedName->name ?? implode('\\', [$this->findNamespace($nodes), $class->name->name]);
+		/** @var class-string $foundClassName */
+		$foundClassName = $class->namespacedName->name ?? implode('\\', [$this->findNamespace($nodes), $class->name->name]);
 
-        return $foundClassName;
-    }
+		return $foundClassName;
+	}
 
-    /**
-     * @param array<Stmt> $nodes
-     */
-    private function findNamespace(array $nodes): ?string
-    {
-        return $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Namespace_::class)->name->name ?? null;
-    }
+	/**
+	 * @param array<Stmt> $nodes
+	 */
+	private function findNamespace(array $nodes): null|string
+	{
+		return $this->nodeFinder->findFirstInstanceOf($nodes, Stmt\Namespace_::class)->name->name ?? null;
+	}
 }

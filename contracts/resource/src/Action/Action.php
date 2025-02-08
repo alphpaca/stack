@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -23,15 +21,15 @@ use Alphpaca\Contracts\Resource\Action\Input\Input;
  */
 interface Action
 {
-    /**
-     * Performs the action.
-     *
-     * @param Input   $input   additional data passed to the action
-     * @param Context $context the context of the action
-     *
-     * @return Result the result of the action
-     *
-     * @since 0.1
-     */
-    public function __invoke(Input $input, Context $context): Result;
+	/**
+	 * Performs the action.
+	 *
+	 * @param Input $input additional data passed to the action
+	 * @param Context $context the context of the action
+	 *
+	 * @return Result the result of the action
+	 *
+	 * @since 0.1
+	 */
+	public function __invoke(Input $input, Context $context): Result;
 }

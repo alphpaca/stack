@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -22,102 +20,103 @@ use Alphpaca\Contracts\Resource\Action\Registry\Registry;
 
 final class MiddlewaresAwareActionsRegistry implements MiddlewaresAwareRegistry
 {
-    private MiddlewaresCollection $defaultMiddlewares;
+	private MiddlewaresCollection $defaultMiddlewares;
 
-    /** @var array<string, MiddlewaresCollection> */
-    private array $middlewares = [];
+	/** @var array<string, MiddlewaresCollection> */
+	private array $middlewares = [];
 
-    public function __construct(
-        private readonly Registry $decorated,
-    ) {
-        $this->defaultMiddlewares = new MiddlewaresCollection();
-    }
+	public function __construct(
+		private readonly Registry $decorated,
+	)
+	{
+		$this->defaultMiddlewares = new MiddlewaresCollection();
+	}
 
-    public function add(string $name, Action $resourceAction): void
-    {
-        $this->decorated->add($name, $resourceAction);
-    }
+	public function add(string $name, Action $resourceAction): void
+	{
+		$this->decorated->add($name, $resourceAction);
+	}
 
-    public function getByName(string $name): ?Action
-    {
-        $action = $this->decorated->getByName($name);
+	public function getByName(string $name): null|Action
+	{
+		$action = $this->decorated->getByName($name);
 
-        if (null === $action) {
-            return null;
-        }
+		if ($action === null) {
+			return null;
+		}
 
-        $middlewares = new MiddlewaresCollection();
+		$middlewares = new MiddlewaresCollection();
 
-        foreach ($this->getDefaultMiddlewares() as $middleware) {
-            $middlewares->insert($middleware['middleware'], $middleware['priority']);
-        }
+		foreach ($this->getDefaultMiddlewares() as $middleware) {
+			$middlewares->insert($middleware['middleware'], $middleware['priority']);
+		}
 
-        foreach ($this->getActionMiddlewares($name) as $middleware) {
-            $middlewares->insert($middleware['middleware'], $middleware['priority']);
-        }
+		foreach ($this->getActionMiddlewares($name) as $middleware) {
+			$middlewares->insert($middleware['middleware'], $middleware['priority']);
+		}
 
-        return new MiddlewareChainAction($action, ...$middlewares);
-    }
+		return new MiddlewareChainAction($action, ...$middlewares);
+	}
 
-    public function addDefaultMiddleware(Middleware $middleware, int $priority = 0): void
-    {
-        $this->defaultMiddlewares->insert($middleware, $priority);
-    }
+	public function addDefaultMiddleware(Middleware $middleware, int $priority = 0): void
+	{
+		$this->defaultMiddlewares->insert($middleware, $priority);
+	}
 
-    public function getDefaultMiddlewares(): array
-    {
-        $queue = clone $this->defaultMiddlewares;
-        $queue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
+	public function getDefaultMiddlewares(): array
+	{
+		$queue = clone $this->defaultMiddlewares;
+		$queue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
 
-        $result = [];
+		$result = [];
 
-        /**
-         * @var array{data: Middleware, priority: int} $item
-         *
-         * @phpstan-ignore varTag.nativeType
-         */
-        foreach ($queue as $item) {
-            $result[] = [
-                'middleware' => $item['data'],
-                'priority' => $item['priority'],
-            ];
-        }
+		/**
+		 * @var array{data: Middleware, priority: int} $item
+		 *
+		 * @phpstan-ignore varTag.nativeType
+		 */
+		foreach ($queue as $item) {
+			$result[] = [
+				'middleware' => $item['data'],
+				'priority' => $item['priority'],
+			];
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 
-    public function addActionMiddleware(string $actionName, Middleware $middleware, int $priority = 0): void
-    {
-        if (null === $this->getByName($actionName)) {
-            throw new ActionMiddlewareCannotBeAddedException($actionName, $middleware, '"%s" middleware cannot be added, as the "%s" action does not exist.');
-        }
+	public function addActionMiddleware(string $actionName, Middleware $middleware, int $priority = 0): void
+	{
+		if ($this->getByName($actionName) === null) {
+			throw new ActionMiddlewareCannotBeAddedException($actionName, $middleware, '"%s" middleware cannot be added, as the "%s" action does not exist.');
+		}
 
-        if (!isset($this->middlewares[$actionName])) {
-            $this->middlewares[$actionName] = new MiddlewaresCollection();
-        }
+		if (!isset($this->middlewares[$actionName])) {
+			$this->middlewares[$actionName] = new MiddlewaresCollection();
+		}
 
-        $this->middlewares[$actionName]->insert($middleware, $priority);
-    }
+		$this->middlewares[$actionName]->insert($middleware, $priority);
+	}
 
-    public function getActionMiddlewares(string $actionName): array
-    {
-        if (!isset($this->middlewares[$actionName])) {
-            return [];
-        }
+	public function getActionMiddlewares(string $actionName): array
+	{
+		if (!isset($this->middlewares[$actionName])) {
+			return [];
+		}
 
-        $queue = clone $this->middlewares[$actionName];
-        $queue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
+		$queue = clone $this->middlewares[$actionName];
+		$queue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
 
-        $result = [];
+		$result = [];
 
-        /** @var array{data: Middleware, priority: int} $item */
-        foreach ($queue as $item) {
-            $result[] = [
-                'middleware' => $item['data'],
-                'priority' => $item['priority'],
-            ];
-        }
+		/** @var array{data: Middleware, priority: int} $item */
+		foreach ($queue as $item) {
+			$result[] = [
+				'middleware' => $item['data'],
+				'priority' => $item['priority'],
+			];
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 }

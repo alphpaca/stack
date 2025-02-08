@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -17,8 +15,8 @@ use Alphpaca\Contracts\Resource\Action\Result;
 
 readonly class NotFoundResult implements Result
 {
-    public function isSuccessful(): bool
-    {
-        return false;
-    }
+	public function isSuccessful(): bool
+	{
+		return false;
+	}
 }

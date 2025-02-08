@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -23,13 +21,13 @@ use Alphpaca\Contracts\Resource\Filesystem\Exception\FileCannotBeReadException;
  */
 interface FileContentProvider
 {
-    /**
-     * Returns the content of a given file. If the file cannot be found, an exception will be thrown.
-     *
-     * @throws FileCannotBeFoundException if the file cannot be found
-     * @throws FileCannotBeReadException  if the file cannot be read
-     *
-     * @since v0.1
-     */
-    public function provide(string $path): string;
+	/**
+	 * Returns the content of a given file. If the file cannot be found, an exception will be thrown.
+	 *
+	 * @throws FileCannotBeFoundException if the file cannot be found
+	 * @throws FileCannotBeReadException  if the file cannot be read
+	 *
+	 * @since v0.1
+	 */
+	public function provide(string $path): string;
 }

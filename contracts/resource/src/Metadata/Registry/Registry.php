@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -22,15 +20,15 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
  */
 interface Registry
 {
-    /**
-     * Adds a resource metadata to the registry.
-     *
-     * @since 0.1
-     */
-    public function add(ResourceMetadata $resourceMetadata): void;
+	/**
+	 * Adds a resource metadata to the registry.
+	 *
+	 * @since 0.1
+	 */
+	public function add(ResourceMetadata $resourceMetadata): void;
 
-    /**
-     * Returns a resource metadata matching the given name. If no resource metadata is found, returns null.
-     */
-    public function getByName(string $name): ?ResourceMetadata;
+	/**
+	 * Returns a resource metadata matching the given name. If no resource metadata is found, returns null.
+	 */
+	public function getByName(string $name): null|ResourceMetadata;
 }

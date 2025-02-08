@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -18,12 +16,12 @@ use Alphpaca\Contracts\Resource\Factory\Exception\ClassCannotBeReflectedExceptio
 
 final class ClassReflectionFactory implements ClassReflectionFactoryContract
 {
-    public function create(string $className): \ReflectionClass
-    {
-        if (!class_exists($className)) {
-            throw new ClassCannotBeReflectedException(sprintf('Class "%s" does not exist.', $className));
-        }
+	public function create(string $className): \ReflectionClass
+	{
+		if (!class_exists($className)) {
+			throw new ClassCannotBeReflectedException(sprintf('Class "%s" does not exist.', $className));
+		}
 
-        return new \ReflectionClass($className);
-    }
+		return new \ReflectionClass($className);
+	}
 }

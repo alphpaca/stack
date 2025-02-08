@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -22,12 +20,12 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataExtension;
  */
 interface ExtendableResourceMetadataLoader extends ResourceMetadataLoader
 {
-    /**
-     * Adds a resource metadata extension to the loader.
-     *
-     * The extension will be used to extend the resource metadata once it is loaded.
-     *
-     * @since 0.1
-     */
-    public function addExtension(ResourceMetadataExtension $extension): void;
+	/**
+	 * Adds a resource metadata extension to the loader.
+	 *
+	 * The extension will be used to extend the resource metadata once it is loaded.
+	 *
+	 * @since 0.1
+	 */
+	public function addExtension(ResourceMetadataExtension $extension): void;
 }

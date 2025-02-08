@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -20,10 +18,10 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadata;
  *
  * @extends \SplPriorityQueue<int, ResourceMetadata>
  */
-class EntriesCollection extends \SplPriorityQueue
+final class EntriesCollection extends \SplPriorityQueue
 {
-    public function compare(mixed $priority1, mixed $priority2): int
-    {
-        return $priority2 - $priority1;
-    }
+	public function compare(mixed $priority1, mixed $priority2): int
+	{
+		return $priority2 - $priority1;
+	}
 }

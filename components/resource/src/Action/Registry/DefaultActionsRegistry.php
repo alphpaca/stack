@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -19,20 +17,20 @@ use Alphpaca\Contracts\Resource\Action\Registry\Registry;
 
 final class DefaultActionsRegistry implements Registry
 {
-    /** @var array<string, Action> */
-    private array $actions = [];
+	/** @var array<string, Action> */
+	private array $actions = [];
 
-    public function add(string $name, Action $resourceAction): void
-    {
-        if (isset($this->actions[$name])) {
-            throw new ActionCannotBeAddedException($name, $resourceAction, 'Action "%s" cannot be added to the registry as the action with the same name already exists.');
-        }
+	public function add(string $name, Action $resourceAction): void
+	{
+		if (isset($this->actions[$name])) {
+			throw new ActionCannotBeAddedException($name, $resourceAction, 'Action "%s" cannot be added to the registry as the action with the same name already exists.');
+		}
 
-        $this->actions[$name] = $resourceAction;
-    }
+		$this->actions[$name] = $resourceAction;
+	}
 
-    public function getByName(string $name): ?Action
-    {
-        return $this->actions[$name] ?? null;
-    }
+	public function getByName(string $name): null|Action
+	{
+		return $this->actions[$name] ?? null;
+	}
 }

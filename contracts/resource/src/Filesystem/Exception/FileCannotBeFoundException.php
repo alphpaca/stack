@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -16,6 +14,6 @@ namespace Alphpaca\Contracts\Resource\Filesystem\Exception;
 /**
  * @since 0.1
  */
-class FileCannotBeFoundException extends \RuntimeException
+final class FileCannotBeFoundException extends \RuntimeException
 {
 }

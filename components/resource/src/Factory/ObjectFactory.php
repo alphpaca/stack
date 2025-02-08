@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
@@ -18,12 +16,12 @@ use Alphpaca\Contracts\Resource\Factory\ObjectFactory as ObjectFactoryContract;
 
 final readonly class ObjectFactory implements ObjectFactoryContract
 {
-    public function create(string $className, mixed ...$args): object
-    {
-        if (!class_exists($className)) {
-            throw new ObjectCannotBeFactoredException(sprintf('Class "%s" does not exist, so cannot be instantiated.', $className));
-        }
+	public function create(string $className, mixed ...$args): object
+	{
+		if (!class_exists($className)) {
+			throw new ObjectCannotBeFactoredException(sprintf('Class "%s" does not exist, so cannot be instantiated.', $className));
+		}
 
-        return new $className(...$args);
-    }
+		return new $className(...$args);
+	}
 }
