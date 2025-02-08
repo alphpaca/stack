@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+ *
+ * (c) Jacob Tobiasz <jacob@alphpaca.io>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 $finder = (new PhpCsFixer\Finder())
@@ -17,9 +26,9 @@ return (new PhpCsFixer\Config())
         '@Symfony' => true,
         'header_comment' => [
             'header' => <<<'EOF'
-            This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
+                This file is part of Alphpaca Stack (https://github.com/alphpaca/stack).
 
-            (c) Jacob Tobiasz <jacob@alphpaca.io>
+                (c) Jacob Tobiasz <jacob@alphpaca.io>
 
             This source file is subject to the Apache License 2.0 that is bundled
             with this source code in the file LICENSE.
