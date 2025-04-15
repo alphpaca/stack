@@ -1,0 +1,31 @@
+{
+    "name": "alphpaca/stack",
+    "description": "Set of framework-agnostic PHP components for your project",
+    "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jacob Tobiasz",
+            "email": "jacob@alphpaca.io"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^8.3"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "make tools.install"
+        ],
+        "post-install-cmd": [
+            "make tools.install"
+        ]
+    }
+}

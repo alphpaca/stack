@@ -1,0 +1,4 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+return include __DIR__ . '/../tools/coding-standard/vendor/bin/ecs';

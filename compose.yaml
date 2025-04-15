@@ -1,0 +1,9 @@
+name: alphpaca_stack
+services:
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: dev
+        volumes:
+            - .:/workspace

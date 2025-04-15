@@ -1,0 +1,10 @@
+{
+    "require": {
+        "alphpaca/coding-standard": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
