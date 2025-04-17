@@ -1,0 +1,25 @@
+{
+  "name": "alphpaca/resource-contracts",
+  "description": "Contracts for easier resource creation and management",
+  "license": "Apache-2.0",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jacob Tobiasz",
+      "email": "jacob@alphpaca.io"
+    }
+  ],
+  "require": {
+    "php": "^8.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alphpaca\\Contracts\\Resource\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  }
+}

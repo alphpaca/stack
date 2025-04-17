@@ -1,31 +1,47 @@
 {
-    "name": "alphpaca/stack",
-    "description": "Set of framework-agnostic PHP components for your project",
-    "type": "project",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Jacob Tobiasz",
-            "email": "jacob@alphpaca.io"
-        }
-    ],
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests"
-        }
-    },
-    "require": {
-        "php": "^8.3"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "scripts": {
-        "post-update-cmd": [
-            "make tools.install"
-        ],
-        "post-install-cmd": [
-            "make tools.install"
-        ]
+  "name": "alphpaca/stack",
+  "description": "Set of framework-agnostic PHP components for your project",
+  "license": "Apache-2.0",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Jacob Tobiasz",
+      "email": "jacob@alphpaca.io"
     }
+  ],
+  "require": {
+    "php": "^8.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alphpaca\\Component\\Resource\\": "components/resource/src/",
+      "Alphpaca\\Contracts\\Resource\\": "contracts/resource/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests",
+      "Tests\\Alphpaca\\Component\\Resource\\": "components/resource/tests/"
+    }
+  },
+  "replace": {
+    "alphpaca/resource": "self.version",
+    "alphpaca/resource-contracts": "self.version"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "make tools.install"
+    ],
+    "post-install-cmd": [
+      "make tools.install"
+    ]
+  }
 }

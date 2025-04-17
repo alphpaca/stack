@@ -1,0 +1,31 @@
+{
+  "name": "alphpaca/resource",
+  "description": "Component for easier resource creation and management",
+  "license": "Apache-2.0",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jacob Tobiasz",
+      "email": "jacob@alphpaca.io"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "alphpaca/resource-contracts": "^0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alphpaca\\Component\\Resource\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Alphpaca\\Component\\Resource\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  }
+}
