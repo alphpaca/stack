@@ -3,6 +3,6 @@ includes:
 
 parameters:
     level: 8
-#    paths:
-#        - components/resource/src
-#        - contracts/resource/src
+    paths:
+        - components/resource/src
+        - contracts/resource/src
