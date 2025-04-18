@@ -8,7 +8,8 @@ $config = require __DIR__ . '/tools/coding-standard/vendor/alphpaca/coding-stand
 assert($config instanceof ECSConfigBuilder);
 
 return $config
-//    ->withPaths([
-//        __DIR__ . '/components',
-//    ])
+    ->withPaths([
+        __DIR__ . '/components',
+        __DIR__ . '/contracts',
+    ])
 ;
