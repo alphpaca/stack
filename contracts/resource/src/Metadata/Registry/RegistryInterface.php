@@ -6,5 +6,10 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataInterface;
 
 interface RegistryInterface
 {
-    public function add(ResourceMetadataInterface $resourceMetadata): void;
+    /****
+ * Adds a resource metadata object to the registry.
+ *
+ * @param ResourceMetadataInterface $resourceMetadata The resource metadata to register.
+ */
+public function add(ResourceMetadataInterface $resourceMetadata): void;
 }
