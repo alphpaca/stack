@@ -14,4 +14,14 @@ describe('Resources registry', function () {
 
         expect($registry->has('app_dummy'))->toBeTrue();
     });
+
+    it('retrieves resources', function () {
+        $registry = new Registry();
+
+        $registry->add($dummyResource = new ResourceMetadata('app_dummy', DummyResource::class));
+
+        expect($registry->get('app_dummy'))->toBe($dummyResource)
+            ->and($registry->get('app_zummy'))->toBeNull()
+        ;
+    });
 });

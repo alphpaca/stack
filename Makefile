@@ -21,3 +21,10 @@ ci:
 	@make ci.coding_standard
 	@make ci.monorepo_checks
 	@make ci.tests
+
+cs:
+	@make ci.coding_standard
+
+cs.fix:
+	@bin/cs --fix
+

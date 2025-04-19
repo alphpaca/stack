@@ -7,4 +7,8 @@ use Alphpaca\Contracts\Resource\Metadata\ResourceMetadataInterface;
 interface RegistryInterface
 {
     public function add(ResourceMetadataInterface $resourceMetadata): void;
+
+    public function has(string $name): bool;
+
+    public function get(string $name): null|ResourceMetadataInterface;
 }
