@@ -19,4 +19,9 @@ final class Registry implements RegistryInterface
     {
         return isset($this->resourcesMetadata[$name]);
     }
+
+    public function get(string $name): null|ResourceMetadataInterface
+    {
+        return $this->resourcesMetadata[$name] ?? null;
+    }
 }
